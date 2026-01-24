@@ -41,16 +41,12 @@ const isInEducation = currentPath.startsWith(url('/education'));
   <nav class="max-w-[1400px] mx-auto px-6 lg:px-10">
     <div class="flex justify-between items-center h-20 lg:h-24">
       <!-- Logo -->
-      <a href={url('/')} class="flex items-center gap-3 group flex-shrink-0">
+      <a href={url('/')} class="flex items-center group flex-shrink-0">
         <img 
           src={url('/images/pwic-logo.jpeg')} 
-          alt="PWIC Logo" 
-          class="h-12 w-12 lg:h-14 lg:w-14 rounded-xl object-cover shadow-md group-hover:shadow-lg transition-all duration-300"
+          alt="Prince William Islamic Center" 
+          class="h-14 sm:h-16 lg:h-[70px] w-auto object-contain group-hover:opacity-90 transition-all duration-300"
         />
-        <div class="hidden sm:block min-w-max">
-          <span class="text-xl lg:text-2xl font-bold text-primary-800 tracking-tight">PWIC</span>
-          <span class="block text-xs text-gray-500 font-medium whitespace-nowrap">Prince William Islamic Center</span>
-        </div>
       </a>
 
       <!-- Desktop Navigation -->
