@@ -54,16 +54,16 @@ const isInEducation = currentPath.startsWith(url('/education'));
       </a>
 
       <!-- Desktop Navigation -->
-      <div class="hidden lg:flex items-center gap-4">
-        <div class="flex items-center bg-gray-50/80 rounded-full p-1.5">
+      <div class="hidden lg:flex items-center gap-5">
+        <div class="flex items-center bg-primary-800 rounded-full p-1.5 shadow-lg">
           {navItems.map((item) => (
             item.hasDropdown ? (
               <div class="relative group">
                 <button
-                  class={`flex items-center gap-1 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                  class={`flex items-center gap-1.5 px-5 py-3 rounded-full text-base font-medium transition-all duration-200 ${
                     (item.name === 'Services' && isInServices) || (item.name === 'Education' && isInEducation)
-                      ? 'bg-white text-primary-700 shadow-sm'
-                      : 'text-gray-600 hover:text-primary-600'
+                      ? 'bg-white text-primary-800 shadow-md'
+                      : 'text-white/90 hover:text-white hover:bg-primary-700'
                   }`}
                 >
                   {item.name}
@@ -116,10 +116,10 @@ const isInEducation = currentPath.startsWith(url('/education'));
             ) : (
               <a
                 href={item.href}
-                class={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                class={`px-5 py-3 rounded-full text-base font-medium transition-all duration-200 ${
                   currentPath === item.href || currentPath === item.href + '/'
-                    ? 'bg-white text-primary-700 shadow-sm'
-                    : 'text-gray-600 hover:text-primary-600'
+                    ? 'bg-white text-primary-800 shadow-md'
+                    : 'text-white/90 hover:text-white hover:bg-primary-700'
                 }`}
               >
                 {item.name}
@@ -127,15 +127,22 @@ const isInEducation = currentPath.startsWith(url('/education'));
             )
           ))}
         </div>
+
+        <a
+          href={url('/donate')}
+          class="px-7 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-full text-base font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+        >
+          Donate
+        </a>
         
-        <!-- Social Icons -->
-        <div class="flex items-center gap-1">
+        <!-- Social Icons (moved to right of Donate) -->
+        <div class="flex items-center gap-2">
           {facebook && (
             <a 
               href={facebook}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+              class="flex items-center justify-center w-11 h-11 rounded-full bg-primary-100 text-primary-700 hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
               aria-label="Facebook"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -148,7 +155,7 @@ const isInEducation = currentPath.startsWith(url('/education'));
               href={youtube}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-gray-500 hover:bg-red-50 hover:text-red-600 transition-colors"
+              class="flex items-center justify-center w-11 h-11 rounded-full bg-primary-100 text-primary-700 hover:bg-red-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
               aria-label="YouTube"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -157,49 +164,44 @@ const isInEducation = currentPath.startsWith(url('/education'));
             </a>
           )}
         </div>
-
-        <a
-          href={url('/donate')}
-          class="px-6 py-3 bg-primary-700 text-white rounded-full text-sm font-semibold hover:bg-primary-800 transition-all duration-300 shadow-md hover:shadow-lg"
-        >
-          Donate
-        </a>
       </div>
 
       <!-- Tablet Navigation -->
       <div class="hidden md:flex lg:hidden items-center gap-2">
-        {navItems.slice(0, 4).map((item) => (
-          <a
-            href={item.href}
-            class={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-              currentPath === item.href || currentPath === item.href + '/' ||
-              (item.name === 'Services' && isInServices) || (item.name === 'Education' && isInEducation)
-                ? 'bg-primary-50 text-primary-700'
-                : 'text-gray-600 hover:text-primary-600'
-            }`}
-          >
-            {item.name}
-          </a>
-        ))}
-        <!-- Social Icons for Tablet -->
-        <div class="flex items-center gap-1 ml-1">
+        <div class="flex items-center bg-primary-800 rounded-full p-1">
+          {navItems.slice(0, 4).map((item) => (
+            <a
+              href={item.href}
+              class={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+                currentPath === item.href || currentPath === item.href + '/' ||
+                (item.name === 'Services' && isInServices) || (item.name === 'Education' && isInEducation)
+                  ? 'bg-white text-primary-800'
+                  : 'text-white/90 hover:text-white hover:bg-primary-700'
+              }`}
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+        <a
+          href={url('/donate')}
+          class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-full text-sm font-semibold hover:from-amber-600 hover:to-amber-700 transition-colors shadow-md"
+        >
+          Donate
+        </a>
+        <!-- Social Icons for Tablet (after Donate) -->
+        <div class="flex items-center gap-1">
           {facebook && (
-            <a href={facebook} target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-9 h-9 rounded-full bg-gray-50 text-gray-500 hover:text-blue-600 transition-colors" aria-label="Facebook">
+            <a href={facebook} target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-9 h-9 rounded-full bg-primary-100 text-primary-700 hover:bg-blue-500 hover:text-white transition-colors" aria-label="Facebook">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             </a>
           )}
           {youtube && (
-            <a href={youtube} target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-9 h-9 rounded-full bg-gray-50 text-gray-500 hover:text-red-600 transition-colors" aria-label="YouTube">
+            <a href={youtube} target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-9 h-9 rounded-full bg-primary-100 text-primary-700 hover:bg-red-500 hover:text-white transition-colors" aria-label="YouTube">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </a>
           )}
         </div>
-        <a
-          href={url('/donate')}
-          class="ml-1 px-4 py-2 bg-primary-700 text-white rounded-lg text-sm font-semibold hover:bg-primary-800 transition-colors"
-        >
-          Donate
-        </a>
       </div>
 
       <!-- Mobile Menu Button -->
@@ -329,14 +331,25 @@ const isInEducation = currentPath.startsWith(url('/education'));
         </a>
       </div>
       
-      <!-- Social Icons for Mobile -->
+      <!-- Donate Button for Mobile -->
+      <a
+        href={url('/donate')}
+        class="mt-4 flex items-center justify-center px-6 py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-2xl text-base font-semibold hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg"
+      >
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+        Donate Now
+      </a>
+      
+      <!-- Social Icons for Mobile (after Donate) -->
       <div class="flex items-center justify-center gap-3 mt-4">
         {facebook && (
           <a 
             href={facebook}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"
+            class="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition-colors shadow-md"
             aria-label="Facebook"
           >
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -349,7 +362,7 @@ const isInEducation = currentPath.startsWith(url('/education'));
             href={youtube}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-center w-12 h-12 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
+            class="flex items-center justify-center w-12 h-12 rounded-xl bg-red-500 text-white hover:bg-red-600 transition-colors shadow-md"
             aria-label="YouTube"
           >
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -358,16 +371,6 @@ const isInEducation = currentPath.startsWith(url('/education'));
           </a>
         )}
       </div>
-      
-      <a
-        href={url('/donate')}
-        class="mt-4 flex items-center justify-center px-6 py-4 bg-primary-700 text-white rounded-2xl text-base font-semibold hover:bg-primary-800 transition-all shadow-lg"
-      >
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-        Donate Now
-      </a>
     </div>
   </nav>
 </header>
