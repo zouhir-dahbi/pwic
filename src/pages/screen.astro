@@ -1,9 +1,10 @@
 ---
 import siteConfig from '../data/site-config.json';
 
-const mawaqitId = siteConfig.prayerTimes.mawaqitMosqueId;
-const hasMawaqit = mawaqitId && mawaqitId !== 'YOUR_MOSQUE_ID_HERE';
-const screenUrl = hasMawaqit ? `https://mawaqit.net/en/${mawaqitId}` : null;
+const masjidId = siteConfig.prayerTimes.masjidId;
+const hasMasjidal = masjidId && masjidId !== 'YOUR_MASJID_ID_HERE';
+// Use the full-screen daily widget for TV display
+const screenUrl = hasMasjidal ? `https://masjidal.com/widget/v3?masjid_id=${masjidId}` : null;
 ---
 
 <!DOCTYPE html>
@@ -42,7 +43,7 @@ const screenUrl = hasMawaqit ? `https://mawaqit.net/en/${mawaqitId}` : null;
         border: none;
       }
       
-      .no-mawaqit {
+      .no-masjidal {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -55,13 +56,13 @@ const screenUrl = hasMawaqit ? `https://mawaqit.net/en/${mawaqitId}` : null;
         background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
       }
       
-      .no-mawaqit h1 {
+      .no-masjidal h1 {
         font-size: 2.5rem;
         margin-bottom: 1rem;
         color: #e8d5b7;
       }
       
-      .no-mawaqit p {
+      .no-masjidal p {
         font-size: 1.25rem;
         color: #a0a0a0;
         max-width: 500px;
@@ -77,15 +78,15 @@ const screenUrl = hasMawaqit ? `https://mawaqit.net/en/${mawaqitId}` : null;
   </head>
   <body>
     <div class="screen-container">
-      {hasMawaqit ? (
+      {hasMasjidal ? (
         <iframe 
           src={screenUrl}
-          title="MAWAQIT Prayer Times Display"
+          title="Masjidal Prayer Times Display"
           allow="fullscreen"
           allowfullscreen
         />
       ) : (
-        <div class="no-mawaqit">
+        <div class="no-masjidal">
           <svg class="mosque-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 3C12 3 8 7 8 10C8 12.21 9.79 14 12 14C14.21 14 16 12.21 16 10C16 7 12 3 12 3Z" />
             <path d="M3 21H21" />

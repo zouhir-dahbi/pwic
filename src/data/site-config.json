@@ -17,8 +17,8 @@
   },
   
   "prayerTimes": {
-    "provider": "mawaqit",
-    "mawaqitMosqueId": "YOUR_MOSQUE_ID_HERE",
+    "provider": "masjidal",
+    "masjidId": "eLQeMwLM",
     "fallbackMessage": "Prayer times coming soon. Please check back later."
   },
   
