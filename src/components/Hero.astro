@@ -18,7 +18,7 @@ const {
 const bgImage = backgroundImage.startsWith('/') ? url(backgroundImage) : backgroundImage;
 ---
 
-<section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+<section class="relative min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] flex items-center justify-center overflow-hidden">
   <!-- Background Image -->
   <div class="absolute inset-0">
     <img 
@@ -30,26 +30,26 @@ const bgImage = backgroundImage.startsWith('/') ? url(backgroundImage) : backgro
   </div>
 
   <!-- Content -->
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white font-heading leading-tight mb-6">
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12 sm:py-16">
+    <h1 class="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white font-heading leading-tight mb-4 sm:mb-6">
       {title}
     </h1>
     {subtitle && (
-      <p class="text-xl sm:text-2xl text-primary-100 max-w-3xl mx-auto mb-8 leading-relaxed">
+      <p class="text-base sm:text-xl lg:text-2xl text-primary-100 max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed px-2">
         {subtitle}
       </p>
     )}
     {showCTA && (
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
         <a 
           href={url('/about')} 
-          class="px-8 py-4 bg-white text-primary-700 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg hover:shadow-xl"
+          class="px-6 sm:px-8 py-3 sm:py-4 bg-white text-primary-700 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base"
         >
           Learn More
         </a>
         <a 
           href={url('/donate')} 
-          class="px-8 py-4 bg-primary-500 text-white rounded-lg font-semibold hover:bg-primary-400 transition-colors shadow-lg hover:shadow-xl border-2 border-primary-400"
+          class="px-6 sm:px-8 py-3 sm:py-4 bg-primary-500 text-white rounded-lg font-semibold hover:bg-primary-400 transition-colors shadow-lg hover:shadow-xl border-2 border-primary-400 text-sm sm:text-base"
         >
           Support Our Mission
         </a>
@@ -58,5 +58,5 @@ const bgImage = backgroundImage.startsWith('/') ? url(backgroundImage) : backgro
   </div>
 
   <!-- Decorative Islamic Pattern (subtle) -->
-  <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
+  <div class="absolute bottom-0 left-0 right-0 h-16 sm:h-24 bg-gradient-to-t from-white to-transparent"></div>
 </section>
