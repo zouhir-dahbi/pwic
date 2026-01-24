@@ -4,9 +4,12 @@ import { url } from '../utils/links';
 
 const masjidId = siteConfig.prayerTimes.masjidId;
 const widgetUrl = siteConfig.prayerTimes.widgetUrl;
+const screenWidgetUrl = siteConfig.prayerTimes.screenWidgetUrl;
+const liveTimesUrl = siteConfig.prayerTimes.liveTimesUrl;
 const monthlyUrl = siteConfig.prayerTimes.monthlyUrl;
 // Only show widget if we have a working widget URL
 const hasMasjidal = widgetUrl && widgetUrl.length > 0;
+const hasLiveLinks = liveTimesUrl || monthlyUrl;
 
 // Sample prayer times - these would be replaced by Mawaqit when configured
 const dailyPrayers = [
@@ -134,11 +137,53 @@ const icons: Record<string, string> = {
           ))}
         </div>
 
+        <!-- Action Buttons -->
+        {hasLiveLinks && (
+          <div class="mt-8 flex flex-wrap justify-center gap-4">
+            {liveTimesUrl && (
+              <a 
+                href={liveTimesUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 border-2 border-primary-200 rounded-full hover:bg-primary-50 hover:border-primary-300 transition-colors font-medium shadow-sm"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                View Live Times
+              </a>
+            )}
+            {monthlyUrl && (
+              <a 
+                href={monthlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-primary-100 text-primary-700 rounded-full hover:bg-primary-200 transition-colors font-medium"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Monthly Timetable
+              </a>
+            )}
+            <a 
+              href={url('/screen')}
+              target="_blank"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-colors font-medium"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Full Screen Display
+            </a>
+          </div>
+        )}
+
         <!-- Note -->
-        <div class="mt-8 text-center">
+        <div class="mt-6 text-center">
           <p class="text-gray-500 text-sm">
-            Prayer times change daily based on sun position. 
-            <a href={url('/contact')} class="text-primary-600 underline hover:no-underline">Contact us</a> for the most current schedule.
+            Iqamah times shown above. Athan times vary daily. 
+            <span class="text-primary-600">Powered by Masjidal</span>
           </p>
         </div>
       </div>
