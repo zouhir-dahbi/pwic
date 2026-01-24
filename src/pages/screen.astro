@@ -80,9 +80,10 @@ const screenUrl = widgetUrl || null;
       {hasMasjidal ? (
         <iframe 
           src={screenUrl}
-          title="Masjidal Prayer Times Display"
+          title="Prayer Times Display"
           allow="fullscreen"
           allowfullscreen
+          allowtransparency="true"
         />
       ) : (
         <div class="no-masjidal">

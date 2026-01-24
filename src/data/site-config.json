@@ -19,7 +19,8 @@
   "prayerTimes": {
     "provider": "masjidal",
     "masjidId": "eLQeMwLM",
-    "widgetUrl": "",
+    "widgetUrl": "https://timing.athanplus.com/masjid/widgets/embed?theme=2&masjid_id=eLQeMwLM",
+    "monthlyUrl": "https://timing.athanplus.com/masjid/widgets/monthly?theme=3&masjid_id=eLQeMwLM",
     "fallbackMessage": "Prayer times coming soon. Please check back later."
   },
   
