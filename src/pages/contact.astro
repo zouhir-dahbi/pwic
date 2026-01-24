@@ -22,30 +22,33 @@ import { url } from '../utils/links';
             action="https://formsubmit.co/info@pwicva.org" 
             method="POST"
             class="space-y-6"
+            id="contact-form"
           >
             <!-- FormSubmit Configuration -->
-            <input type="hidden" name="_subject" value="New Contact Form Submission - PWIC Website">
+            <input type="hidden" name="_subject" id="email-subject" value="PWIC Website: New Contact Form Message">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://zouhir-dahbi.github.io/pwic/contact/?submitted=true">
             <input type="text" name="_honey" style="display:none">
+            
             <div class="grid sm:grid-cols-2 gap-6">
               <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
                 <input 
                   type="text" 
                   id="name" 
-                  name="name" 
+                  name="Full Name" 
                   required
                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                  placeholder="Your name"
+                  placeholder="Your full name"
                 />
               </div>
               <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
                 <input 
                   type="email" 
                   id="email" 
-                  name="email" 
+                  name="_replyto" 
                   required
                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="your@email.com"
@@ -54,40 +57,41 @@ import { url } from '../utils/links';
             </div>
             
             <div>
-              <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone (optional)</label>
+              <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number (optional)</label>
               <input 
                 type="tel" 
                 id="phone" 
-                name="phone"
+                name="Phone Number"
                 class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 placeholder="(555) 123-4567"
               />
             </div>
             
             <div>
-              <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+              <label for="inquiry-type" class="block text-sm font-medium text-gray-700 mb-2">Inquiry Type</label>
               <select 
-                id="subject" 
-                name="subject" 
+                id="inquiry-type" 
+                name="Inquiry Type" 
                 required
                 class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
               >
-                <option value="">Select a subject</option>
-                <option value="general">General Inquiry</option>
-                <option value="sunday-school">Sunday School</option>
-                <option value="nikah">Nikah Services</option>
-                <option value="funeral">Funeral Services</option>
-                <option value="donation">Donation Inquiry</option>
-                <option value="volunteer">Volunteer</option>
-                <option value="other">Other</option>
+                <option value="">Select a topic</option>
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Weekend School">Weekend School</option>
+                <option value="Nikah/Marriage Services">Nikah/Marriage Services</option>
+                <option value="Funeral Services">Funeral Services</option>
+                <option value="Counselling Services">Counselling Services</option>
+                <option value="Donation Inquiry">Donation Inquiry</option>
+                <option value="Volunteer Opportunities">Volunteer Opportunities</option>
+                <option value="Other">Other</option>
               </select>
             </div>
             
             <div>
-              <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Your Message</label>
               <textarea 
                 id="message" 
-                name="message" 
+                name="Message" 
                 rows="5" 
                 required
                 class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
@@ -102,6 +106,35 @@ import { url } from '../utils/links';
               Send Message
             </button>
           </form>
+          
+          <script>
+            // Update email subject based on inquiry type
+            document.getElementById('inquiry-type')?.addEventListener('change', function() {
+              const subject = document.getElementById('email-subject');
+              if (subject && this.value) {
+                subject.value = `PWIC Website: ${this.value}`;
+              }
+            });
+            
+            // Show success message if redirected back after submission
+            if (window.location.search.includes('submitted=true')) {
+              const form = document.getElementById('contact-form');
+              if (form) {
+                form.innerHTML = `
+                  <div class="text-center py-12">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Message Sent Successfully!</h3>
+                    <p class="text-gray-600 mb-6">Thank you for contacting us. We'll get back to you within 1-2 business days.</p>
+                    <a href="${window.location.pathname}" class="text-primary-600 hover:text-primary-700 font-medium">Send another message</a>
+                  </div>
+                `;
+              }
+            }
+          </script>
           
           <p class="mt-4 text-sm text-gray-500 text-center">
             We typically respond within 1-2 business days.
