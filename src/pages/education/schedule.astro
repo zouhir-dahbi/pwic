@@ -1,0 +1,88 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SubPageHero from '../../components/SubPageHero.astro';
+import { url } from '../../utils/links';
+---
+
+<Layout title="Schedule">
+  <SubPageHero 
+    title="Schedule"
+    subtitle="Class times and academic calendar"
+    parentTitle="Education"
+    parentHref={url('/education')}
+  />
+
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Weekly Schedule -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Weekly Schedule</h2>
+        <div class="bg-primary-50 rounded-2xl p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-primary-800">Every Sunday</h3>
+              <p class="text-primary-600">Weekend Islamic School</p>
+            </div>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-white rounded-xl p-4">
+              <div class="text-sm text-gray-500 mb-1">Morning Session</div>
+              <div class="text-lg font-semibold text-gray-800">9:00 AM - 12:00 PM</div>
+            </div>
+            <div class="bg-white rounded-xl p-4">
+              <div class="text-sm text-gray-500 mb-1">Afternoon Session</div>
+              <div class="text-lg font-semibold text-gray-800">1:00 PM - 3:00 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Academic Year -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Academic Year</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-gray-50 rounded-xl p-6">
+            <h3 class="font-semibold text-gray-800 mb-3">Fall Semester</h3>
+            <p class="text-gray-600">September - December</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-6">
+            <h3 class="font-semibold text-gray-800 mb-3">Spring Semester</h3>
+            <p class="text-gray-600">January - May</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Important Notes -->
+      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+        <h3 class="font-semibold text-amber-800 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Important Notes
+        </h3>
+        <ul class="space-y-2 text-amber-700 text-sm">
+          <li>• Classes are held at PWIC in Manassas, VA</li>
+          <li>• School is closed on major Islamic and US holidays</li>
+          <li>• Parents should drop off and pick up children on time</li>
+          <li>• Check announcements for any schedule changes</li>
+        </ul>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a 
+          href={url('/education/registration')}
+          class="inline-flex items-center gap-2 px-8 py-4 bg-primary-700 text-white rounded-xl font-semibold hover:bg-primary-800 transition-colors shadow-lg"
+        >
+          Register Now
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

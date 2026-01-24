@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SubPageHero from '../../components/SubPageHero.astro';
+import { url } from '../../utils/links';
+---
+
+<Layout title="Mediation Services">
+  <SubPageHero 
+    title="Mediation"
+    subtitle="Peaceful resolution of disputes through Islamic principles"
+    parentTitle="Services"
+    parentHref={url('/services')}
+  />
+
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none">
+        <p class="text-xl text-gray-600 mb-8">
+          Islam encourages the peaceful resolution of disputes. Our mediation services help families 
+          and individuals resolve conflicts through dialogue and mutual understanding, guided by Islamic principles.
+        </p>
+
+        <div class="bg-primary-50 rounded-2xl p-8 mb-8">
+          <h2 class="text-2xl font-bold text-primary-800 mb-6">When to Seek Mediation</h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-gray-700">Marital disputes and separation</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-gray-700">Family disagreements</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-gray-700">Inheritance matters</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-gray-700">Business disputes between Muslims</span>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Approach</h2>
+        <p class="text-gray-600 mb-6">
+          Our mediators are trained in Islamic conflict resolution methods. We facilitate 
+          discussions between parties, helping them reach mutually acceptable solutions 
+          while maintaining respect and dignity for all involved.
+        </p>
+
+        <div class="bg-gray-50 rounded-2xl p-8 mb-8">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">The Mediation Process</h3>
+          <ol class="space-y-4">
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-sm">1</span>
+              <div>
+                <h4 class="font-semibold text-gray-800">Initial Consultation</h4>
+                <p class="text-gray-600 text-sm">Meet with our mediator to discuss the issue and determine if mediation is appropriate.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-sm">2</span>
+              <div>
+                <h4 class="font-semibold text-gray-800">Joint Sessions</h4>
+                <p class="text-gray-600 text-sm">Facilitated discussions with all parties to understand perspectives and find common ground.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-sm">3</span>
+              <div>
+                <h4 class="font-semibold text-gray-800">Resolution</h4>
+                <p class="text-gray-600 text-sm">Work towards a mutually acceptable agreement documented for all parties.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Contact Card -->
+      <div class="bg-gradient-to-r from-primary-700 to-primary-600 rounded-2xl p-8 text-center text-white">
+        <h3 class="text-2xl font-bold mb-4">Request Mediation Services</h3>
+        <p class="text-primary-100 mb-6">Contact us to discuss your situation confidentially.</p>
+        <a 
+          href={url('/contact')}
+          class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

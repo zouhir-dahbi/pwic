@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SubPageHero from '../../components/SubPageHero.astro';
+import { url } from '../../utils/links';
+---
+
+<Layout title="Tuition & Fees">
+  <SubPageHero 
+    title="Tuition & Fees"
+    subtitle="Affordable Islamic education for your family"
+    parentTitle="Education"
+    parentHref={url('/education')}
+  />
+
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-12">
+        <p class="text-lg text-gray-600">
+          We strive to make Islamic education accessible to all families. 
+          Please contact us for current tuition rates and payment options.
+        </p>
+      </div>
+
+      <!-- Fee Structure -->
+      <div class="bg-primary-50 rounded-2xl p-8 mb-8">
+        <h2 class="text-2xl font-bold text-primary-800 mb-6">Fee Structure</h2>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center py-3 border-b border-primary-200">
+            <span class="font-medium text-gray-800">Registration Fee (Annual)</span>
+            <span class="text-primary-700 font-semibold">Contact for rates</span>
+          </div>
+          <div class="flex justify-between items-center py-3 border-b border-primary-200">
+            <span class="font-medium text-gray-800">Monthly Tuition (1st Child)</span>
+            <span class="text-primary-700 font-semibold">Contact for rates</span>
+          </div>
+          <div class="flex justify-between items-center py-3 border-b border-primary-200">
+            <span class="font-medium text-gray-800">Additional Children</span>
+            <span class="text-primary-700 font-semibold">Discount available</span>
+          </div>
+          <div class="flex justify-between items-center py-3">
+            <span class="font-medium text-gray-800">Books & Materials</span>
+            <span class="text-primary-700 font-semibold">Included</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Options -->
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-gray-50 rounded-xl p-6">
+          <h3 class="font-semibold text-gray-800 mb-3">Payment Options</h3>
+          <ul class="text-gray-600 space-y-2 text-sm">
+            <li>• Monthly payments</li>
+            <li>• Semester payment (discount available)</li>
+            <li>• Annual payment (best value)</li>
+          </ul>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-6">
+          <h3 class="font-semibold text-gray-800 mb-3">Payment Methods</h3>
+          <ul class="text-gray-600 space-y-2 text-sm">
+            <li>• Cash or check</li>
+            <li>• Online payment</li>
+            <li>• Zelle</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Financial Assistance -->
+      <div class="bg-primary-800 rounded-2xl p-8 text-white">
+        <h3 class="text-xl font-bold mb-4">Financial Assistance</h3>
+        <p class="text-primary-100 mb-6">
+          We believe every child deserves access to Islamic education. Financial assistance 
+          is available for families in need. Please contact us confidentially to discuss options.
+        </p>
+        <a 
+          href={url('/contact')}
+          class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
+        >
+          Contact Us
+        </a>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a 
+          href={url('/education/registration')}
+          class="inline-flex items-center gap-2 px-8 py-4 bg-primary-700 text-white rounded-xl font-semibold hover:bg-primary-800 transition-colors shadow-lg"
+        >
+          Register Now
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

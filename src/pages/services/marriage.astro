@@ -1,0 +1,89 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SubPageHero from '../../components/SubPageHero.astro';
+import { url } from '../../utils/links';
+---
+
+<Layout title="Nikah (Marriage) Services">
+  <SubPageHero 
+    title="Nikah (Marriage)"
+    subtitle="Begin your journey together in the blessed way of Islam"
+    parentTitle="Services"
+    parentHref={url('/services')}
+  />
+
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none">
+        <p class="text-xl text-gray-600 mb-8">
+          Marriage (Nikah) is one of the most important decisions in a Muslim's life. At PWIC, we are honored 
+          to help couples begin their journey together in accordance with Islamic traditions.
+        </p>
+
+        <div class="bg-primary-50 rounded-2xl p-8 mb-8">
+          <h2 class="text-2xl font-bold text-primary-800 mb-4">Our Nikah Services Include</h2>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Pre-marital counseling and guidance</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Islamic marriage contract preparation</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Nikah ceremony conducted by our Imam</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Marriage certificate issuance</span>
+            </li>
+          </ul>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Requirements</h2>
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-gray-50 rounded-xl p-6">
+            <h3 class="font-semibold text-gray-800 mb-3">Documentation Needed</h3>
+            <ul class="text-gray-600 space-y-2 text-sm">
+              <li>• Valid government-issued ID for both parties</li>
+              <li>• Marriage license from the state (if applicable)</li>
+              <li>• Proof of Islamic divorce (if previously married)</li>
+              <li>• Wali (guardian) information for the bride</li>
+            </ul>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-6">
+            <h3 class="font-semibold text-gray-800 mb-3">Process</h3>
+            <ul class="text-gray-600 space-y-2 text-sm">
+              <li>• Schedule an appointment with the Imam</li>
+              <li>• Complete pre-marital counseling session</li>
+              <li>• Submit required documentation</li>
+              <li>• Schedule Nikah ceremony date</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Card -->
+      <div class="bg-gradient-to-r from-primary-700 to-primary-600 rounded-2xl p-8 text-center text-white">
+        <h3 class="text-2xl font-bold mb-4">Ready to Schedule Your Nikah?</h3>
+        <p class="text-primary-100 mb-6">Contact us to schedule an appointment with our Imam.</p>
+        <a 
+          href={url('/contact')}
+          class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

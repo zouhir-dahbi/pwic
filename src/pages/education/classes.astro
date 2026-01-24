@@ -1,0 +1,78 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SubPageHero from '../../components/SubPageHero.astro';
+import { url } from '../../utils/links';
+
+const classes = [
+  { level: 'Pre-K', ages: '4-5 years', description: 'Introduction to Islamic basics, simple duas, and Arabic alphabet.' },
+  { level: 'Level 1', ages: '5-6 years', description: 'Quran reading basics, short surahs, and Islamic manners.' },
+  { level: 'Level 2', ages: '7-8 years', description: 'Quran with Tajweed, Arabic reading/writing, and basic Fiqh.' },
+  { level: 'Level 3', ages: '9-10 years', description: 'Quran memorization, Arabic grammar, and Islamic history.' },
+  { level: 'Level 4', ages: '11-12 years', description: 'Advanced Quran, Hadith studies, and in-depth Fiqh.' },
+  { level: 'Level 5', ages: '13-15 years', description: 'Tafsir, advanced Arabic, and contemporary Islamic topics.' },
+];
+---
+
+<Layout title="Classes">
+  <SubPageHero 
+    title="Classes"
+    subtitle="Age-appropriate Islamic education for every child"
+    parentTitle="Education"
+    parentHref={url('/education')}
+  />
+
+  <section class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          Our school offers classes for children from Pre-K through High School, 
+          with curriculum designed for each developmental stage.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {classes.map((cls, index) => (
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-6">
+            <div class="flex flex-col md:flex-row md:items-center gap-4">
+              <div class="flex-shrink-0">
+                <div class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center">
+                  <span class="text-2xl font-bold text-primary-700">{index + 1}</span>
+                </div>
+              </div>
+              <div class="flex-grow">
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <h3 class="text-xl font-semibold text-gray-800">{cls.level}</h3>
+                  <span class="px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-sm font-medium">
+                    Ages {cls.ages}
+                  </span>
+                </div>
+                <p class="text-gray-600">{cls.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 bg-primary-50 rounded-2xl p-8 text-center">
+        <h2 class="text-2xl font-bold text-primary-800 mb-4">Class Subjects</h2>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="px-4 py-2 bg-white rounded-full text-gray-700 font-medium shadow-sm">Quran</span>
+          <span class="px-4 py-2 bg-white rounded-full text-gray-700 font-medium shadow-sm">Arabic</span>
+          <span class="px-4 py-2 bg-white rounded-full text-gray-700 font-medium shadow-sm">Islamic Studies</span>
+          <span class="px-4 py-2 bg-white rounded-full text-gray-700 font-medium shadow-sm">Seerah</span>
+          <span class="px-4 py-2 bg-white rounded-full text-gray-700 font-medium shadow-sm">Fiqh</span>
+          <span class="px-4 py-2 bg-white rounded-full text-gray-700 font-medium shadow-sm">Duas</span>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a 
+          href={url('/education/registration')}
+          class="inline-flex items-center gap-2 px-8 py-4 bg-primary-700 text-white rounded-xl font-semibold hover:bg-primary-800 transition-colors shadow-lg"
+        >
+          Register Your Child
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SubPageHero from '../../components/SubPageHero.astro';
+import { url } from '../../utils/links';
+---
+
+<Layout title="Islamic Divorce Services">
+  <SubPageHero 
+    title="Islamic Divorce"
+    subtitle="Compassionate guidance through a difficult transition"
+    parentTitle="Services"
+    parentHref={url('/services')}
+  />
+
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none">
+        <p class="text-xl text-gray-600 mb-8">
+          While Islam views marriage as a sacred bond, it also recognizes that some marriages may not 
+          be sustainable. Our center provides guidance and support for those seeking Islamic divorce 
+          with compassion and respect for all parties involved.
+        </p>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-8">
+          <div class="flex items-start gap-4">
+            <svg class="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <h3 class="font-semibold text-amber-800 mb-2">Important Note</h3>
+              <p class="text-amber-700 text-sm">
+                Islamic divorce is a religious process. For legal purposes, you must also complete 
+                a civil divorce through the appropriate legal channels in your jurisdiction.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Types of Islamic Divorce</h2>
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-gray-50 rounded-xl p-6">
+            <h3 class="font-semibold text-gray-800 mb-3">Talaq</h3>
+            <p class="text-gray-600 text-sm">
+              Divorce initiated by the husband. Our Imam can provide guidance on the proper 
+              Islamic procedure and waiting periods (iddah).
+            </p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-6">
+            <h3 class="font-semibold text-gray-800 mb-3">Khula</h3>
+            <p class="text-gray-600 text-sm">
+              Divorce initiated by the wife. The process involves negotiation and typically 
+              the return of mahr (dowry). Our center can facilitate this process.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-primary-50 rounded-2xl p-8 mb-8">
+          <h2 class="text-2xl font-bold text-primary-800 mb-4">Our Process</h2>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Initial consultation to understand the situation</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Attempt at reconciliation when appropriate</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Guidance on Islamic procedures and obligations</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Issuance of Islamic divorce certificate</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact Card -->
+      <div class="bg-gradient-to-r from-primary-700 to-primary-600 rounded-2xl p-8 text-center text-white">
+        <h3 class="text-2xl font-bold mb-4">Seek Guidance</h3>
+        <p class="text-primary-100 mb-6">Contact us for a confidential consultation about your situation.</p>
+        <a 
+          href={url('/contact')}
+          class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

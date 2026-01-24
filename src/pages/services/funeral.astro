@@ -1,0 +1,124 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SubPageHero from '../../components/SubPageHero.astro';
+import { url } from '../../utils/links';
+---
+
+<Layout title="Funeral Services">
+  <SubPageHero 
+    title="Funeral Services"
+    subtitle="Honoring our loved ones with dignity and Islamic tradition"
+    parentTitle="Services"
+    parentHref={url('/services')}
+  />
+
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none">
+        <p class="text-xl text-gray-600 mb-8">
+          During difficult times of loss, PWIC is here to support our community. We provide complete 
+          Islamic funeral services (Janazah) to ensure our loved ones are honored according to Islamic traditions.
+        </p>
+
+        <div class="bg-primary-50 rounded-2xl p-8 mb-8">
+          <h2 class="text-2xl font-bold text-primary-800 mb-6">Our Funeral Services Include</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Ghusl (Ritual Washing)</h3>
+                <p class="text-gray-600 text-sm">Performed by trained volunteers of the same gender as the deceased.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Kafan (Shrouding)</h3>
+                <p class="text-gray-600 text-sm">White burial shroud prepared according to Islamic tradition.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Salat al-Janazah</h3>
+                <p class="text-gray-600 text-sm">Funeral prayer led by our Imam at the masjid.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Burial Assistance</h3>
+                <p class="text-gray-600 text-sm">Coordination with Islamic cemeteries and burial procedures.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-red-50 border border-red-200 rounded-2xl p-6 mb-8">
+          <div class="flex items-start gap-4">
+            <svg class="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <div>
+              <h3 class="font-semibold text-red-800 mb-2">In Case of Death</h3>
+              <p class="text-red-700 text-sm">
+                Please contact us immediately. Islamic tradition encourages swift burial, 
+                ideally within 24 hours. Our team is available to assist you through this process.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">What Families Should Know</h2>
+        <ul class="space-y-3 text-gray-600 mb-8">
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Contact the masjid as soon as possible after death occurs</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>We can coordinate with funeral homes that accommodate Islamic practices</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Our volunteers are trained and available to help with the process</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Card -->
+      <div class="bg-gradient-to-r from-primary-700 to-primary-600 rounded-2xl p-8 text-center text-white">
+        <h3 class="text-2xl font-bold mb-4">Need Immediate Assistance?</h3>
+        <p class="text-primary-100 mb-6">Contact us right away for funeral services.</p>
+        <a 
+          href={url('/contact')}
+          class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
+        >
+          Contact Us Now
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

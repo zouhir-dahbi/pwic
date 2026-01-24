@@ -1,0 +1,36 @@
+---
+import { url } from '../utils/links';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  parentTitle: string;
+  parentHref: string;
+}
+
+const { title, subtitle, parentTitle, parentHref } = Astro.props;
+---
+
+<section class="bg-gradient-to-br from-primary-800 via-primary-700 to-primary-900 py-16 lg:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-6">
+      <ol class="flex items-center gap-2 text-sm">
+        <li>
+          <a href={url('/')} class="text-primary-200 hover:text-white transition-colors">Home</a>
+        </li>
+        <li class="text-primary-400">/</li>
+        <li>
+          <a href={parentHref} class="text-primary-200 hover:text-white transition-colors">{parentTitle}</a>
+        </li>
+        <li class="text-primary-400">/</li>
+        <li class="text-white font-medium">{title}</li>
+      </ol>
+    </nav>
+    
+    <h1 class="text-4xl lg:text-5xl font-bold text-white font-heading mb-4">{title}</h1>
+    {subtitle && (
+      <p class="text-xl text-primary-100 max-w-2xl">{subtitle}</p>
+    )}
+  </div>
+</section>
