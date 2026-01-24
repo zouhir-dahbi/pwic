@@ -1,0 +1,105 @@
+---
+import siteConfig from '../data/site-config.json';
+
+const mawaqitId = siteConfig.prayerTimes.mawaqitMosqueId;
+const hasMawaqit = mawaqitId && mawaqitId !== 'YOUR_MOSQUE_ID_HERE';
+const screenUrl = hasMawaqit ? `https://mawaqit.net/en/${mawaqitId}` : null;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prayer Times Display - {siteConfig.siteName}</title>
+    <meta name="description" content="Full screen prayer times display for {siteConfig.siteName}" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #1a1a2e;
+      }
+      
+      .screen-container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .screen-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      
+      .no-mawaqit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: white;
+        font-family: system-ui, -apple-system, sans-serif;
+        text-align: center;
+        padding: 2rem;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      }
+      
+      .no-mawaqit h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #e8d5b7;
+      }
+      
+      .no-mawaqit p {
+        font-size: 1.25rem;
+        color: #a0a0a0;
+        max-width: 500px;
+      }
+      
+      .mosque-icon {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 2rem;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen-container">
+      {hasMawaqit ? (
+        <iframe 
+          src={screenUrl}
+          title="MAWAQIT Prayer Times Display"
+          allow="fullscreen"
+          allowfullscreen
+        />
+      ) : (
+        <div class="no-mawaqit">
+          <svg class="mosque-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 3C12 3 8 7 8 10C8 12.21 9.79 14 12 14C14.21 14 16 12.21 16 10C16 7 12 3 12 3Z" />
+            <path d="M3 21H21" />
+            <path d="M5 21V14C5 14 5 11 8 11" />
+            <path d="M19 21V14C19 14 19 11 16 11" />
+            <path d="M9 21V17C9 15.9 9.9 15 11 15H13C14.1 15 15 15.9 15 17V21" />
+          </svg>
+          <h1>{siteConfig.siteName}</h1>
+          <p>
+            Prayer times display is being configured. 
+            Please check back soon or contact the masjid for current prayer times.
+          </p>
+        </div>
+      )}
+    </div>
+  </body>
+</html>
