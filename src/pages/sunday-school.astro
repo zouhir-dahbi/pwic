@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import siteConfig from '../data/site-config.json';
+import { url } from '../utils/links';
 
 const formUrl = siteConfig.sundaySchool.googleFormUrl;
 const hasForm = formUrl && formUrl !== 'YOUR_GOOGLE_FORM_URL_HERE';
@@ -12,7 +13,7 @@ const registrationOpen = siteConfig.sundaySchool.registrationOpen;
   <Hero 
     title="Sunday School"
     subtitle="Islamic education for the next generation"
-    backgroundImage="/images/pwic-photo1.jpeg"
+    backgroundImage={url('/images/pwic-photo1.jpeg')}
   />
 
   <section class="py-16 bg-white">
@@ -136,7 +137,7 @@ const registrationOpen = siteConfig.sundaySchool.registrationOpen;
                 Please contact us to register your child for Sunday School.
               </p>
               <a 
-                href="/contact"
+                href={url('/contact')}
                 class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors"
               >
                 Contact Us to Register

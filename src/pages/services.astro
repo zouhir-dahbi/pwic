@@ -3,13 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import services from '../data/services.json';
+import { url } from '../utils/links';
 ---
 
 <Layout title="Services">
   <Hero 
     title="Our Services"
     subtitle="How we serve our community"
-    backgroundImage="/images/pwic-inside.jpeg"
+    backgroundImage={url('/images/pwic-inside.jpeg')}
   />
 
   <section class="py-16 bg-gray-50">
@@ -38,7 +39,7 @@ import services from '../data/services.json';
           please contact us to schedule an appointment with our Imam.
         </p>
         <a 
-          href="/contact"
+          href={url('/contact')}
           class="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-lg"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,7 +82,7 @@ import services from '../data/services.json';
             Our masjid is open for all five daily prayers. Check our prayer times for the current schedule.
           </p>
           <a 
-            href="/"
+            href={url('/')}
             class="inline-flex items-center gap-2 text-primary-600 font-medium hover:text-primary-700"
           >
             View Prayer Times

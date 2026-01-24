@@ -1,4 +1,6 @@
 ---
+import { url } from '../utils/links';
+
 interface Props {
   title: string;
   subtitle?: string;
@@ -12,13 +14,15 @@ const {
   showCTA = false,
   backgroundImage = '/images/pwic-front-side.jpeg'
 } = Astro.props;
+
+const bgImage = backgroundImage.startsWith('/') ? url(backgroundImage) : backgroundImage;
 ---
 
 <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
   <!-- Background Image -->
   <div class="absolute inset-0">
     <img 
-      src={backgroundImage} 
+      src={bgImage} 
       alt="PWIC Mosque" 
       class="w-full h-full object-cover"
     />
@@ -38,13 +42,13 @@ const {
     {showCTA && (
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a 
-          href="/about" 
+          href={url('/about')} 
           class="px-8 py-4 bg-white text-primary-700 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg hover:shadow-xl"
         >
           Learn More
         </a>
         <a 
-          href="/donate" 
+          href={url('/donate')} 
           class="px-8 py-4 bg-primary-500 text-white rounded-lg font-semibold hover:bg-primary-400 transition-colors shadow-lg hover:shadow-xl border-2 border-primary-400"
         >
           Support Our Mission

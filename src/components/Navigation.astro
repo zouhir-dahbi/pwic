@@ -1,13 +1,16 @@
 ---
+import { url } from '../utils/links';
+
 const navItems = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Services', href: '/services' },
-  { name: 'Sunday School', href: '/sunday-school' },
-  { name: 'Events', href: '/events' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Home', href: url('/') },
+  { name: 'About', href: url('/about') },
+  { name: 'Services', href: url('/services') },
+  { name: 'Sunday School', href: url('/sunday-school') },
+  { name: 'Events', href: url('/events') },
+  { name: 'Contact', href: url('/contact') },
 ];
 
+const base = import.meta.env.BASE_URL;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -15,9 +18,9 @@ const currentPath = Astro.url.pathname;
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-20">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-3 group">
+      <a href={url('/')} class="flex items-center gap-3 group">
         <img 
-          src="/images/pwic-logo.jpeg" 
+          src={url('/images/pwic-logo.jpeg')} 
           alt="PWIC Logo" 
           class="h-14 w-14 rounded-full object-cover shadow-md group-hover:shadow-lg transition-shadow"
         />
@@ -42,7 +45,7 @@ const currentPath = Astro.url.pathname;
           </a>
         ))}
         <a
-          href="/donate"
+          href={url('/donate')}
           class="ml-3 px-5 py-2.5 bg-primary-600 text-white rounded-lg text-sm font-semibold hover:bg-primary-700 transition-colors shadow-md hover:shadow-lg"
         >
           Donate
@@ -80,7 +83,7 @@ const currentPath = Astro.url.pathname;
           </a>
         ))}
         <a
-          href="/donate"
+          href={url('/donate')}
           class="mt-2 px-4 py-3 bg-primary-600 text-white rounded-lg text-sm font-semibold text-center hover:bg-primary-700 transition-colors"
         >
           Donate

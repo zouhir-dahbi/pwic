@@ -1,13 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import { url } from '../utils/links';
 ---
 
 <Layout title="About Us">
   <Hero 
     title="About PWIC"
     subtitle="Learn about our history, mission, and community"
-    backgroundImage="/images/US_VA_Manassas_PWIC.jpeg"
+    backgroundImage={url('/images/US_VA_Manassas_PWIC.jpeg')}
   />
 
   <section class="py-16 bg-white">
@@ -90,7 +91,7 @@ import Hero from '../components/Hero.astro';
       <!-- Photo -->
       <div class="rounded-2xl overflow-hidden shadow-xl">
         <img 
-          src="/images/pwic-front-side.jpeg" 
+          src={url('/images/pwic-front-side.jpeg')} 
           alt="PWIC Building" 
           class="w-full h-auto"
         />

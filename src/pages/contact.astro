@@ -2,13 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import siteConfig from '../data/site-config.json';
+import { url } from '../utils/links';
 ---
 
 <Layout title="Contact Us">
   <Hero 
     title="Contact Us"
     subtitle="We'd love to hear from you"
-    backgroundImage="/images/pwic-photo4.jpeg"
+    backgroundImage={url('/images/pwic-photo4.jpeg')}
   />
 
   <section class="py-16 bg-white">

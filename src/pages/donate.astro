@@ -2,13 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import siteConfig from '../data/site-config.json';
+import { url } from '../utils/links';
 ---
 
 <Layout title="Donate">
   <Hero 
     title="Support PWIC"
     subtitle="Your generous contributions help us serve the community"
-    backgroundImage="/images/pwic-photo3.jpeg"
+    backgroundImage={url('/images/pwic-photo3.jpeg')}
   />
 
   <section class="py-16 bg-white">

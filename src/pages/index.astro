@@ -6,6 +6,7 @@ import PrayerTimes from '../components/PrayerTimes.astro';
 import QuickLinks from '../components/QuickLinks.astro';
 import Gallery from '../components/Gallery.astro';
 import siteConfig from '../data/site-config.json';
+import { url } from '../utils/links';
 ---
 
 <Layout title="Home">
@@ -50,7 +51,7 @@ import siteConfig from '../data/site-config.json';
             </p>
           </div>
           <a 
-            href="/donate"
+            href={url('/donate')}
             class="flex-shrink-0 px-8 py-4 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors shadow-lg"
           >
             Donate Now
