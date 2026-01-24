@@ -27,9 +27,10 @@
   },
   
   "donation": {
-    "paypalLink": "https://pwicva.org/donate/",
-    "launchGoodLink": "",
-    "zelleEmail": ""
+    "zeffyFormUrl": "",
+    "zeffyEmbedUrl": "",
+    "zelleEmail": "donate@pwicva.org",
+    "paypalLink": ""
   },
   
   "sundaySchool": {
