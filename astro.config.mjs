@@ -11,7 +11,7 @@ export default defineConfig({
   
   // For GitHub Pages without custom domain:
   site: 'https://zouhir-dahbi.github.io',
-  base: '/pwic'
+  base: '/pwic',
   
   vite: {
     plugins: [tailwindcss()]
