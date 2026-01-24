@@ -1,10 +1,9 @@
 ---
 import siteConfig from '../data/site-config.json';
 
-const masjidId = siteConfig.prayerTimes.masjidId;
-const hasMasjidal = masjidId && masjidId !== 'YOUR_MASJID_ID_HERE';
-// Use the full-screen daily widget for TV display
-const screenUrl = hasMasjidal ? `https://masjidal.com/widget/v3?masjid_id=${masjidId}` : null;
+const widgetUrl = siteConfig.prayerTimes.widgetUrl;
+const hasMasjidal = widgetUrl && widgetUrl.length > 0;
+const screenUrl = widgetUrl || null;
 ---
 
 <!DOCTYPE html>

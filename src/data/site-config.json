@@ -19,7 +19,7 @@
   "prayerTimes": {
     "provider": "masjidal",
     "masjidId": "eLQeMwLM",
-    "widgetUrl": "",
+    "widgetUrl": "https://masjidal.com/widget?masjid_id=eLQeMwLM",
     "fallbackMessage": "Prayer times coming soon. Please check back later."
   },
   
