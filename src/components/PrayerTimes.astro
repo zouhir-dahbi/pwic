@@ -11,7 +11,7 @@ const dailyPrayers = [
   { name: 'Dhuhr', arabic: 'الظهر', time: '1:00 PM', icon: 'sun' },
   { name: 'Asr', arabic: 'العصر', time: '4:30 PM', icon: 'sunset' },
   { name: 'Maghrib', arabic: 'المغرب', time: '6:15 PM', icon: 'moon-rise' },
-  { name: 'Isha', arabic: 'العشاء', time: '7:45 PM', icon: 'moon' },
+  { name: 'Isha', arabic: 'العشاء', time: '7: PM', icon: 'moon' },
 ];
 
 const icons: Record<string, string> = {
@@ -99,15 +99,25 @@ const icons: Record<string, string> = {
         </div>
 
         <!-- Daily Prayer Times Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
           {dailyPrayers.map((prayer, index) => (
-            <div class="group bg-white rounded-2xl p-6 border border-gray-100 shadow-lg hover:shadow-xl hover:border-primary-200 transition-all duration-300 text-center">
-              <div class="w-14 h-14 mx-auto mb-4 bg-primary-100 rounded-xl flex items-center justify-center group-hover:bg-primary-600 transition-colors">
-                <svg class="w-7 h-7 text-primary-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={icons[prayer.icon]} />
+            <div class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 text-center overflow-hidden hover:-translate-y-1">
+              <!-- Gradient border effect -->
+              <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-400 via-primary-500 to-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute inset-[2px] rounded-[14px] bg-white"></div>
+              
+              <!-- Top accent bar -->
+              <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 rounded-t-2xl"></div>
+              
+              <!-- Content -->
+              <div class="relative">
+                <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary-100 to-primary-50 rounded-xl flex items-center justify-center group-hover:from-primary-600 group-hover:to-primary-500 transition-all duration-300 shadow-sm">
+                  <svg class="w-7 h-7 text-primary-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={icons[prayer.icon]} />
+                </div>
+                <div class="text-primary-500 text-sm font-medium mb-1">{prayer.arabic}</div>
+                <h4 class="text-gray-800 font-semibold text-lg mb-2">{prayer.name}</h4>
+                <p class="text-2xl font-bold bg-gradient-to-r from-primary-700 to-primary-600 bg-clip-text text-transparent">{prayer.time}</p>
               </div>
-              <div class="text-primary-600 text-sm font-medium mb-1">{prayer.arabic}</div>
-              <h4 class="text-gray-800 font-semibold text-lg mb-2">{prayer.name}</h4>
-              <p class="text-2xl font-bold text-primary-700">{prayer.time}</p>
             </div>
           ))}
         </div>
