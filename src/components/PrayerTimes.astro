@@ -3,7 +3,9 @@ import siteConfig from '../data/site-config.json';
 import { url } from '../utils/links';
 
 const masjidId = siteConfig.prayerTimes.masjidId;
-const hasMasjidal = masjidId && masjidId !== 'YOUR_MASJID_ID_HERE';
+const widgetUrl = siteConfig.prayerTimes.widgetUrl;
+// Only show widget if we have a working widget URL
+const hasMasjidal = widgetUrl && widgetUrl.length > 0;
 
 // Sample prayer times - these would be replaced by Mawaqit when configured
 const dailyPrayers = [
@@ -48,7 +50,7 @@ const icons: Record<string, string> = {
       <div class="max-w-4xl mx-auto">
         <div class="masjidal-widget bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
           <iframe 
-            src={`https://masjidal.com/widget/v3?masjid_id=${masjidId}`}
+            src={widgetUrl}
             style="border: none; width: 100%; height: 500px;"
             title="Prayer Times"
             loading="lazy"
@@ -57,7 +59,7 @@ const icons: Record<string, string> = {
         </div>
         <div class="mt-6 flex flex-wrap justify-center gap-4">
           <a 
-            href={`https://masjidal.com/widget/monthly/v3?masjid_id=${masjidId}`}
+            href={`https://masjidal.com/widget/monthly/?masjid_id=${masjidId}`}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-6 py-3 bg-primary-100 text-primary-700 rounded-full hover:bg-primary-200 transition-colors font-medium"
