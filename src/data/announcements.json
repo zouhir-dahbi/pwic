@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Jummah Prayer Time",
+    "content": "Jummah prayer is held every Friday at 1:00 PM. Please arrive early for the khutbah.",
+    "type": "info",
+    "active": true
+  },
+  {
+    "id": 2,
+    "title": "Sunday School Registration Open",
+    "content": "Registration for the 2026 Sunday School session is now open. Classes available for ages 5-15.",
+    "type": "highlight",
+    "active": true
+  },
+  {
+    "id": 3,
+    "title": "Community Iftar",
+    "content": "Join us for community iftar during Ramadan. Volunteers needed for food preparation and serving.",
+    "type": "event",
+    "active": false
+  }
+]

@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Announcements from '../components/Announcements.astro';
+import PrayerTimes from '../components/PrayerTimes.astro';
+import QuickLinks from '../components/QuickLinks.astro';
+import Gallery from '../components/Gallery.astro';
+import siteConfig from '../data/site-config.json';
+---
+
+<Layout title="Home">
+  <Hero 
+    title="Welcome to Prince William Islamic Center"
+    subtitle={siteConfig.tagline}
+    showCTA={true}
+  />
+  
+  <Announcements />
+  
+  <PrayerTimes />
+  
+  <QuickLinks />
+  
+  <Gallery />
+
+  <!-- Mission Statement -->
+  <section class="py-20 bg-primary-800 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold font-heading mb-6">Our Mission</h2>
+      <p class="text-xl text-primary-100 leading-relaxed">
+        To connect our children to the Masjid and to Allah by providing religious, educational, 
+        and social activities through the teaching of Islam. We are committed to teaching the 
+        Arabic language, Quran, and providing Islamic education to children of the Muslim 
+        community in Manassas, Centreville, Gainesville, and surrounding areas.
+      </p>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-r from-primary-600 to-primary-700 rounded-3xl p-8 md:p-12 shadow-xl">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="text-center md:text-left">
+            <h2 class="text-2xl md:text-3xl font-bold text-white font-heading mb-2">
+              Support Your Community Masjid
+            </h2>
+            <p class="text-primary-100">
+              Your generous donations help us maintain our facilities and expand our programs.
+            </p>
+          </div>
+          <a 
+            href="/donate"
+            class="flex-shrink-0 px-8 py-4 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors shadow-lg"
+          >
+            Donate Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Daily Prayers",
+    "description": "Five daily prayers are held at PWIC. Join us for congregational prayers in a welcoming environment.",
+    "icon": "mosque"
+  },
+  {
+    "id": 2,
+    "title": "Jummah Prayer",
+    "description": "Friday congregational prayer with khutbah (sermon) held weekly at 1:00 PM.",
+    "icon": "calendar"
+  },
+  {
+    "id": 3,
+    "title": "Sunday School",
+    "description": "Islamic education for children ages 5-15, including Quran, Arabic, and Islamic studies.",
+    "icon": "book"
+  },
+  {
+    "id": 4,
+    "title": "Nikah Services",
+    "description": "Islamic marriage ceremony services performed by our Imam. Contact us to schedule.",
+    "icon": "heart"
+  },
+  {
+    "id": 5,
+    "title": "Funeral Services",
+    "description": "Janazah prayer and burial assistance for community members.",
+    "icon": "support"
+  },
+  {
+    "id": 6,
+    "title": "Community Events",
+    "description": "Regular community gatherings, Eid celebrations, and educational programs.",
+    "icon": "community"
+  }
+]

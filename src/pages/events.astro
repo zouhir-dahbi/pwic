@@ -1,0 +1,129 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import siteConfig from '../data/site-config.json';
+
+const calendarId = siteConfig.googleCalendarId;
+const hasCalendar = calendarId && calendarId !== 'YOUR_GOOGLE_CALENDAR_ID_HERE';
+---
+
+<Layout title="Events">
+  <Hero 
+    title="Events & Programs"
+    subtitle="Stay connected with our community activities"
+    backgroundImage="/images/pwic-photo2.jpeg"
+  />
+
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-800 font-heading mb-4">Upcoming Events</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Join us for prayers, classes, community gatherings, and special Islamic occasions.
+        </p>
+      </div>
+
+      {hasCalendar ? (
+        <!-- Google Calendar Embed -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
+          <iframe 
+            src={`https://calendar.google.com/calendar/embed?src=${encodeURIComponent(calendarId)}&ctz=America%2FNew_York&mode=AGENDA`}
+            style="border: 0" 
+            width="100%" 
+            height="600" 
+            frameborder="0" 
+            scrolling="no"
+            class="w-full"
+          />
+        </div>
+      ) : (
+        <!-- Placeholder when calendar not configured -->
+        <div class="bg-gray-50 rounded-2xl p-12 text-center mb-12">
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-primary-100 rounded-full mb-6">
+            <svg class="w-10 h-10 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Community Calendar</h3>
+          <p class="text-gray-600 mb-6 max-w-md mx-auto">
+            Our events calendar is being set up. Please check back soon or contact us for upcoming events.
+          </p>
+          <a 
+            href="/contact"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+          >
+            Contact for Events Info
+          </a>
+        </div>
+      )}
+
+      <!-- Regular Programs -->
+      <div>
+        <h3 class="text-2xl font-bold text-gray-800 font-heading mb-8 text-center">Regular Programs</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800">Jummah Prayer</h4>
+                <p class="text-sm text-gray-500">Every Friday</p>
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm">Weekly Friday prayer at 1:00 PM with khutbah in English and Arabic.</p>
+          </div>
+
+          <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800">Sunday School</h4>
+                <p class="text-sm text-gray-500">Every Sunday</p>
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm">Islamic education for children ages 5-15 including Quran and Arabic.</p>
+          </div>
+
+          <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800">Daily Prayers</h4>
+                <p class="text-sm text-gray-500">Every Day</p>
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm">Join us for the five daily prayers. Check prayer times for schedule.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Special Occasions -->
+  <section class="py-16 bg-primary-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h3 class="text-2xl font-bold text-primary-800 font-heading mb-4">Islamic Occasions</h3>
+      <p class="text-gray-600 mb-8">
+        We celebrate all major Islamic holidays including Eid ul-Fitr, Eid ul-Adha, and observe 
+        Ramadan with special taraweeh prayers and community iftars.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <span class="px-4 py-2 bg-white rounded-full text-primary-700 font-medium shadow-sm">Eid Prayers</span>
+        <span class="px-4 py-2 bg-white rounded-full text-primary-700 font-medium shadow-sm">Taraweeh</span>
+        <span class="px-4 py-2 bg-white rounded-full text-primary-700 font-medium shadow-sm">Community Iftar</span>
+        <span class="px-4 py-2 bg-white rounded-full text-primary-700 font-medium shadow-sm">Qiyam ul-Layl</span>
+      </div>
+    </div>
+  </section>
+</Layout>

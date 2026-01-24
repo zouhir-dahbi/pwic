@@ -1,0 +1,37 @@
+{
+  "siteName": "Prince William Islamic Center",
+  "shortName": "PWIC",
+  "tagline": "Serving the Muslim Community of Prince William County",
+  "description": "Prince William Islamic Center (PWIC) is dedicated to serving the Muslim community in Manassas, Centreville, Gainesville and surrounding areas through religious, educational, and social activities.",
+  
+  "contact": {
+    "address": "Manassas, VA",
+    "phone": "",
+    "email": "info@pwicva.org"
+  },
+  
+  "socialLinks": {
+    "facebook": "https://facebook.com/pwicva",
+    "youtube": "",
+    "instagram": ""
+  },
+  
+  "prayerTimes": {
+    "provider": "mawaqit",
+    "mawaqitMosqueId": "YOUR_MOSQUE_ID_HERE",
+    "fallbackMessage": "Prayer times coming soon. Please check back later."
+  },
+  
+  "donation": {
+    "paypalLink": "https://pwicva.org/donate/",
+    "launchGoodLink": "",
+    "zelleEmail": ""
+  },
+  
+  "sundaySchool": {
+    "googleFormUrl": "YOUR_GOOGLE_FORM_URL_HERE",
+    "registrationOpen": true
+  },
+  
+  "googleCalendarId": "YOUR_GOOGLE_CALENDAR_ID_HERE"
+}

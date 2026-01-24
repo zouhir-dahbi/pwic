@@ -1,0 +1,30 @@
+---
+const images = [
+  { src: '/images/pwic-inside.jpeg', alt: 'PWIC Prayer Hall' },
+  { src: '/images/pwic-inside-2.jpeg', alt: 'PWIC Interior' },
+  { src: '/images/pwic-women-side.jpeg', alt: 'Women Prayer Area' },
+  { src: '/images/mosque-entrance-panel.jpeg', alt: 'Entrance Panel' },
+];
+---
+
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl font-bold text-gray-800 font-heading mb-3">Our Masjid</h2>
+      <p class="text-gray-600">A welcoming space for worship and community</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {images.map((image, index) => (
+        <div class={`rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
+          <img 
+            src={image.src} 
+            alt={image.alt}
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
