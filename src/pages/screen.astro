@@ -1,9 +1,9 @@
 ---
 import siteConfig from '../data/site-config.json';
 
-const screenWidgetUrl = siteConfig.prayerTimes.screenWidgetUrl;
-const hasWidget = screenWidgetUrl && screenWidgetUrl.length > 0;
-const screenUrl = screenWidgetUrl || null;
+// MAWAQIT doesn't allow iframe embedding, so redirect to their page
+const mawaqitUrl = siteConfig.prayerTimes.liveTimesUrl;
+const hasMawaqit = mawaqitUrl && mawaqitUrl.length > 0;
 ---
 
 <!DOCTYPE html>
@@ -42,6 +42,7 @@ const screenUrl = screenWidgetUrl || null;
         border: none;
       }
       
+      .redirect-message,
       .no-widget {
         display: flex;
         flex-direction: column;
@@ -55,16 +56,42 @@ const screenUrl = screenWidgetUrl || null;
         background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
       }
       
+      .redirect-message h1,
       .no-widget h1 {
         font-size: 2.5rem;
         margin-bottom: 1rem;
         color: #e8d5b7;
       }
       
+      .redirect-message p,
       .no-widget p {
         font-size: 1.25rem;
         color: #a0a0a0;
         max-width: 500px;
+      }
+      
+      .mawaqit-button {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-size: 1.25rem;
+        font-weight: 600;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      
+      .mawaqit-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(22, 101, 52, 0.3);
+      }
+      
+      .hint {
+        margin-top: 1.5rem;
+        font-size: 0.875rem !important;
+        color: #6b7280 !important;
       }
       
       .mosque-icon {
@@ -77,13 +104,22 @@ const screenUrl = screenWidgetUrl || null;
   </head>
   <body>
     <div class="screen-container">
-      {hasWidget ? (
-        <iframe 
-          src={screenUrl}
-          title="MAWAQIT Prayer Times Display"
-          allow="fullscreen"
-          allowfullscreen
-        />
+      {hasMawaqit ? (
+        <div class="redirect-message">
+          <svg class="mosque-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 3C12 3 8 7 8 10C8 12.21 9.79 14 12 14C14.21 14 16 12.21 16 10C16 7 12 3 12 3Z" />
+            <path d="M3 21H21" />
+            <path d="M5 21V14C5 14 5 11 8 11" />
+            <path d="M19 21V14C19 14 19 11 16 11" />
+            <path d="M9 21V17C9 15.9 9.9 15 11 15H13C14.1 15 15 15.9 15 17V21" />
+          </svg>
+          <h1>{siteConfig.siteName}</h1>
+          <p>Redirecting to MAWAQIT prayer times...</p>
+          <a href={mawaqitUrl} class="mawaqit-button">
+            Open MAWAQIT Display
+          </a>
+          <p class="hint">For TV/projector display, bookmark the MAWAQIT page directly</p>
+        </div>
       ) : (
         <div class="no-widget">
           <svg class="mosque-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -101,5 +137,14 @@ const screenUrl = screenWidgetUrl || null;
         </div>
       )}
     </div>
+    
+    {hasMawaqit && (
+      <script is:inline define:vars={{ mawaqitUrl }}>
+        // Auto-redirect after 2 seconds
+        setTimeout(() => {
+          window.location.href = mawaqitUrl;
+        }, 2000);
+      </script>
+    )}
   </body>
 </html>
