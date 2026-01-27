@@ -2,7 +2,7 @@
 import siteConfig from '../data/site-config.json';
 
 const screenWidgetUrl = siteConfig.prayerTimes.screenWidgetUrl;
-const hasMasjidal = screenWidgetUrl && screenWidgetUrl.length > 0;
+const hasWidget = screenWidgetUrl && screenWidgetUrl.length > 0;
 const screenUrl = screenWidgetUrl || null;
 ---
 
@@ -42,7 +42,7 @@ const screenUrl = screenWidgetUrl || null;
         border: none;
       }
       
-      .no-masjidal {
+      .no-widget {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -55,13 +55,13 @@ const screenUrl = screenWidgetUrl || null;
         background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
       }
       
-      .no-masjidal h1 {
+      .no-widget h1 {
         font-size: 2.5rem;
         margin-bottom: 1rem;
         color: #e8d5b7;
       }
       
-      .no-masjidal p {
+      .no-widget p {
         font-size: 1.25rem;
         color: #a0a0a0;
         max-width: 500px;
@@ -77,16 +77,15 @@ const screenUrl = screenWidgetUrl || null;
   </head>
   <body>
     <div class="screen-container">
-      {hasMasjidal ? (
+      {hasWidget ? (
         <iframe 
           src={screenUrl}
-          title="Prayer Times Display"
+          title="MAWAQIT Prayer Times Display"
           allow="fullscreen"
           allowfullscreen
-          allowtransparency="true"
         />
       ) : (
-        <div class="no-masjidal">
+        <div class="no-widget">
           <svg class="mosque-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 3C12 3 8 7 8 10C8 12.21 9.79 14 12 14C14.21 14 16 12.21 16 10C16 7 12 3 12 3Z" />
             <path d="M3 21H21" />

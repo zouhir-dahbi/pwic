@@ -2,14 +2,12 @@
 import siteConfig from '../data/site-config.json';
 import { url } from '../utils/links';
 
-const masjidId = siteConfig.prayerTimes.masjidId;
 const widgetUrl = siteConfig.prayerTimes.widgetUrl;
 const screenWidgetUrl = siteConfig.prayerTimes.screenWidgetUrl;
 const liveTimesUrl = siteConfig.prayerTimes.liveTimesUrl;
-const monthlyUrl = siteConfig.prayerTimes.monthlyUrl;
 // Only show widget if we have a working widget URL
-const hasMasjidal = widgetUrl && widgetUrl.length > 0;
-const hasLiveLinks = liveTimesUrl || monthlyUrl;
+const hasWidget = widgetUrl && widgetUrl.length > 0;
+const hasLiveLinks = liveTimesUrl && liveTimesUrl.length > 0;
 
 // Sample prayer times - these would be replaced by Mawaqit when configured
 const dailyPrayers = [
@@ -49,29 +47,29 @@ const icons: Record<string, string> = {
       <p class="text-gray-600 text-lg max-w-2xl mx-auto">Join us for daily prayers at Prince William Islamic Center</p>
     </div>
 
-    {hasMasjidal ? (
-      <!-- Masjidal Widget Embed -->
-      <div class="max-w-4xl mx-auto">
-        <div class="masjidal-widget bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+    {hasWidget ? (
+      <!-- Mawaqit Widget Embed -->
+      <div class="max-w-5xl mx-auto">
+        <div class="mawaqit-widget bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
           <iframe 
             src={widgetUrl}
-            style="width: 100%; height: 560px; border: 0;"
-            title="Prayer Times"
+            style="width: 100%; height: 650px; border: 0;"
+            title="Prayer Times - MAWAQIT"
             loading="lazy"
-            allowtransparency="true"
+            allow="fullscreen"
           />
         </div>
         <div class="mt-6 flex flex-wrap justify-center gap-4">
           <a 
-            href={monthlyUrl}
+            href={liveTimesUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-6 py-3 bg-primary-100 text-primary-700 rounded-full hover:bg-primary-200 transition-colors font-medium"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
-            View Monthly Timetable
+            Open Full Mawaqit Page
           </a>
           <a 
             href={url('/screen')}
@@ -84,6 +82,9 @@ const icons: Record<string, string> = {
             Full Screen Display
           </a>
         </div>
+        <p class="text-center text-sm text-gray-500 mt-4">
+          Powered by <a href="https://mawaqit.net" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">MAWAQIT</a> — The #1 Smart Mosque Display
+        </p>
       </div>
     ) : (
       <div class="max-w-6xl mx-auto">

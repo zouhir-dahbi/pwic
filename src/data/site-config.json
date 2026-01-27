@@ -17,12 +17,12 @@
   },
   
   "prayerTimes": {
-    "provider": "masjidal",
-    "masjidId": "eLQeMwLM",
-    "widgetUrl": "",
-    "screenWidgetUrl": "https://timing.athanplus.com/masjid/widgets/embed?theme=1&masjid_id=eLQeMwLM",
-    "liveTimesUrl": "https://timing.athanplus.com/masjid/widgets/embed?theme=2&masjid_id=eLQeMwLM",
-    "monthlyUrl": "https://timing.athanplus.com/masjid/widgets/monthly?theme=3&masjid_id=eLQeMwLM",
+    "provider": "mawaqit",
+    "mawaqitSlug": "prince-william-islamic-center-manassas-20110-3840-united-states",
+    "mawaqitId": "45522",
+    "widgetUrl": "https://mawaqit.net/en/prince-william-islamic-center-manassas-20110-3840-united-states?widget=1",
+    "screenWidgetUrl": "https://mawaqit.net/en/prince-william-islamic-center-manassas-20110-3840-united-states",
+    "liveTimesUrl": "https://mawaqit.net/en/prince-william-islamic-center-manassas-20110-3840-united-states",
     "fallbackMessage": "Prayer times coming soon. Please check back later."
   },
   
