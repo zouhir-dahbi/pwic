@@ -29,68 +29,107 @@ const icons: Record<string, string> = {
 };
 ---
 
-<section class="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
-  <!-- Decorative Background Pattern -->
-  <div class="absolute inset-0 opacity-40">
-    <div class="absolute top-0 left-0 w-96 h-96 bg-primary-100 rounded-full filter blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute bottom-0 right-0 w-96 h-96 bg-primary-50 rounded-full filter blur-3xl translate-x-1/2 translate-y-1/2"></div>
-  </div>
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+<section class="py-12 sm:py-16 bg-gradient-to-b from-gray-50 to-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 bg-primary-100 px-4 py-2 rounded-full mb-4">
-        <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <span class="text-primary-700 text-sm font-medium">Daily Schedule</span>
-      </div>
-      <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 font-heading mb-4">Prayer Times</h2>
-      <p class="text-gray-600 text-lg max-w-2xl mx-auto">Join us for daily prayers at Prince William Islamic Center</p>
+    <div class="text-center mb-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 font-heading mb-2">Prayer Times</h2>
+      <p class="text-gray-600 text-sm sm:text-base">Daily prayers at Prince William Islamic Center</p>
     </div>
 
     {hasWidget ? (
       <!-- Mawaqit Widget Embed -->
-      <div class="max-w-5xl mx-auto">
-        <div class="mawaqit-widget bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 p-2">
+      <div class="max-w-4xl mx-auto">
+        <div class="mawaqit-widget bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 p-2">
           <iframe 
             src={widgetUrl}
             frameborder="0"
             scrolling="no"
-            style="width: 100%; min-height: 600px; border: 0;"
+            style="width: 100%; min-height: 500px; border: 0;"
             title="Prayer Times - MAWAQIT"
             class="widget"
           />
         </div>
-        <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <div class="mt-4 flex flex-wrap justify-center gap-2">
           {hasYearlyCalendar && (
             <a 
               href={yearlyCalendarUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-primary-700 border-2 border-primary-200 rounded-full hover:bg-primary-50 hover:border-primary-300 transition-colors font-medium text-sm"
+              class="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-primary-700 border border-primary-200 rounded-full hover:bg-primary-50 transition-colors font-medium text-sm"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              Yearly Calendar (PDF)
+              Yearly Calendar
             </a>
           )}
           <a 
             href={liveTimesUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-100 text-primary-700 rounded-full hover:bg-primary-200 transition-colors font-medium text-sm"
+            class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary-100 text-primary-700 rounded-full hover:bg-primary-200 transition-colors font-medium text-sm"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
-            Full Mawaqit Page
+            Full Page
           </a>
+        </div>
+      </div>
+    ) : (
+      <div class="max-w-5xl mx-auto">
+        <!-- All Prayer Times in One Row -->
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4">
+          <!-- Jummah - Same size as others -->
+          <div class="bg-gradient-to-br from-primary-700 to-primary-800 rounded-xl p-4 sm:p-5 text-center shadow-lg">
+            <div class="text-white/70 text-xs sm:text-sm font-medium uppercase tracking-wide mb-1">Friday</div>
+            <h4 class="text-white font-semibold text-base sm:text-lg mb-0.5">Jummah</h4>
+            <p class="text-xl sm:text-2xl font-bold text-white">1:00 PM</p>
+          </div>
+          
+          <!-- Daily Prayers -->
+          {dailyPrayers.map((prayer) => (
+            <div class="bg-white rounded-xl p-4 sm:p-5 text-center shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="text-primary-500 text-xs sm:text-sm font-medium mb-1">{prayer.arabic}</div>
+              <h4 class="text-gray-800 font-semibold text-base sm:text-lg mb-0.5">{prayer.name}</h4>
+              <p class="text-xl sm:text-2xl font-bold text-primary-700">{prayer.time}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-6 flex flex-wrap justify-center gap-2">
+          {hasLiveLinks && liveTimesUrl && (
+            <a 
+              href={liveTimesUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-primary-700 border border-primary-200 rounded-full hover:bg-primary-50 transition-colors font-medium text-sm"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Live Times
+            </a>
+          )}
+          {hasYearlyCalendar && (
+            <a 
+              href={yearlyCalendarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary-100 text-primary-700 rounded-full hover:bg-primary-200 transition-colors font-medium text-sm"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Yearly Calendar
+            </a>
+          )}
           <a 
             href={url('/screen')}
             target="_blank"
-            class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-colors font-medium text-sm"
+            class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-colors font-medium text-sm"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -98,152 +137,12 @@ const icons: Record<string, string> = {
             TV Display
           </a>
         </div>
-        <p class="text-center text-sm text-gray-500 mt-4">
-          Powered by <a href="https://mawaqit.net" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">MAWAQIT</a> — The #1 Smart Mosque Display
-        </p>
-      </div>
-    ) : (
-      <div class="max-w-6xl mx-auto">
-        <!-- Jummah Featured Card -->
-        <div class="mb-8 sm:mb-10">
-          <div class="bg-gradient-to-r from-primary-700 to-primary-800 rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden">
-            <!-- Decorative elements -->
-            <div class="absolute top-0 right-0 w-32 sm:w-64 h-32 sm:h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            <div class="absolute bottom-0 left-0 w-20 sm:w-32 h-20 sm:h-32 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-            
-            <div class="relative flex flex-col items-center text-center gap-4 sm:gap-6">
-              <div class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center">
-                <svg class="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <div>
-                <div class="text-white/80 text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Every Friday</div>
-                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1">Jummah Prayer</h3>
-                <p class="text-white/80 text-sm sm:text-base">صلاة الجمعة</p>
-              </div>
-              <div>
-                <div class="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight">1:00</div>
-                <div class="text-xl sm:text-2xl text-white/90 font-medium">PM</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Daily Prayer Times Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-5">
-          {dailyPrayers.map((prayer, index) => (
-            <div class="group relative bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-2xl transition-all duration-300 text-center overflow-hidden hover:-translate-y-1">
-              <!-- Gradient border effect -->
-              <div class="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary-400 via-primary-500 to-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div class="absolute inset-[2px] rounded-[10px] sm:rounded-[14px] bg-white"></div>
-              
-              <!-- Top accent bar -->
-              <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 rounded-t-xl sm:rounded-t-2xl"></div>
-              
-              <!-- Content -->
-              <div class="relative">
-                <div class="w-10 h-10 sm:w-14 sm:h-14 mx-auto mb-3 sm:mb-4 bg-gradient-to-br from-primary-100 to-primary-50 rounded-lg sm:rounded-xl flex items-center justify-center group-hover:from-primary-600 group-hover:to-primary-500 transition-all duration-300 shadow-sm">
-                  <svg class="w-5 h-5 sm:w-7 sm:h-7 text-primary-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={icons[prayer.icon]} />
-                </div>
-                <div class="text-primary-500 text-xs sm:text-sm font-medium mb-0.5 sm:mb-1">{prayer.arabic}</div>
-                <h4 class="text-gray-800 font-semibold text-base sm:text-lg mb-1 sm:mb-2">{prayer.name}</h4>
-                <p class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary-700 to-primary-600 bg-clip-text text-transparent">{prayer.time}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <!-- Action Buttons -->
-        {hasLiveLinks && (
-          <div class="mt-8 flex flex-wrap justify-center gap-4">
-            {liveTimesUrl && (
-              <a 
-                href={liveTimesUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 border-2 border-primary-200 rounded-full hover:bg-primary-50 hover:border-primary-300 transition-colors font-medium shadow-sm"
-              >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                View Live Times
-              </a>
-            )}
-            {hasYearlyCalendar && (
-              <a 
-                href={yearlyCalendarUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-6 py-3 bg-primary-100 text-primary-700 rounded-full hover:bg-primary-200 transition-colors font-medium"
-              >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Yearly Calendar (PDF)
-              </a>
-            )}
-            <a 
-              href={url('/screen')}
-              target="_blank"
-              class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-colors font-medium"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              Full Screen Display
-            </a>
-          </div>
-        )}
 
         <!-- Note -->
-        <div class="mt-6 text-center">
-          <p class="text-gray-500 text-sm">
-            Iqamah times shown above. Athan times vary daily. 
-            <span class="text-primary-600">Powered by Masjidal</span>
-          </p>
-        </div>
+        <p class="mt-4 text-center text-gray-500 text-xs sm:text-sm">
+          Iqamah times shown. Athan times vary daily.
+        </p>
       </div>
     )}
-
-    <!-- Quick Info Cards -->
-    <div class="mt-10 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
-      <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-100 shadow-lg flex items-center gap-3 sm:gap-4">
-        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-primary-600 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
-          <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-        </div>
-        <div>
-          <h4 class="font-semibold text-gray-800 text-sm sm:text-base">Location</h4>
-          <p class="text-xs sm:text-sm text-gray-500">Manassas, Virginia</p>
-        </div>
-      </div>
-      
-      <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-100 shadow-lg flex items-center gap-3 sm:gap-4">
-        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-primary-600 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
-          <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-          </svg>
-        </div>
-        <div>
-          <h4 class="font-semibold text-gray-800 text-sm sm:text-base">Weekend School</h4>
-          <p class="text-xs sm:text-sm text-gray-500">Every Sunday</p>
-        </div>
-      </div>
-      
-      <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-100 shadow-lg flex items-center gap-3 sm:gap-4">
-        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-primary-600 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
-          <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-        </div>
-        <div>
-          <h4 class="font-semibold text-gray-800 text-sm sm:text-base">Community</h4>
-          <p class="text-xs sm:text-sm text-gray-500">All are welcome</p>
-        </div>
-      </div>
-    </div>
   </div>
 </section>

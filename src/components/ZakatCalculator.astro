@@ -1,0 +1,229 @@
+---
+// Zakat Calculator Component
+// Nisab threshold based on gold: 87.48 grams (7.5 tola)
+// Gold price ~$2,700/oz (Jan 2026), 87.48g = 2.813 troy oz
+// Gold Nisab = 87.48g × ($2,700 ÷ 31.1035g) = ~$7,600
+import { url } from '../utils/links';
+
+const NISAB_YEAR = 2026;
+const GOLD_NISAB = 7600; // USD - based on 87.48g of gold at ~$2,700/oz
+---
+
+<section class="py-10 sm:py-12 bg-gradient-to-br from-primary-50 to-amber-50">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800 font-heading mb-2">Calculate Your Zakat</h2>
+      <p class="text-gray-600 text-sm max-w-xl mx-auto">
+        Zakat is 2.5% of your wealth held for one lunar year.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+      <!-- Header -->
+      <div class="bg-primary-600 px-5 py-3">
+        <div class="flex items-center justify-between text-white text-sm">
+          <span class="font-medium">Nisab (Gold {NISAB_YEAR}): ${GOLD_NISAB.toLocaleString()}</span>
+          <span class="text-primary-200">Rate: 2.5%</span>
+        </div>
+      </div>
+
+      <form id="zakat-form" class="p-5 sm:p-6">
+        <!-- Cash & Bank -->
+        <div class="mb-5">
+          <h3 class="text-sm font-semibold text-gray-700 mb-3">Cash & Bank Balances</h3>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Cash on Hand</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                <input type="number" id="cash" class="zakat-input w-full pl-7 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="0" min="0" step="1">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Bank Accounts</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                <input type="number" id="bank" class="zakat-input w-full pl-7 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="0" min="0" step="1">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Investments -->
+        <div class="mb-5">
+          <h3 class="text-sm font-semibold text-gray-700 mb-3">Investments & Savings</h3>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Stocks & Shares</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                <input type="number" id="stocks" class="zakat-input w-full pl-7 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="0" min="0" step="1">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Retirement/401k</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                <input type="number" id="retirement" class="zakat-input w-full pl-7 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="0" min="0" step="1">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gold & Silver -->
+        <div class="mb-5">
+          <h3 class="text-sm font-semibold text-gray-700 mb-3">Gold & Silver</h3>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Gold (USD value)</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                <input type="number" id="gold" class="zakat-input w-full pl-7 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="0" min="0" step="1">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Silver (USD value)</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                <input type="number" id="silver" class="zakat-input w-full pl-7 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="0" min="0" step="1">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business & Other -->
+        <div class="mb-5">
+          <h3 class="text-sm font-semibold text-gray-700 mb-3">Business & Other Assets</h3>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Business Assets</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                <input type="number" id="business" class="zakat-input w-full pl-7 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="0" min="0" step="1">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Money Owed to You</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                <input type="number" id="owed" class="zakat-input w-full pl-7 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500" placeholder="0" min="0" step="1">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deductions -->
+        <div class="mb-5 p-4 bg-red-50 rounded-xl">
+          <h3 class="text-sm font-semibold text-gray-700 mb-3">Deductions (Money You Owe)</h3>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Debts & Loans</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                <input type="number" id="debts" class="zakat-input w-full pl-7 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="0" min="0" step="1">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 mb-1">Immediate Expenses</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+                <input type="number" id="expenses" class="zakat-input w-full pl-7 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="0" min="0" step="1">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div id="zakat-results" class="bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl p-5 text-white">
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div>
+              <p class="text-primary-200 text-xs mb-1">Total Assets</p>
+              <p id="total-assets" class="text-lg font-bold">$0</p>
+            </div>
+            <div>
+              <p class="text-primary-200 text-xs mb-1">Net Zakatable</p>
+              <p id="net-zakatable" class="text-lg font-bold">$0</p>
+            </div>
+            <div class="bg-white/20 rounded-lg p-2">
+              <p class="text-primary-100 text-xs mb-1">Zakat Due</p>
+              <p id="zakat-due" class="text-xl font-bold">$0</p>
+            </div>
+          </div>
+          <p id="nisab-message" class="mt-3 text-center text-xs text-primary-200">
+            Enter your assets above to calculate
+          </p>
+        </div>
+
+        <!-- Pay Zakat Button -->
+        <div class="mt-5 text-center">
+          <a 
+            href={url('/donate')} 
+            class="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-700 transition-colors shadow-md"
+          >
+            Pay Your Zakat
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <p class="text-center text-gray-500 text-xs mt-4">
+      This is an estimate. Consult a scholar for specific questions.
+    </p>
+  </div>
+</section>
+
+<script define:vars={{ GOLD_NISAB }}>
+  const NISAB = GOLD_NISAB; // Gold nisab threshold in USD (87.48g of gold)
+  const ZAKAT_RATE = 0.025; // 2.5%
+
+  function calculateZakat() {
+    // Get all input values
+    const cash = parseFloat(document.getElementById('cash').value) || 0;
+    const bank = parseFloat(document.getElementById('bank').value) || 0;
+    const stocks = parseFloat(document.getElementById('stocks').value) || 0;
+    const retirement = parseFloat(document.getElementById('retirement').value) || 0;
+    const gold = parseFloat(document.getElementById('gold').value) || 0;
+    const silver = parseFloat(document.getElementById('silver').value) || 0;
+    const business = parseFloat(document.getElementById('business').value) || 0;
+    const owed = parseFloat(document.getElementById('owed').value) || 0;
+    const debts = parseFloat(document.getElementById('debts').value) || 0;
+    const expenses = parseFloat(document.getElementById('expenses').value) || 0;
+
+    // Calculate totals
+    // Total Assets = sum of all zakatable assets
+    const totalAssets = cash + bank + stocks + retirement + gold + silver + business + owed;
+    
+    // Total Deductions = debts and immediate expenses
+    const totalDeductions = debts + expenses;
+    
+    // Net Zakatable Wealth = Total Assets - Deductions (minimum 0)
+    const netZakatable = Math.max(0, totalAssets - totalDeductions);
+    
+    // Zakat Due = 2.5% of Net Zakatable Wealth (only if >= Nisab threshold)
+    // Formula: Zakat = Net Zakatable × 0.025
+    const zakatDue = netZakatable >= NISAB ? netZakatable * ZAKAT_RATE : 0;
+
+    // Format numbers for display
+    const formatCurrency = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    // Update display
+    document.getElementById('total-assets').textContent = formatCurrency(totalAssets);
+    document.getElementById('net-zakatable').textContent = formatCurrency(netZakatable);
+    document.getElementById('zakat-due').textContent = formatCurrency(zakatDue);
+
+    // Update message
+    const messageEl = document.getElementById('nisab-message');
+    if (totalAssets === 0) {
+      messageEl.textContent = 'Enter your assets above to calculate your Zakat';
+    } else if (netZakatable < NISAB) {
+      messageEl.textContent = `Your net wealth (${formatCurrency(netZakatable)}) is below the Nisab threshold (${formatCurrency(NISAB)}). Zakat is not obligatory.`;
+    } else {
+      messageEl.textContent = `Your net wealth exceeds the Nisab threshold. Zakat of 2.5% is due.`;
+    }
+  }
+
+  // Add event listeners to all inputs
+  document.querySelectorAll('.zakat-input').forEach(input => {
+    input.addEventListener('input', calculateZakat);
+  });
+</script>

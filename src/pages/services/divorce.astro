@@ -14,6 +14,15 @@ import { url } from '../../utils/links';
 
   <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Featured Image -->
+      <div class="mb-10 rounded-2xl overflow-hidden shadow-xl">
+        <img 
+          src={url('/images/divorce-papers.jpeg')} 
+          alt="Divorce consultation" 
+          class="w-full h-64 sm:h-80 object-cover"
+        />
+      </div>
+      
       <div class="prose prose-lg max-w-none">
         <p class="text-xl text-gray-600 mb-8">
           While Islam views marriage as a sacred bond, it also recognizes that some marriages may not 
@@ -54,6 +63,37 @@ import { url } from '../../utils/links';
           </div>
         </div>
 
+        <!-- Pricing -->
+        <div class="bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200 rounded-2xl p-8 mb-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 bg-amber-600 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-amber-800">Service Fees</h2>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="bg-white rounded-xl p-5 border border-amber-200 shadow-sm">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-semibold text-gray-800">Islamic Divorce</h3>
+                <span class="text-2xl font-bold text-primary-700">$250</span>
+              </div>
+              <p class="text-sm text-gray-600">الطلاق الشرعي</p>
+              <p class="text-xs text-gray-500 mt-2">Talaq or Khula processing</p>
+            </div>
+            <div class="bg-white rounded-xl p-5 border border-amber-200 shadow-sm">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-semibold text-gray-800">Separation Agreement</h3>
+                <span class="text-2xl font-bold text-primary-700">$1,000</span>
+              </div>
+              <p class="text-sm text-gray-600">الانفصال الزوجي</p>
+              <p class="text-xs text-gray-500 mt-2">Comprehensive separation documentation</p>
+            </div>
+          </div>
+          <p class="text-xs text-amber-700 mt-4 text-center">* Fees help support masjid operations and community services</p>
+        </div>
+
         <div class="bg-primary-50 rounded-2xl p-8 mb-8">
           <h2 class="text-2xl font-bold text-primary-800 mb-4">Our Process</h2>
           <ul class="space-y-3 text-gray-700">
@@ -82,6 +122,67 @@ import { url } from '../../utils/links';
               <span>Issuance of Islamic divorce certificate</span>
             </li>
           </ul>
+        </div>
+      </div>
+
+      <!-- Download Documents -->
+      <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Download Documents</h3>
+        <div class="space-y-3">
+          <a 
+            href={url('/documents/islamic-divorce-services.pdf')}
+            download
+            class="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all group"
+          >
+            <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zm-2.5 9.5a.5.5 0 01.5.5v3h1.5a.5.5 0 010 1h-4a.5.5 0 010-1H10v-3a.5.5 0 01.5-.5z"/>
+              </svg>
+            </div>
+            <div class="flex-grow">
+              <h4 class="font-semibold text-gray-800 group-hover:text-primary-700">PWIC Islamic Divorce Services</h4>
+              <p class="text-sm text-gray-500">Information about Talaq, Khula, and separation services</p>
+            </div>
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </a>
+          <a 
+            href={url('/documents/divorce-process-virginia.pdf')}
+            download
+            class="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all group"
+          >
+            <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zm-2.5 9.5a.5.5 0 01.5.5v3h1.5a.5.5 0 010 1h-4a.5.5 0 010-1H10v-3a.5.5 0 01.5-.5z"/>
+              </svg>
+            </div>
+            <div class="flex-grow">
+              <h4 class="font-semibold text-gray-800 group-hover:text-primary-700">Civil Divorce Process in Virginia</h4>
+              <p class="text-sm text-gray-500">Guide to custody, support, assets, and filing timelines</p>
+            </div>
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </a>
+          <a 
+            href={url('/documents/agreement-to-mediate.pdf')}
+            download
+            class="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all group"
+          >
+            <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zm-2.5 9.5a.5.5 0 01.5.5v3h1.5a.5.5 0 010 1h-4a.5.5 0 010-1H10v-3a.5.5 0 01.5-.5z"/>
+              </svg>
+            </div>
+            <div class="flex-grow">
+              <h4 class="font-semibold text-gray-800 group-hover:text-primary-700">Agreement to Mediate</h4>
+              <p class="text-sm text-gray-500">Required form for divorce mediation services</p>
+            </div>
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </a>
         </div>
       </div>
 

@@ -154,7 +154,7 @@ Edit `src/data/site-config.json` to update:
   "contact": {
     "address": "Your Full Address Here",
     "phone": "(555) 123-4567",
-    "email": "info@pwicva.org"
+    "email": "pwicimam@msn.com"
   },
   
   "socialLinks": {

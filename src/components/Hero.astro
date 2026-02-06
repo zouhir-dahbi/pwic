@@ -6,57 +6,205 @@ interface Props {
   subtitle?: string;
   showCTA?: boolean;
   backgroundImage?: string;
+  slides?: Array<{image: string; title?: string; subtitle?: string}>;
 }
 
 const { 
   title, 
   subtitle, 
   showCTA = false,
-  backgroundImage = '/images/pwic-background-traditional.jpeg'
+  backgroundImage = '/images/pwic-background-traditional.jpeg',
+  slides
 } = Astro.props;
 
 const bgImage = backgroundImage.startsWith('/') ? url(backgroundImage) : backgroundImage;
+
+// Default slides for homepage
+const defaultSlides = [
+  { image: url('/images/prayer-sujood-sunset.jpeg'), title: 'Welcome to Prince William Islamic Center', subtitle: 'A welcoming community for all Muslims' },
+  { image: url('/images/dua-sunset-crescent.jpeg'), title: 'Join Us for Daily Prayers', subtitle: 'Five daily prayers and Jummah every Friday' },
+  { image: url('/images/education-school-supplies.jpeg'), title: 'Weekend Islamic School', subtitle: 'Nurturing the next generation of Muslims' },
+  { image: url('/images/nikah-mosque-couple.jpeg'), title: 'Community & Services', subtitle: 'Marriage, counseling, and family support' },
+];
+
+const heroSlides = slides || (showCTA ? defaultSlides : null);
 ---
 
-<section class="relative min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh] flex items-center justify-center overflow-hidden">
-  <!-- Background Image -->
-  <div class="absolute inset-0">
-    <img 
-      src={bgImage} 
-      alt="PWIC Mosque" 
-      class="w-full h-full object-cover"
-    />
-    <div class="absolute inset-0 bg-gradient-to-r from-primary-900/90 via-primary-800/80 to-primary-900/70"></div>
-  </div>
+{heroSlides ? (
+  <!-- Slideshow Hero -->
+  <section class="relative py-12 sm:py-16 lg:py-20 overflow-hidden hero-slideshow">
+    <!-- Slides Container -->
+    <div class="slides-container absolute inset-0">
+      {heroSlides.map((slide, index) => (
+        <div class={`slide absolute inset-0 transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`} data-slide={index}>
+          <img 
+            src={slide.image} 
+            alt="PWIC" 
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-primary-900/90 via-primary-800/85 to-primary-900/80"></div>
+        </div>
+      ))}
+    </div>
 
-  <!-- Content -->
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12 sm:py-16">
-    <h1 class="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white font-heading leading-tight mb-4 sm:mb-6">
-      {title}
-    </h1>
-    {subtitle && (
-      <p class="text-base sm:text-xl lg:text-2xl text-primary-100 max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed px-2">
-        {subtitle}
-      </p>
-    )}
-    {showCTA && (
-      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
-        <a 
-          href={url('/about')} 
-          class="px-6 sm:px-8 py-3 sm:py-4 bg-white text-primary-700 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base"
-        >
-          Learn More
-        </a>
-        <a 
-          href={url('/donate')} 
-          class="px-6 sm:px-8 py-3 sm:py-4 bg-primary-500 text-white rounded-lg font-semibold hover:bg-primary-400 transition-colors shadow-lg hover:shadow-xl border-2 border-primary-400 text-sm sm:text-base"
-        >
-          Support Our Mission
-        </a>
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+        <!-- Text Content -->
+        <div class="flex-1 text-center lg:text-left">
+          <h1 class="slide-title text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white font-heading leading-tight mb-3 sm:mb-4 transition-opacity duration-500">
+            {heroSlides[0].title || title}
+          </h1>
+          <p class="slide-subtitle text-base sm:text-lg lg:text-xl text-primary-100 max-w-2xl mx-auto lg:mx-0 mb-5 sm:mb-6 leading-relaxed transition-opacity duration-500">
+            {heroSlides[0].subtitle || subtitle}
+          </p>
+          {showCTA && (
+            <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+              <a 
+                href={url('/about')} 
+                class="px-6 py-3 bg-white text-primary-700 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base"
+              >
+                Learn More
+              </a>
+              <a 
+                href={url('/donate')} 
+                class="px-6 py-3 bg-amber-700 text-white rounded-lg font-semibold hover:bg-amber-800 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base"
+              >
+                Support Our Mission
+              </a>
+            </div>
+          )}
+        </div>
       </div>
-    )}
-  </div>
 
-  <!-- Decorative Islamic Pattern (subtle) -->
-  <div class="absolute bottom-0 left-0 right-0 h-16 sm:h-24 bg-gradient-to-t from-white to-transparent"></div>
-</section>
+      <!-- Slide Indicators -->
+      <div class="flex justify-center lg:justify-start gap-2 mt-6">
+        {heroSlides.map((_, index) => (
+          <button 
+            class={`slide-dot w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === 0 ? 'bg-white w-8' : 'bg-white/40 hover:bg-white/60'}`}
+            data-slide-to={index}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+
+    <script define:vars={{ slidesData: heroSlides }}>
+      document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.hero-slideshow');
+        if (!container) return;
+
+        const slides = container.querySelectorAll('.slide');
+        const dots = container.querySelectorAll('.slide-dot');
+        const titleEl = container.querySelector('.slide-title');
+        const subtitleEl = container.querySelector('.slide-subtitle');
+        let currentSlide = 0;
+        let interval;
+
+        function showSlide(index) {
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('opacity-100', i === index);
+            slide.classList.toggle('opacity-0', i !== index);
+          });
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('bg-white', i === index);
+            dot.classList.toggle('w-8', i === index);
+            dot.classList.toggle('bg-white/40', i !== index);
+            dot.classList.toggle('w-2.5', i !== index);
+          });
+          
+          // Update text with fade
+          if (titleEl && slidesData[index].title) {
+            titleEl.style.opacity = '0';
+            setTimeout(() => {
+              titleEl.textContent = slidesData[index].title;
+              titleEl.style.opacity = '1';
+            }, 300);
+          }
+          if (subtitleEl && slidesData[index].subtitle) {
+            subtitleEl.style.opacity = '0';
+            setTimeout(() => {
+              subtitleEl.textContent = slidesData[index].subtitle;
+              subtitleEl.style.opacity = '1';
+            }, 300);
+          }
+          currentSlide = index;
+        }
+
+        function nextSlide() {
+          showSlide((currentSlide + 1) % slides.length);
+        }
+
+        function startAutoplay() {
+          interval = setInterval(nextSlide, 5000);
+        }
+
+        function stopAutoplay() {
+          clearInterval(interval);
+        }
+
+        // Click handlers for dots
+        dots.forEach((dot, i) => {
+          dot.addEventListener('click', () => {
+            stopAutoplay();
+            showSlide(i);
+            startAutoplay();
+          });
+        });
+
+        // Start autoplay
+        startAutoplay();
+
+        // Pause on hover
+        container.addEventListener('mouseenter', stopAutoplay);
+        container.addEventListener('mouseleave', startAutoplay);
+      });
+    </script>
+  </section>
+) : (
+  <!-- Static Hero -->
+  <section class="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <img 
+        src={bgImage} 
+        alt="PWIC Mosque" 
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-primary-900/90 via-primary-800/85 to-primary-900/80"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+        <!-- Text Content -->
+        <div class="flex-1 text-center lg:text-left">
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white font-heading leading-tight mb-3 sm:mb-4">
+            {title}
+          </h1>
+          {subtitle && (
+            <p class="text-base sm:text-lg lg:text-xl text-primary-100 max-w-2xl mx-auto lg:mx-0 mb-5 sm:mb-6 leading-relaxed">
+              {subtitle}
+            </p>
+          )}
+          {showCTA && (
+            <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+              <a 
+                href={url('/about')} 
+                class="px-6 py-3 bg-white text-primary-700 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base"
+              >
+                Learn More
+              </a>
+              <a 
+                href={url('/donate')} 
+                class="px-6 py-3 bg-amber-700 text-white rounded-lg font-semibold hover:bg-amber-800 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base"
+              >
+                Support Our Mission
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+)}

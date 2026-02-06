@@ -6,124 +6,329 @@ import { url } from '../utils/links';
 
 const calendarId = siteConfig.googleCalendarId;
 const hasCalendar = calendarId && calendarId !== 'YOUR_GOOGLE_CALENDAR_ID_HERE';
+
+// Featured Events
+const featuredEvents = [
+  {
+    title: 'Ramadan Taraweeh Prayers',
+    description: 'Join us every night during the blessed month of Ramadan for Taraweeh prayers. Experience the spiritual atmosphere as we pray together and listen to the beautiful recitation of the Quran.',
+    schedule: 'Every night during Ramadan',
+    time: 'After Isha Prayer',
+    image: url('/images/ramadan-lantern.jpeg'),
+    tag: 'Ramadan',
+    tagColor: 'amber'
+  },
+  {
+    title: 'Saturday Community Iftar',
+    description: 'Break your fast with your community family every Saturday during Ramadan. Enjoy a blessed meal together, strengthen bonds, and share in the joy of this holy month.',
+    schedule: 'Every Saturday during Ramadan',
+    time: 'At Maghrib',
+    image: url('/images/community-food-service.jpeg'),
+    tag: 'Ramadan',
+    tagColor: 'amber'
+  },
+  {
+    title: 'Quran Study Sessions',
+    description: 'Deepen your understanding of the Holy Quran through our periodic study circles. Learn tafsir, tajweed, and the beautiful meanings behind the verses with our knowledgeable instructors.',
+    schedule: 'Periodic Sessions',
+    time: 'Check announcements',
+    image: url('/images/family-reading-quran.jpeg'),
+    tag: 'Education',
+    tagColor: 'blue'
+  },
+  {
+    title: 'Community Gatherings',
+    description: 'Connect with fellow Muslims at our regular community events. From potlucks to family nights, these gatherings strengthen the bonds of brotherhood and sisterhood in our community.',
+    schedule: 'Monthly Events',
+    time: 'Various times',
+    image: url('/images/mosque-interior.jpeg'),
+    tag: 'Community',
+    tagColor: 'green'
+  }
+];
+
+// Regular Programs
+const regularPrograms = [
+  {
+    title: 'Jummah Prayer',
+    schedule: 'Every Friday at 1:00 PM',
+    description: 'Weekly Friday prayer with khutbah delivered in English and Arabic. Join hundreds of community members for this blessed gathering.',
+    icon: 'mosque'
+  },
+  {
+    title: 'Weekend School',
+    schedule: 'Every Sunday',
+    description: 'Islamic education for children ages 5-15 including Quran memorization, Arabic language, and Islamic studies.',
+    icon: 'book'
+  },
+  {
+    title: 'Daily Prayers',
+    schedule: 'Five times daily',
+    description: 'Join us for congregational prayers throughout the day. Check our prayer times page for the current schedule.',
+    icon: 'clock'
+  },
+  {
+    title: "Sisters' Halaqa",
+    schedule: 'Weekly sessions',
+    description: 'A dedicated space for sisters to learn, discuss, and grow together in faith through Islamic lectures and discussions.',
+    icon: 'users'
+  },
+  {
+    title: 'Youth Programs',
+    schedule: 'Regular activities',
+    description: 'Engaging programs for Muslim youth including sports, educational trips, and leadership development.',
+    icon: 'youth'
+  },
+  {
+    title: 'New Muslim Support',
+    schedule: 'By appointment',
+    description: 'Welcoming and supporting new Muslims with guidance, resources, and a supportive community environment.',
+    icon: 'heart'
+  }
+];
 ---
 
 <Layout title="Events">
   <Hero 
     title="Events & Programs"
     subtitle="Stay connected with our community activities"
-    backgroundImage={url('/images/pwic-backgroud-lighblue.jpeg')}
+    backgroundImage={url('/images/ramadan-lantern.jpeg')}
   />
 
+  <!-- Featured Events -->
   <section class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-800 font-heading mb-4">Upcoming Events</h2>
+        <span class="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-4">Featured Events</span>
+        <h2 class="text-3xl font-bold text-gray-800 font-heading mb-4">Special Programs & Events</h2>
         <p class="text-gray-600 max-w-2xl mx-auto">
-          Join us for prayers, classes, community gatherings, and special Islamic occasions.
+          Join us for these meaningful gatherings that bring our community together in worship, learning, and fellowship.
         </p>
       </div>
 
+      <div class="grid md:grid-cols-2 gap-8">
+        {featuredEvents.map((event) => (
+          <div class="group bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+            <div class="relative h-56 overflow-hidden">
+              <img 
+                src={event.image} 
+                alt={event.title} 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+              <span class={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold text-white ${
+                event.tagColor === 'amber' ? 'bg-amber-500' : 
+                event.tagColor === 'blue' ? 'bg-blue-500' : 'bg-green-500'
+              }`}>
+                {event.tag}
+              </span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-3">{event.title}</h3>
+              <p class="text-gray-600 text-sm mb-4 line-clamp-3">{event.description}</p>
+              <div class="flex items-center gap-4 text-sm">
+                <div class="flex items-center gap-2 text-primary-600">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="font-medium">{event.schedule}</span>
+                </div>
+                <div class="flex items-center gap-2 text-gray-500">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{event.time}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Calendar Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl font-bold text-gray-800 font-heading mb-3">Community Calendar</h2>
+        <p class="text-gray-600">Stay updated with all upcoming events and programs</p>
+      </div>
+
       {hasCalendar ? (
-        <!-- Google Calendar Embed -->
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
           <iframe 
             src={`https://calendar.google.com/calendar/embed?src=${encodeURIComponent(calendarId)}&ctz=America%2FNew_York&mode=AGENDA`}
             style="border: 0" 
             width="100%" 
-            height="600" 
+            height="500" 
             frameborder="0" 
             scrolling="no"
             class="w-full"
           />
         </div>
       ) : (
-        <!-- Placeholder when calendar not configured -->
-        <div class="bg-gray-50 rounded-2xl p-12 text-center mb-12">
-          <div class="inline-flex items-center justify-center w-20 h-20 bg-primary-100 rounded-full mb-6">
-            <svg class="w-10 h-10 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white rounded-2xl p-10 text-center shadow-lg">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-2xl mb-5">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>
-          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Community Calendar</h3>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">Calendar Coming Soon</h3>
           <p class="text-gray-600 mb-6 max-w-md mx-auto">
-            Our events calendar is being set up. Please check back soon or contact us for upcoming events.
+            Our interactive events calendar is being set up. In the meantime, contact us or follow our announcements for upcoming events.
           </p>
           <a 
             href={url('/contact')}
-            class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors"
           >
-            Contact for Events Info
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Contact Us
           </a>
         </div>
       )}
+    </div>
+  </section>
 
-      <!-- Regular Programs -->
-      <div>
-        <h3 class="text-2xl font-bold text-gray-800 font-heading mb-8 text-center">Regular Programs</h3>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <div class="flex items-center gap-4 mb-4">
-              <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
+  <!-- Regular Programs -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-semibold mb-4">Weekly & Ongoing</span>
+        <h2 class="text-3xl font-bold text-gray-800 font-heading mb-4">Regular Programs</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          These ongoing programs form the foundation of our community activities.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {regularPrograms.map((program) => (
+          <div class="bg-gradient-to-br from-white to-gray-50 border border-gray-100 rounded-2xl p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                {program.icon === 'mosque' && (
+                  <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                )}
+                {program.icon === 'book' && (
+                  <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                )}
+                {program.icon === 'clock' && (
+                  <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                )}
+                {program.icon === 'users' && (
+                  <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                )}
+                {program.icon === 'youth' && (
+                  <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                )}
+                {program.icon === 'heart' && (
+                  <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                )}
               </div>
               <div>
-                <h4 class="font-semibold text-gray-800">Jummah Prayer</h4>
-                <p class="text-sm text-gray-500">Every Friday</p>
+                <h4 class="font-bold text-gray-800 mb-1">{program.title}</h4>
+                <p class="text-sm text-primary-600 font-medium mb-2">{program.schedule}</p>
+                <p class="text-gray-600 text-sm">{program.description}</p>
               </div>
             </div>
-            <p class="text-gray-600 text-sm">Weekly Friday prayer at 1:00 PM with khutbah in English and Arabic.</p>
           </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-          <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <div class="flex items-center gap-4 mb-4">
-              <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <div>
-                <h4 class="font-semibold text-gray-800">Sunday School</h4>
-                <p class="text-sm text-gray-500">Every Sunday</p>
-              </div>
-            </div>
-            <p class="text-gray-600 text-sm">Islamic education for children ages 5-15 including Quran and Arabic.</p>
+  <!-- Islamic Occasions -->
+  <section class="py-16 bg-gradient-to-br from-primary-700 to-primary-800 text-white relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-64 h-64 bg-amber-400 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl mb-6">
+        <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg>
+      </div>
+      <h3 class="text-3xl font-bold font-heading mb-4">Islamic Occasions & Celebrations</h3>
+      <p class="text-primary-100 text-lg mb-10 max-w-2xl mx-auto">
+        Join us in celebrating the blessed days of the Islamic calendar. We come together as one ummah 
+        to observe these sacred occasions.
+      </p>
+      
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-colors">
+          <div class="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
+            </svg>
           </div>
-
-          <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <div class="flex items-center gap-4 mb-4">
-              <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div>
-                <h4 class="font-semibold text-gray-800">Daily Prayers</h4>
-                <p class="text-sm text-gray-500">Every Day</p>
-              </div>
-            </div>
-            <p class="text-gray-600 text-sm">Join us for the five daily prayers. Check prayer times for schedule.</p>
+          <h4 class="font-bold text-lg mb-2">Eid ul-Fitr</h4>
+          <p class="text-primary-200 text-sm">Celebration marking the end of Ramadan</p>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-colors">
+          <div class="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
           </div>
+          <h4 class="font-bold text-lg mb-2">Eid ul-Adha</h4>
+          <p class="text-primary-200 text-sm">Festival of Sacrifice during Hajj</p>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-colors">
+          <div class="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Ramadan</h4>
+          <p class="text-primary-200 text-sm">Month of fasting, prayer & reflection</p>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-colors">
+          <div class="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+            </svg>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Qiyam ul-Layl</h4>
+          <p class="text-primary-200 text-sm">Night prayers in the last 10 nights</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Special Occasions -->
-  <section class="py-16 bg-primary-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h3 class="text-2xl font-bold text-primary-800 font-heading mb-4">Islamic Occasions</h3>
-      <p class="text-gray-600 mb-8">
-        We celebrate all major Islamic holidays including Eid ul-Fitr, Eid ul-Adha, and observe 
-        Ramadan with special taraweeh prayers and community iftars.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <span class="px-4 py-2 bg-white rounded-full text-primary-700 font-medium shadow-sm">Eid Prayers</span>
-        <span class="px-4 py-2 bg-white rounded-full text-primary-700 font-medium shadow-sm">Taraweeh</span>
-        <span class="px-4 py-2 bg-white rounded-full text-primary-700 font-medium shadow-sm">Community Iftar</span>
-        <span class="px-4 py-2 bg-white rounded-full text-primary-700 font-medium shadow-sm">Qiyam ul-Layl</span>
+  <!-- Contact CTA -->
+  <section class="py-12 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gray-50 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <h3 class="text-xl font-bold text-gray-800 mb-2">Want to stay updated?</h3>
+          <p class="text-gray-600">Follow us on social media or contact us for event notifications.</p>
+        </div>
+        <a 
+          href={url('/contact')}
+          class="flex-shrink-0 px-6 py-3 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors"
+        >
+          Get in Touch
+        </a>
       </div>
     </div>
   </section>

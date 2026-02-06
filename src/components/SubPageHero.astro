@@ -11,10 +11,10 @@ interface Props {
 const { title, subtitle, parentTitle, parentHref } = Astro.props;
 ---
 
-<section class="bg-gradient-to-br from-primary-800 via-primary-700 to-primary-900 py-10 sm:py-16 lg:py-20">
+<section class="bg-gradient-to-r from-primary-800 via-primary-700 to-primary-800 py-6 sm:py-8">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Breadcrumb -->
-    <nav class="mb-4 sm:mb-6">
+    <nav class="mb-2 sm:mb-3">
       <ol class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm flex-wrap">
         <li>
           <a href={url('/')} class="text-primary-200 hover:text-white transition-colors">Home</a>
@@ -28,9 +28,11 @@ const { title, subtitle, parentTitle, parentHref } = Astro.props;
       </ol>
     </nav>
     
-    <h1 class="text-2xl sm:text-4xl lg:text-5xl font-bold text-white font-heading mb-2 sm:mb-4">{title}</h1>
-    {subtitle && (
-      <p class="text-base sm:text-xl text-primary-100 max-w-2xl">{subtitle}</p>
-    )}
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white font-heading">{title}</h1>
+      {subtitle && (
+        <p class="text-sm sm:text-base text-primary-100 max-w-xl">{subtitle}</p>
+      )}
+    </div>
   </div>
 </section>

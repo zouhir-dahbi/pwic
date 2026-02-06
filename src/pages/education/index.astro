@@ -5,51 +5,37 @@ import { url } from '../../utils/links';
 
 const programs = [
   {
-    title: 'School Program',
-    description: 'Learn about our curriculum, teaching methodology, and educational philosophy.',
-    href: url('/education/program'),
-    icon: 'book'
-  },
-  {
-    title: 'Classes',
-    description: 'Explore our class offerings for different age groups from Pre-K to High School.',
-    href: url('/education/classes'),
-    icon: 'users'
-  },
-  {
     title: 'Schedule',
-    description: 'View class times, academic calendar, and important dates.',
+    description: 'View class times and important information for parents.',
     href: url('/education/schedule'),
     icon: 'calendar'
   },
   {
     title: 'Registration',
-    description: 'Register your child for our weekend Islamic school program.',
+    description: 'Register your child for our weekend Islamic school.',
     href: url('/education/registration'),
     icon: 'clipboard'
   },
   {
     title: 'Fees',
-    description: 'Information about tuition, payment options, and financial assistance.',
+    description: 'Tuition rates, payment options, and financial assistance.',
     href: url('/education/fees'),
     icon: 'dollar'
   }
 ];
 
 const icons: Record<string, string> = {
-  book: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />`,
-  users: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />`,
   calendar: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />`,
   clipboard: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />`,
   dollar: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />`
 };
 ---
 
-<Layout title="Education">
+<Layout title="Weekend Islamic School">
   <Hero 
     title="Weekend Islamic School"
     subtitle="Nurturing the next generation of Muslims"
-    backgroundImage={url('/images/pwic-education-kids.jpeg')}
+    backgroundImage={url('/images/islamic-school-students.jpeg')}
   />
 
   <section class="py-16 bg-white">
@@ -74,52 +60,90 @@ const icons: Record<string, string> = {
         </div>
       </div>
 
-      <!-- About the School with Image -->
+      <!-- Schedule Highlight -->
+      <div class="bg-gradient-to-r from-primary-700 to-primary-600 rounded-2xl p-8 mb-16 text-white">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 class="text-3xl font-bold mb-4">Weekend School Hours</h2>
+            <p class="text-primary-100 mb-6">
+              Classes are held every Saturday and Sunday at PWIC. Students learn Quran, Arabic, and Islamic Studies.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-primary-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>11:00 AM - 2:00 PM</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-primary-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>Saturday & Sunday</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="inline-block bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+              <div class="text-5xl font-bold mb-2">$100</div>
+              <div class="text-primary-200">per month / per child</div>
+              <div class="text-sm text-primary-300 mt-1">$20 registration fee per semester</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About the School with Images -->
       <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
         <div>
           <h2 class="text-3xl font-bold text-gray-800 font-heading mb-4">About Our School</h2>
           <p class="text-lg text-gray-600 mb-6">
-            PWIC Weekend School is an Islamic school located in Manassas, Virginia, offering classes 
-            for over 100 students from Pre-K to High School level. Our faculty consists of qualified 
-            male and female teachers, administrators, and dedicated volunteers.
+            PWIC Weekend School is an Islamic school located in Manassas, Virginia. Our faculty consists of qualified 
+            male and female teachers, administrators, and dedicated volunteers committed to Islamic education.
           </p>
-          <div class="flex flex-wrap gap-4">
-            <div class="flex items-center gap-2 text-primary-700">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 text-gray-700">
+              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span>100+ Students</span>
+              <span>Ages 5 and up welcome</span>
             </div>
-            <div class="flex items-center gap-2 text-primary-700">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-center gap-3 text-gray-700">
+              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span>Pre-K to High School</span>
+              <span>Quran, Arabic & Islamic Studies</span>
             </div>
-            <div class="flex items-center gap-2 text-primary-700">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-center gap-3 text-gray-700">
+              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span>Qualified Teachers</span>
+              <span>Qualified male & female teachers</span>
+            </div>
+            <div class="flex items-center gap-3 text-gray-700">
+              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Books & materials included</span>
             </div>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-4">
           <img 
-            src={url('/images/pwic-education-photo1.jpeg')} 
+            src={url('/images/islamic-school-girls.jpeg')} 
             alt="Students learning" 
             class="rounded-2xl shadow-lg w-full h-48 object-cover"
           />
           <img 
-            src={url('/images/pwic-education-drawing.jpeg')} 
-            alt="Student artwork" 
+            src={url('/images/education-graduation-cap.jpeg')} 
+            alt="Education" 
             class="rounded-2xl shadow-lg w-full h-48 object-cover"
           />
         </div>
       </div>
 
       <!-- Quick Links Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid md:grid-cols-3 gap-6">
         {programs.map((program) => (
           <a 
             href={program.href}

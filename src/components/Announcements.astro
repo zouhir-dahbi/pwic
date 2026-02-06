@@ -5,32 +5,32 @@ const activeAnnouncements = announcements.filter(a => a.active);
 ---
 
 {activeAnnouncements.length > 0 && (
-  <section class="py-8 bg-gradient-to-r from-primary-600 to-primary-700">
+  <section class="py-2 bg-gradient-to-r from-amber-700 to-amber-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-4 overflow-hidden">
-        <!-- Announcements Label -->
-        <div class="flex-shrink-0 hidden sm:flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+      <div class="flex items-center gap-3 overflow-hidden">
+        <!-- Notifications Label -->
+        <div class="flex-shrink-0 hidden sm:flex items-center gap-1.5 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
           </svg>
-          <span class="text-white font-semibold text-sm uppercase tracking-wide">News</span>
+          <span class="text-white font-semibold text-xs uppercase tracking-wide">Notifications</span>
         </div>
         
-        <!-- Scrolling Announcements -->
+        <!-- Scrolling Notifications -->
         <div class="flex-1 overflow-hidden">
-          <div class="flex gap-8 animate-marquee whitespace-nowrap">
+          <div class="flex gap-6 animate-marquee whitespace-nowrap text-sm">
             {activeAnnouncements.map((announcement) => (
-              <div class="inline-flex items-center gap-3 text-white">
-                <span class="w-2 h-2 bg-primary-300 rounded-full flex-shrink-0"></span>
-                <span class="font-medium">{announcement.title}:</span>
+              <div class="inline-flex items-center gap-2 text-white">
+                <span class="w-1.5 h-1.5 bg-white/60 rounded-full flex-shrink-0"></span>
+                <span class="font-semibold">{announcement.title}:</span>
                 <span class="opacity-90">{announcement.content}</span>
               </div>
             ))}
             {/* Duplicate for seamless loop */}
             {activeAnnouncements.map((announcement) => (
-              <div class="inline-flex items-center gap-3 text-white">
-                <span class="w-2 h-2 bg-primary-300 rounded-full flex-shrink-0"></span>
-                <span class="font-medium">{announcement.title}:</span>
+              <div class="inline-flex items-center gap-2 text-white">
+                <span class="w-1.5 h-1.5 bg-white/60 rounded-full flex-shrink-0"></span>
+                <span class="font-semibold">{announcement.title}:</span>
                 <span class="opacity-90">{announcement.content}</span>
               </div>
             ))}
@@ -52,7 +52,7 @@ const activeAnnouncements = announcements.filter(a => a.active);
   }
   
   .animate-marquee {
-    animation: marquee 30s linear infinite;
+    animation: marquee 12s linear infinite;
   }
   
   .animate-marquee:hover {

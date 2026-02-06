@@ -17,8 +17,7 @@ import { url } from '../../utils/links';
       
       <div class="text-center mb-12">
         <p class="text-lg text-gray-600">
-          We strive to make Islamic education accessible to all families. 
-          Please contact us for current tuition rates and payment options.
+          We strive to make Islamic education accessible to all families.
         </p>
       </div>
 
@@ -27,22 +26,32 @@ import { url } from '../../utils/links';
         <h2 class="text-2xl font-bold text-primary-800 mb-6">Fee Structure</h2>
         <div class="space-y-4">
           <div class="flex justify-between items-center py-3 border-b border-primary-200">
-            <span class="font-medium text-gray-800">Registration Fee (Annual)</span>
-            <span class="text-primary-700 font-semibold">Contact for rates</span>
+            <div>
+              <span class="font-medium text-gray-800">Registration Fee</span>
+              <span class="text-sm text-gray-500 ml-2">(per semester, non-refundable)</span>
+            </div>
+            <span class="text-2xl font-bold text-primary-700">$20</span>
           </div>
           <div class="flex justify-between items-center py-3 border-b border-primary-200">
-            <span class="font-medium text-gray-800">Monthly Tuition (1st Child)</span>
-            <span class="text-primary-700 font-semibold">Contact for rates</span>
+            <div>
+              <span class="font-medium text-gray-800">Monthly Tuition</span>
+              <span class="text-sm text-gray-500 ml-2">(per child)</span>
+            </div>
+            <span class="text-2xl font-bold text-primary-700">$100</span>
           </div>
           <div class="flex justify-between items-center py-3 border-b border-primary-200">
-            <span class="font-medium text-gray-800">Additional Children</span>
-            <span class="text-primary-700 font-semibold">Discount available</span>
+            <div>
+              <span class="font-medium text-gray-800">Semester Tuition</span>
+              <span class="text-sm text-gray-500 ml-2">(per child, 5 months)</span>
+            </div>
+            <span class="text-2xl font-bold text-primary-700">$500</span>
           </div>
           <div class="flex justify-between items-center py-3">
             <span class="font-medium text-gray-800">Books & Materials</span>
-            <span class="text-primary-700 font-semibold">Included</span>
+            <span class="text-lg font-semibold text-green-600">Included</span>
           </div>
         </div>
+        <p class="text-xs text-gray-500 mt-4 text-center">* Payment must be received at the beginning of each month</p>
       </div>
 
       <!-- Payment Options -->
@@ -50,19 +59,42 @@ import { url } from '../../utils/links';
         <div class="bg-gray-50 rounded-xl p-6">
           <h3 class="font-semibold text-gray-800 mb-3">Payment Options</h3>
           <ul class="text-gray-600 space-y-2 text-sm">
-            <li>• Monthly payments</li>
-            <li>• Semester payment (discount available)</li>
-            <li>• Annual payment (best value)</li>
+            <li>• Monthly payments ($100/month)</li>
+            <li>• Semester payment ($500)</li>
+            <li>• Credit card auto-pay available</li>
           </ul>
         </div>
         <div class="bg-gray-50 rounded-xl p-6">
           <h3 class="font-semibold text-gray-800 mb-3">Payment Methods</h3>
           <ul class="text-gray-600 space-y-2 text-sm">
             <li>• Cash or check</li>
-            <li>• Online payment</li>
-            <li>• Zelle</li>
+            <li>• Credit card</li>
+            <li>• Auto-debit authorization</li>
           </ul>
         </div>
+      </div>
+
+      <!-- Download Documents -->
+      <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Download Documents</h3>
+        <a 
+          href={url('/documents/weekend-school-tuition-fees.pdf')}
+          download
+          class="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all group"
+        >
+          <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4z"/>
+            </svg>
+          </div>
+          <div class="flex-grow">
+            <h4 class="font-semibold text-gray-800 group-hover:text-primary-700">Weekend School Tuition & Fees</h4>
+            <p class="text-sm text-gray-500">Complete fee structure and payment information</p>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+        </a>
       </div>
 
       <!-- Financial Assistance -->
@@ -70,14 +102,26 @@ import { url } from '../../utils/links';
         <h3 class="text-xl font-bold mb-4">Financial Assistance</h3>
         <p class="text-primary-100 mb-6">
           We believe every child deserves access to Islamic education. Financial assistance 
-          is available for families in need. Please contact us confidentially to discuss options.
+          is available for families in need. Download the application form below.
         </p>
-        <a 
-          href={url('/contact')}
-          class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
-        >
-          Contact Us
-        </a>
+        <div class="flex flex-wrap gap-4">
+          <a 
+            href={url('/documents/application-for-assistance.pdf')}
+            download
+            class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Download Assistance Form
+          </a>
+          <a 
+            href={url('/contact')}
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 border border-primary-400 text-white rounded-xl font-semibold hover:bg-primary-500 transition-colors"
+          >
+            Contact Us
+          </a>
+        </div>
       </div>
 
       <div class="mt-8 text-center">

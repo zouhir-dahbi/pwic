@@ -9,7 +9,7 @@ import { url } from '../utils/links';
   <Hero 
     title="Contact Us"
     subtitle="We'd love to hear from you"
-    backgroundImage={url('/images/pwic-front-side.jpeg')}
+    backgroundImage={url('/images/contact-icons.jpeg')}
   />
 
   <section class="py-16 bg-white">
@@ -19,7 +19,7 @@ import { url } from '../utils/links';
         <div>
           <h2 class="text-2xl font-bold text-gray-800 font-heading mb-6">Send Us a Message</h2>
           <form 
-            action="https://formsubmit.co/info@pwicva.org" 
+            action="https://formsubmit.co/pwicimam@msn.com" 
             method="POST"
             class="space-y-6"
             id="contact-form"
@@ -203,21 +203,63 @@ import { url } from '../utils/links';
             </div>
           </div>
 
+          <!-- Speak to Imam -->
+          <div class="mt-8 pt-8 border-t border-gray-100">
+            <div class="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-6 text-white">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center">
+                  <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold">Speak to the Imam</h3>
+                  <p class="text-primary-100 text-sm">For urgent matters or spiritual guidance</p>
+                </div>
+              </div>
+              <a 
+                href={`tel:${siteConfig.contact.phone}`}
+                class="flex items-center justify-center gap-3 w-full px-6 py-4 bg-white text-primary-700 rounded-xl font-bold text-lg hover:bg-primary-50 transition-colors shadow-lg"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                Call {siteConfig.contact.phone}
+              </a>
+            </div>
+          </div>
+
           <!-- Social Links -->
-          {siteConfig.socialLinks.facebook && (
-            <div class="mt-8 pt-8 border-t border-gray-100">
+          {(siteConfig.socialLinks.facebook || siteConfig.socialLinks.youtube) && (
+            <div class="mt-6 pt-6 border-t border-gray-100">
               <h3 class="font-semibold text-gray-800 mb-4">Follow Us</h3>
               <div class="flex gap-4">
-                <a 
-                  href={siteConfig.socialLinks.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 hover:bg-blue-200 transition-colors"
-                >
-                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                </a>
+                {siteConfig.socialLinks.facebook && (
+                  <a 
+                    href={siteConfig.socialLinks.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-3 px-5 py-3 bg-blue-50 rounded-xl text-blue-600 hover:bg-blue-100 transition-colors group"
+                  >
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    <span class="font-medium group-hover:underline">Facebook</span>
+                  </a>
+                )}
+                {siteConfig.socialLinks.youtube && (
+                  <a 
+                    href={siteConfig.socialLinks.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-3 px-5 py-3 bg-red-50 rounded-xl text-red-600 hover:bg-red-100 transition-colors group"
+                  >
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    <span class="font-medium group-hover:underline">YouTube</span>
+                  </a>
+                )}
               </div>
             </div>
           )}

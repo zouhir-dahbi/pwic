@@ -4,73 +4,74 @@ import { url } from '../utils/links';
 ---
 
 <footer class="bg-primary-900 text-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
-    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-      <!-- About -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
+      <!-- Logo & Tagline -->
       <div class="col-span-2">
-        <div class="mb-4">
-          <img 
-            src={url('/images/pwic-logo.jpeg')} 
-            alt="Prince William Islamic Center" 
-            class="h-12 sm:h-16 w-auto object-contain mb-3"
-          />
-          <div>
-            <h3 class="text-base sm:text-lg font-bold font-heading">Prince William Islamic Center</h3>
-            <p class="text-primary-200 text-xs sm:text-sm">Serving the community since establishment</p>
-          </div>
-        </div>
-        <p class="text-primary-200 text-xs sm:text-sm leading-relaxed max-w-md">
-          {siteConfig.description}
-        </p>
+        <img 
+          src={url('/images/pwic-logo-square.png')} 
+          alt="PWIC" 
+          class="h-28 sm:h-36 lg:h-44 w-auto object-contain mb-3"
+        />
+        <h3 class="text-base sm:text-lg font-bold font-heading leading-tight mb-1">Prince William Islamic Center</h3>
+        <p class="text-primary-200 text-xs sm:text-sm">Serving Our Community with Faith</p>
       </div>
 
       <!-- Quick Links -->
       <div>
-        <h4 class="text-xs sm:text-sm font-semibold uppercase tracking-wider mb-3 sm:mb-4">Quick Links</h4>
-        <ul class="space-y-1.5 sm:space-y-2">
-          <li><a href={url('/about')} class="text-primary-200 hover:text-white text-xs sm:text-sm transition-colors">About Us</a></li>
-          <li><a href={url('/services')} class="text-primary-200 hover:text-white text-xs sm:text-sm transition-colors">Services</a></li>
-          <li><a href={url('/education')} class="text-primary-200 hover:text-white text-xs sm:text-sm transition-colors">Education</a></li>
-          <li><a href={url('/events')} class="text-primary-200 hover:text-white text-xs sm:text-sm transition-colors">Events</a></li>
-          <li><a href={url('/donate')} class="text-primary-200 hover:text-white text-xs sm:text-sm transition-colors">Donate</a></li>
+        <h4 class="text-base font-semibold mb-4">Quick Links</h4>
+        <ul class="space-y-2.5">
+          <li><a href={url('/about')} class="text-primary-200 hover:text-white text-base transition-colors">About Us</a></li>
+          <li><a href={url('/services')} class="text-primary-200 hover:text-white text-base transition-colors">Services</a></li>
+          <li><a href={url('/education')} class="text-primary-200 hover:text-white text-base transition-colors">Education</a></li>
+          <li><a href={url('/events')} class="text-primary-200 hover:text-white text-base transition-colors">Events</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h4 class="text-base font-semibold mb-4">Services</h4>
+        <ul class="space-y-2.5">
+          <li><a href={url('/services/marriage')} class="text-primary-200 hover:text-white text-base transition-colors">Nikah</a></li>
+          <li><a href={url('/services/funeral')} class="text-primary-200 hover:text-white text-base transition-colors">Funeral</a></li>
+          <li><a href={url('/services/counselling')} class="text-primary-200 hover:text-white text-base transition-colors">Counselling</a></li>
+          <li><a href={url('/donate')} class="text-primary-200 hover:text-white text-base transition-colors">Donate</a></li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div>
-        <h4 class="text-xs sm:text-sm font-semibold uppercase tracking-wider mb-3 sm:mb-4">Contact</h4>
-        <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-primary-200">
-          <li class="flex items-start gap-2">
-            <svg class="w-4 h-4 sm:w-5 sm:h-5 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span>{siteConfig.contact.address}</span>
-          </li>
+        <h4 class="text-base font-semibold mb-4">Contact</h4>
+        <ul class="space-y-2.5 text-base text-primary-200">
+          {siteConfig.contact.phone && (
+            <li>
+              <a href={`tel:${siteConfig.contact.phone}`} class="hover:text-white transition-colors">
+                {siteConfig.contact.phone}
+              </a>
+            </li>
+          )}
+          <li class="leading-relaxed">{siteConfig.contact.address}</li>
           {siteConfig.contact.email && (
-            <li class="flex items-center gap-2">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              <a href={`mailto:${siteConfig.contact.email}`} class="hover:text-white transition-colors break-all">
+            <li>
+              <a href={`mailto:${siteConfig.contact.email}`} class="hover:text-white transition-colors">
                 {siteConfig.contact.email}
               </a>
             </li>
           )}
         </ul>
-
+        
         <!-- Social Links -->
-        <div class="flex gap-3 sm:gap-4 mt-4 sm:mt-6">
+        <div class="flex gap-3 mt-5">
           {siteConfig.socialLinks.facebook && (
-            <a href={siteConfig.socialLinks.facebook} target="_blank" rel="noopener noreferrer" class="text-primary-200 hover:text-white transition-colors">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+            <a href={siteConfig.socialLinks.facebook} target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full border border-primary-600 flex items-center justify-center text-primary-200 hover:bg-primary-700 hover:text-white hover:border-primary-500 transition-all">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
               </svg>
             </a>
           )}
           {siteConfig.socialLinks.youtube && (
-            <a href={siteConfig.socialLinks.youtube} target="_blank" rel="noopener noreferrer" class="text-primary-200 hover:text-white transition-colors">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+            <a href={siteConfig.socialLinks.youtube} target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full border border-primary-600 flex items-center justify-center text-primary-200 hover:bg-primary-700 hover:text-white hover:border-primary-500 transition-all">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
             </a>
@@ -78,10 +79,13 @@ import { url } from '../utils/links';
         </div>
       </div>
     </div>
-
-    <div class="border-t border-primary-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center">
-      <p class="text-primary-300 text-xs sm:text-sm">
-        &copy; {new Date().getFullYear()} Prince William Islamic Center. All rights reserved.
+  </div>
+  
+  <!-- Bottom Bar -->
+  <div class="border-t border-primary-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+      <p class="text-primary-300 text-xs sm:text-sm text-center">
+        Prince William Islamic Center is a 501(c)(3) nonprofit organization | &copy; {new Date().getFullYear()} PWIC
       </p>
     </div>
   </div>
