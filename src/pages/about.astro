@@ -2,35 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import { url } from '../utils/links';
-
-// Board Members (placeholders - update with real info)
-const boardMembers = [
-  {
-    name: 'Board Member',
-    role: 'President',
-    placeholder: true
-  },
-  {
-    name: 'Board Member',
-    role: 'Vice President',
-    placeholder: true
-  },
-  {
-    name: 'Board Member',
-    role: 'Secretary',
-    placeholder: true
-  },
-  {
-    name: 'Board Member',
-    role: 'Treasurer',
-    placeholder: true
-  },
-  {
-    name: 'Board Member',
-    role: 'Member at Large',
-    placeholder: true
-  }
-];
 ---
 
 <Layout title="About Us">
@@ -41,21 +12,84 @@ const boardMembers = [
   />
 
   <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
       <!-- Our Story -->
       <div class="mb-16">
         <h2 class="text-3xl font-bold text-gray-800 font-heading mb-6">Our Story</h2>
-        <div class="prose prose-lg text-gray-600 max-w-none">
-          <p class="mb-4">
-            Prince William Islamic Center (PWIC) has been serving the Muslim community of 
-            Prince William County and surrounding areas for many years. What started as a 
-            small gathering of families has grown into a vibrant community center that 
-            serves hundreds of families.
-          </p>
-          <p class="mb-4">
-            Located in Manassas, Virginia, our masjid provides a welcoming environment for 
-            Muslims of all backgrounds to come together in worship, learning, and community.
-          </p>
+        <div class="flex flex-col lg:flex-row gap-8">
+          <!-- Image -->
+          <div class="lg:w-2/5 flex-shrink-0">
+            <div class="rounded-2xl overflow-hidden shadow-xl h-full">
+              <img 
+                src={url('/images/pwic-entrance.jpeg')} 
+                alt="Prince William Islamic Center" 
+                class="w-full h-64 lg:h-full object-cover"
+              />
+            </div>
+          </div>
+          <!-- Content -->
+          <div class="lg:w-3/5">
+            <div class="bg-primary-50 rounded-2xl p-6 sm:p-8 h-full flex items-center">
+              <p class="text-lg text-gray-700 leading-relaxed">
+                It is clear that the Prince William Islamic Center (PWIC), a nonprofit organization, has been a cornerstone of the Manassas community for nearly two decades. Building a space that balances spiritual growth with the goal of creating "responsible members of society" is no small feat—especially since the establishment in 2007.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Pillars -->
+      <div class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-800 font-heading mb-6">Core Pillars of PWIC</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 class="font-bold text-gray-800">Longevity & Trust</h3>
+            </div>
+            <p class="text-gray-600">Serving the Virginia Muslim community for 18+ years as a registered non-profit.</p>
+          </div>
+          
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 class="font-bold text-gray-800">Inclusivity</h3>
+            </div>
+            <p class="text-gray-600">A welcoming "open-door" policy for Muslims of all backgrounds, focusing on unity and communication.</p>
+          </div>
+          
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <h3 class="font-bold text-gray-800">Education-First</h3>
+            </div>
+            <p class="text-gray-600">A heavy emphasis on Islamic Education as a tool for personal and social development.</p>
+          </div>
+          
+          <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <h3 class="font-bold text-gray-800">Generational Focus</h3>
+            </div>
+            <p class="text-gray-600">Dedicated programs for children, youth, and adults to ensure the entire family has a path toward being a positive example in society.</p>
+          </div>
         </div>
       </div>
 
@@ -70,8 +104,7 @@ const boardMembers = [
           </div>
           <h2 class="text-2xl font-bold font-heading mb-4">Our Mission</h2>
           <p class="text-primary-100 leading-relaxed">
-            To connect our community to the masjid by providing religious, social, and education activities 
-            to build a Muslim identity that make them proactive and responsible members of society.
+            To connect our community to the masjid by providing religious, social, and education activities to build a Muslim identity that make them proactive and responsible members of society.
           </p>
         </div>
 
@@ -85,31 +118,9 @@ const boardMembers = [
           </div>
           <h2 class="text-2xl font-bold font-heading mb-4">Our Vision</h2>
           <p class="text-amber-100 leading-relaxed">
-            To be the best choice for Muslims, parents, and children in providing Islamic Education and history.
+            To be the best choice for muslims, parents, and children in providing Islamic Education and history.
           </p>
         </div>
-      </div>
-
-      <!-- Download About PDF -->
-      <div class="mb-10">
-        <a 
-          href={url('/documents/pwic-about.pdf')}
-          download
-          class="flex items-center gap-4 p-4 bg-primary-50 rounded-xl border border-primary-100 hover:border-primary-300 hover:shadow-md transition-all group"
-        >
-          <div class="flex-shrink-0 w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-          </div>
-          <div class="flex-grow">
-            <h4 class="font-bold text-gray-800 group-hover:text-primary-700">Download Our Full Information Packet</h4>
-            <p class="text-sm text-gray-600">Learn more about PWIC - our programs, services, and community</p>
-          </div>
-          <span class="px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold group-hover:bg-primary-700 transition-colors">
-            Download PDF
-          </span>
-        </a>
       </div>
 
       <!-- Our Goals -->
@@ -131,7 +142,7 @@ const boardMembers = [
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </div>
-            <p class="text-gray-700">Build a good Muslim identity to be a responsible and successful member of society.</p>
+            <p class="text-gray-700">Build a good muslim identity to be a responsible and successful member of society.</p>
           </div>
           
           <div class="flex items-start gap-4 bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
@@ -158,62 +169,32 @@ const boardMembers = [
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
               </svg>
             </div>
-            <p class="text-gray-700">Provide Mediation Services to solve community problems, disputes, disagreements, and divorce in a peaceful manner.</p>
+            <p class="text-gray-700">Provide Mediation Services to solve community problems, disputes, disagreemts and divorce in a peaceful manner.</p>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Board of Directors -->
-  <section class="py-16 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <span class="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-4">Leadership</span>
-        <h2 class="text-3xl font-bold text-gray-800 font-heading mb-4">Board of Directors</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">
-          Our dedicated board members volunteer their time and expertise to guide PWIC's mission and serve our community.
-        </p>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
-        {boardMembers.map((member, index) => (
-          <div class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all duration-300 text-center group">
-            <!-- Avatar Placeholder -->
-            <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-primary-100 to-primary-200 rounded-full flex items-center justify-center group-hover:from-primary-200 group-hover:to-primary-300 transition-colors">
-              <svg class="w-12 h-12 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </div>
-            
-            <!-- Role Badge -->
-            <span class={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3 ${
-              index === 0 ? 'bg-amber-100 text-amber-700' : 
-              index === 1 ? 'bg-primary-100 text-primary-700' : 
-              'bg-gray-100 text-gray-600'
-            }`}>
-              {member.role}
-            </span>
-            
-            <!-- Name Placeholder -->
-            <h3 class="font-bold text-gray-800 mb-1">
-              {member.placeholder ? (
-                <span class="text-gray-400 italic">Name TBD</span>
-              ) : (
-                member.name
-              )}
-            </h3>
-            
-            {member.placeholder && (
-              <p class="text-xs text-gray-400">Photo coming soon</p>
-            )}
+      <!-- Download About PDF -->
+      <div class="mb-10">
+        <a 
+          href={url('/documents/pwic-about.pdf')}
+          download
+          class="flex items-center gap-4 p-4 bg-primary-50 rounded-xl border border-primary-100 hover:border-primary-300 hover:shadow-md transition-all group"
+        >
+          <div class="flex-shrink-0 w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
           </div>
-        ))}
+          <div class="flex-grow">
+            <h4 class="font-bold text-gray-800 group-hover:text-primary-700">Download Our Full Information Packet</h4>
+            <p class="text-sm text-gray-600">Learn more about PWIC - our programs, services, and community</p>
+          </div>
+          <span class="px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold group-hover:bg-primary-700 transition-colors">
+            Download PDF
+          </span>
+        </a>
       </div>
-
-      <p class="text-center text-sm text-gray-500 mt-8">
-        Interested in getting involved? <a href={url('/contact')} class="text-primary-600 hover:underline font-medium">Contact us</a> to learn about volunteer opportunities.
-      </p>
     </div>
   </section>
 
@@ -231,15 +212,15 @@ const boardMembers = [
       <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         <div class="rounded-2xl overflow-hidden shadow-xl">
           <img 
-            src={url('/images/pwic-front-side.jpeg')} 
+            src={url('/images/US_VA_Manassas_PWIC.jpeg')} 
             alt="PWIC Building" 
             class="w-full h-64 md:h-72 object-cover hover:scale-105 transition-transform duration-500"
           />
         </div>
         <div class="rounded-2xl overflow-hidden shadow-xl">
           <img 
-            src={url('/images/pwic-inside.jpeg')} 
-            alt="PWIC Prayer Hall" 
+            src={url('/images/family-reading-quran.jpeg')} 
+            alt="Family reading Quran" 
             class="w-full h-64 md:h-72 object-cover hover:scale-105 transition-transform duration-500"
           />
         </div>

@@ -7,165 +7,151 @@ import { url } from '../../utils/links';
 <Layout title="Nikah (Marriage) Services">
   <SubPageHero 
     title="Nikah (Marriage)"
-    subtitle="Begin your journey together in the blessed way of Islam"
+    subtitle="Religious and Civil Marriage Services"
     parentTitle="Services"
     parentHref={url('/services')}
   />
 
   <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Featured Image -->
-      <div class="mb-10 rounded-2xl overflow-hidden shadow-xl">
-        <img 
-          src={url('/images/nikah-mosque-couple.jpeg')} 
-          alt="Muslim couple in mosque" 
-          class="w-full h-64 sm:h-80 object-cover"
-        />
-      </div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="prose prose-lg max-w-none">
-        <p class="text-xl text-gray-600 mb-8">
-          Marriage (Nikah) is one of the most important decisions in a Muslim's life. At PWIC, we are honored 
-          to help couples begin their journey together in accordance with Islamic traditions.
-        </p>
-
-        <div class="bg-primary-50 rounded-2xl p-8 mb-8">
-          <h2 class="text-2xl font-bold text-primary-800 mb-4">Our Nikah Services Include</h2>
-          <ul class="space-y-3 text-gray-700">
-            <li class="flex items-start gap-3">
-              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span>Pre-marital counseling and guidance</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span>Islamic marriage contract preparation</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span>Nikah ceremony conducted by our Imam</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span>Marriage certificate issuance</span>
-            </li>
-          </ul>
+      <!-- Introduction with Image - Side by Side -->
+      <div class="flex flex-col lg:flex-row gap-8 mb-10">
+        <!-- Image -->
+        <div class="lg:w-2/5 flex-shrink-0">
+          <div class="rounded-2xl overflow-hidden shadow-xl h-full">
+            <img 
+              src={url('/images/nikah-mosque-couple.jpeg')} 
+              alt="Muslim couple in mosque" 
+              class="w-full h-64 lg:h-full object-cover"
+            />
+          </div>
         </div>
-
-        <!-- Pricing -->
-        <div class="bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200 rounded-2xl p-8 mb-8">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-12 h-12 bg-amber-600 rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h2 class="text-2xl font-bold text-amber-800">Service Fees</h2>
-          </div>
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div class="bg-white rounded-xl p-5 border border-amber-200 shadow-sm">
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-semibold text-gray-800">Marriage in the Masjid</h3>
-                <span class="text-2xl font-bold text-primary-700">$300</span>
-              </div>
-              <p class="text-sm text-gray-600">الزواج بالمسجد</p>
-              <p class="text-xs text-gray-500 mt-2">Nikah ceremony conducted at PWIC</p>
-            </div>
-            <div class="bg-white rounded-xl p-5 border border-amber-200 shadow-sm">
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-semibold text-gray-800">Marriage Outside Masjid</h3>
-                <span class="text-2xl font-bold text-primary-700">$500</span>
-              </div>
-              <p class="text-sm text-gray-600">الزواج خارج المسجد</p>
-              <p class="text-xs text-gray-500 mt-2">Imam travels to your venue</p>
-            </div>
-          </div>
-          <p class="text-xs text-amber-700 mt-4 text-center">* Fees help support masjid operations and community services</p>
-        </div>
-
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Requirements</h2>
-        <div class="grid md:grid-cols-2 gap-6 mb-8">
-          <div class="bg-gray-50 rounded-xl p-6">
-            <h3 class="font-semibold text-gray-800 mb-3">Documentation Needed</h3>
-            <ul class="text-gray-600 space-y-2 text-sm">
-              <li>• Valid government-issued ID for both parties</li>
-              <li>• Marriage license from the state (if applicable)</li>
-              <li>• Proof of Islamic divorce (if previously married)</li>
-              <li>• Wali (guardian) information for the bride</li>
-            </ul>
-          </div>
-          <div class="bg-gray-50 rounded-xl p-6">
-            <h3 class="font-semibold text-gray-800 mb-3">Process</h3>
-            <ul class="text-gray-600 space-y-2 text-sm">
-              <li>• Schedule an appointment with the Imam</li>
-              <li>• Complete pre-marital counseling session</li>
-              <li>• Submit required documentation</li>
-              <li>• Schedule Nikah ceremony date</li>
-            </ul>
+        
+        <!-- Content -->
+        <div class="lg:w-3/5">
+          <div class="bg-primary-50 rounded-2xl p-6 sm:p-8 h-full flex flex-col justify-center">
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+              PWIC provides religious and civil marriage in the state of Virginia.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed m-0">
+              Congratulation to the bride and groom in taking this big step in getting married, 
+              may Allah bless both of you and make your marriage successful.
+            </p>
           </div>
         </div>
       </div>
 
-      <!-- Download Documents -->
-      <div class="bg-gray-50 rounded-2xl p-6 mb-8">
-        <h3 class="text-xl font-bold text-gray-800 mb-4">Download Documents</h3>
-        <div class="space-y-3">
-          <a 
-            href={url('/documents/marriage-application.pdf')}
-            download
-            class="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all group"
-          >
-            <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zm-2.5 9.5a.5.5 0 01.5.5v3h1.5a.5.5 0 010 1h-4a.5.5 0 010-1H10v-3a.5.5 0 01.5-.5z"/>
-              </svg>
-            </div>
-            <div class="flex-grow">
-              <h4 class="font-semibold text-gray-800 group-hover:text-primary-700">Marriage Application Form</h4>
-              <p class="text-sm text-gray-500">Required application form for Nikah ceremony</p>
-            </div>
-            <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-          </a>
-          <a 
-            href={url('/documents/nikah-marriage-services.pdf')}
-            download
-            class="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all group"
-          >
-            <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zm-2.5 9.5a.5.5 0 01.5.5v3h1.5a.5.5 0 010 1h-4a.5.5 0 010-1H10v-3a.5.5 0 01.5-.5z"/>
-              </svg>
-            </div>
-            <div class="flex-grow">
-              <h4 class="font-semibold text-gray-800 group-hover:text-primary-700">Nikah Services Information</h4>
-              <p class="text-sm text-gray-500">Complete guide to our marriage services</p>
-            </div>
-            <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-          </a>
+      <!-- Requirements -->
+      <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden mb-8">
+        <div class="bg-primary-700 px-6 py-4">
+          <h2 class="text-xl font-bold text-white">
+            Requirements for Religious and Civil Marriage
+          </h2>
         </div>
+        
+        <div class="p-6">
+          <ol class="space-y-4 text-gray-700">
+            <li class="flex gap-3">
+              <span class="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+              <span>Marriage Application</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+              <span>Driver License copies of bride, groom, guardian, and the two witnesses.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+              <span>Obtain the marriage license from your local VA county courthouse.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
+              <span>The stated Dowry agreed upon between the bride and groom including gold, engagement rings, money, and gifts.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="flex-shrink-0 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">5</span>
+              <span>Two Muslim men witnesses are required for Islamic Marriage to be complete.</span>
+            </li>
+          </ol>
+          
+          <!-- Fees -->
+          <div class="mt-6 pt-6 border-t border-gray-200">
+            <div class="flex gap-3 mb-4">
+              <span class="flex-shrink-0 w-6 h-6 bg-amber-600 text-white rounded-full flex items-center justify-center text-sm font-bold">6</span>
+              <span class="font-medium text-gray-800">PWIC marriage Fee as follows:</span>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4 ml-9">
+              <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
+                <p class="text-gray-600 text-sm mb-1">At the center</p>
+                <p class="text-2xl font-bold text-primary-700">$300</p>
+              </div>
+              <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
+                <p class="text-gray-600 text-sm mb-1">Outside the center</p>
+                <p class="text-2xl font-bold text-primary-700">$500</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Important Notice -->
+          <div class="mt-6 pt-6 border-t border-gray-200">
+            <div class="flex gap-3 bg-red-50 border border-red-200 rounded-xl p-4">
+              <svg class="flex-shrink-0 w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <span class="text-red-800">
+                <strong>Note:</strong> All paperwork must be submitted to PWIC at least three (3) weeks before the day of marriage <strong>(NO EXCEPTIONS)</strong>.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Application -->
+      <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Marriage Application</h3>
+        <a 
+          href={url('/documents/marriage-application.pdf')}
+          download
+          class="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all group"
+        >
+          <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4z"/>
+            </svg>
+          </div>
+          <div class="flex-grow">
+            <h4 class="font-semibold text-gray-800 group-hover:text-primary-700">Download Marriage Application (PDF)</h4>
+            <p class="text-sm text-gray-500">Complete and submit with required documents</p>
+          </div>
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+        </a>
       </div>
 
       <!-- Contact Card -->
-      <div class="bg-gradient-to-r from-primary-700 to-primary-600 rounded-2xl p-8 text-center text-white">
-        <h3 class="text-2xl font-bold mb-4">Ready to Schedule Your Nikah?</h3>
-        <p class="text-primary-100 mb-6">Contact us to schedule an appointment with our Imam.</p>
-        <a 
-          href={url('/contact')}
-          class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
-        >
-          Contact Us
-        </a>
+      <div class="bg-gradient-to-r from-primary-700 to-primary-600 rounded-2xl p-8 text-white">
+        <div class="text-center mb-6">
+          <h3 class="text-2xl font-bold mb-2">Prince William Islamic Center</h3>
+          <p class="text-primary-200">9002 Mathis Ave., Manassas, Virginia 20110</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="tel:703-330-3556"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            (703) 330-3556
+          </a>
+          <a 
+            href={url('/contact')}
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 border border-primary-400 text-white rounded-xl font-semibold hover:bg-primary-500 transition-colors"
+          >
+            Contact Us
+          </a>
+        </div>
       </div>
     </div>
   </section>

@@ -117,10 +117,8 @@ pwic/
 ### Education (Weekend School)
 | Page | URL | Description |
 |------|-----|-------------|
-| Overview | `/education` | About the weekend school program |
-| Schedule | `/education/schedule` | Class times (Sat & Sun) |
-| Fees | `/education/fees` | Tuition info & financial assistance |
-| Registration | `/education/registration` | Enrollment with downloadable form |
+| Weekend School | `/education` | About the school, tuition & fees, schedule |
+| Registration | `/education/registration` | Enrollment & financial assistance forms |
 
 ### Services
 | Page | URL | Description |

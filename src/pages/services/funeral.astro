@@ -13,129 +13,168 @@ import { url } from '../../utils/links';
   />
 
   <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Featured Images -->
-      <div class="mb-10 grid md:grid-cols-2 gap-4">
-        <div class="rounded-2xl overflow-hidden shadow-xl">
-          <img 
-            src={url('/images/funeral-service.jpeg')} 
-            alt="Funeral services" 
-            class="w-full h-64 object-cover"
-          />
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Quranic Verse -->
+      <div class="bg-primary-50 rounded-2xl p-6 sm:p-8 mb-10 text-center">
+        <p class="text-2xl sm:text-3xl text-primary-800 font-arabic leading-relaxed mb-4" dir="rtl">
+          كُلُّ نَفۡسٍ ذَآئِقَةُ الۡمَوۡتِ ۗ وَإِنَّمَا تُوَفَّوۡنَ أُجُورَكُمۡ يَوۡمَ الۡقِيَٰمَةِ ۖ فَمَن زُحۡزِحَ عَنِ النَّارِ وَأُدۡخِلَ الۡجَنَّةَ فَقَدۡ فَازَ ۗ وَمَا الۡحَيَوٰةُ الدُّنۡيَآ إِلَّا مَتَٰعُ الۡغُرُورِ
+        </p>
+        <p class="text-gray-600 italic">
+          "Every soul will taste death. And you will only be given your full reward on the Day of Resurrection. 
+          Whoever is kept away from the Fire and admitted to Paradise has truly triumphed. 
+          The life of this world is only the enjoyment of delusion."
+        </p>
+        <p class="text-primary-600 font-semibold mt-2">— Surah Al-Imran (3:185)</p>
+      </div>
+
+      <!-- Introduction with Image - Side by Side -->
+      <div class="flex flex-col lg:flex-row gap-8 mb-10">
+        <!-- Image -->
+        <div class="lg:w-2/5 flex-shrink-0">
+          <div class="rounded-2xl overflow-hidden shadow-xl h-full">
+            <img 
+              src={url('/images/funeral-service.jpeg')} 
+              alt="Funeral services" 
+              class="w-full h-64 lg:h-full object-cover"
+            />
+          </div>
         </div>
-        <div class="rounded-2xl overflow-hidden shadow-xl">
-          <img 
-            src={url('/images/islamic-cemetery.jpeg')} 
-            alt="Islamic cemetery" 
-            class="w-full h-64 object-cover"
-          />
+        
+        <!-- Content -->
+        <div class="lg:w-3/5">
+          <div class="bg-gray-50 rounded-2xl p-6 sm:p-8 h-full flex flex-col justify-center">
+            <p class="text-lg text-gray-700 leading-relaxed">
+              PWIC is always open to host <strong>Salat Al-Janazah</strong> prayer and encourage all Muslims to attend for more blessing to the deceased brother or sister.
+            </p>
+            <p class="text-gray-600 mt-4">
+              The following information is provided to facilitate the process.
+            </p>
+          </div>
         </div>
       </div>
-      
-      <div class="prose prose-lg max-w-none">
-        <p class="text-xl text-gray-600 mb-8">
-          During difficult times of loss, PWIC is here to support our community. We provide complete 
-          Islamic funeral services (Janazah) to ensure our loved ones are honored according to Islamic traditions.
-        </p>
 
-        <div class="bg-primary-50 rounded-2xl p-8 mb-8">
-          <h2 class="text-2xl font-bold text-primary-800 mb-6">Our Funeral Services Include</h2>
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800">Ghusl (Ritual Washing)</h3>
-                <p class="text-gray-600 text-sm">Performed by trained volunteers of the same gender as the deceased.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800">Kafan (Shrouding)</h3>
-                <p class="text-gray-600 text-sm">White burial shroud prepared according to Islamic tradition.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800">Salat al-Janazah</h3>
-                <p class="text-gray-600 text-sm">Funeral prayer led by our Imam at the masjid.</p>
+      <!-- Funeral Services & Cemeteries -->
+      <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden mb-8">
+        <div class="bg-primary-700 px-6 py-4">
+          <h2 class="text-xl font-bold text-white">
+            Muslim Cemeteries & Funeral Services
+          </h2>
+        </div>
+        
+        <div class="p-6">
+          <div class="grid gap-4">
+            <!-- AMAA Old Cemetery -->
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <div>
+                  <h3 class="font-bold text-gray-800">AMAA / Stafford (Funeral Cemetery for Muslims)</h3>
+                  <p class="text-sm text-gray-500">Old Cemetery</p>
+                  <p class="text-gray-600 mt-1">1112 Brock Road, Stafford VA 22405</p>
+                </div>
+                <a href="tel:703-717-1850" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors text-sm whitespace-nowrap">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  (703) 717-1850
+                </a>
               </div>
             </div>
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
+
+            <!-- AMAA New Cemetery -->
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <div>
+                  <h3 class="font-bold text-gray-800">AMAA Muslim Cemetery</h3>
+                  <p class="text-sm text-gray-500">New Cemetery</p>
+                  <p class="text-gray-600 mt-1">1508 Garrisonville Road, Stafford VA 22556</p>
+                </div>
+                <a href="tel:703-822-3372" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors text-sm whitespace-nowrap">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  (703) 822-3372
+                </a>
               </div>
-              <div>
-                <h3 class="font-semibold text-gray-800">Burial Assistance</h3>
-                <p class="text-gray-600 text-sm">Coordination with Islamic cemeteries and burial procedures.</p>
+            </div>
+
+            <!-- Stonewall Memory Gardens -->
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <div>
+                  <h3 class="font-bold text-gray-800">Stonewall Memory Gardens</h3>
+                  <p class="text-gray-600 mt-1">12004 Lee Hwy, Manassas VA 20109</p>
+                </div>
+                <a href="tel:703-754-4210" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors text-sm whitespace-nowrap">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  (703) 754-4210
+                </a>
+              </div>
+            </div>
+
+            <!-- Alfirdaus -->
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <div>
+                  <h3 class="font-bold text-gray-800">Alfirdaus Janazah Services LLC</h3>
+                  <p class="text-gray-600 mt-1">10580 Main Street, Fairfax VA 22030</p>
+                </div>
+                <a href="tel:703-927-6917" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors text-sm whitespace-nowrap">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  (703) 927-6917
+                </a>
+              </div>
+            </div>
+
+            <!-- Janazah Services -->
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <div>
+                  <h3 class="font-bold text-gray-800">Janazah Services</h3>
+                  <p class="text-gray-600 mt-1">14640 Flint Lee Rd, Chantilly VA 20151</p>
+                </div>
+                <a href="tel:703-263-1683" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors text-sm whitespace-nowrap">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  (703) 263-1683
+                </a>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="bg-red-50 border border-red-200 rounded-2xl p-6 mb-8">
-          <div class="flex items-start gap-4">
-            <svg class="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <div>
-              <h3 class="font-semibold text-red-800 mb-2">In Case of Death</h3>
-              <p class="text-red-700 text-sm">
-                Please contact us immediately. Islamic tradition encourages swift burial, 
-                ideally within 24 hours. Our team is available to assist you through this process.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">What Families Should Know</h2>
-        <ul class="space-y-3 text-gray-600 mb-8">
-          <li class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Contact the masjid as soon as possible after death occurs</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>We can coordinate with funeral homes that accommodate Islamic practices</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Our volunteers are trained and available to help with the process</span>
-          </li>
-        </ul>
       </div>
 
       <!-- Contact Card -->
-      <div class="bg-gradient-to-r from-primary-700 to-primary-600 rounded-2xl p-8 text-center text-white">
-        <h3 class="text-2xl font-bold mb-4">Need Immediate Assistance?</h3>
-        <p class="text-primary-100 mb-6">Contact us right away for funeral services.</p>
-        <a 
-          href={url('/contact')}
-          class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
-        >
-          Contact Us Now
-        </a>
+      <div class="bg-gradient-to-r from-primary-700 to-primary-600 rounded-2xl p-8 text-white">
+        <div class="text-center mb-6">
+          <h3 class="text-2xl font-bold mb-2">Prince William Islamic Center</h3>
+          <p class="text-primary-200">9002 Mathis Ave., Manassas, Virginia 20110</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="tel:703-330-3556"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            (703) 330-3556
+          </a>
+          <a 
+            href="tel:703-898-0204"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 border border-primary-400 text-white rounded-xl font-semibold hover:bg-primary-500 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            (703) 898-0204
+          </a>
+        </div>
       </div>
     </div>
   </section>
