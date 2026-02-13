@@ -5,13 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  // GitHub Pages configuration
-  // Uncomment for custom domain:
-  // site: 'https://pwicva.org',
-  
-  // For GitHub Pages without custom domain:
-  site: 'https://zouhir-dahbi.github.io',
-  base: '/pwic',
+  // Custom domain configuration
+  site: 'https://pwicva.org',
   
   vite: {
     plugins: [tailwindcss()]
