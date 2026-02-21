@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWIC Daily Sadaqah — 18×24 Vertical Plaque</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @page { size: 18in 24in; margin: 0; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; min-height: 100%; }
+        body {
+            background: #d4d4d4;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 24px 24px 60px;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .print-banner {
+            background: #1e293b; color: #cbd5e1; padding: 16px 24px;
+            border-radius: 10px; margin-bottom: 24px; max-width: 18in; width: 100%;
+            font-size: 13px; line-height: 1.7;
+        }
+        .print-banner strong { color: #93c5fd; }
+        .print-banner code { background: rgba(255,255,255,0.1); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+        .print-banner .nfc-note { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); color: #94a3b8; font-size: 12px; }
+        .print-banner .nfc-note strong { color: #fbbf24; }
+
+        .plaque {
+            width: 18in; height: 24in; background: #ffffff;
+            box-shadow: 0 30px 90px rgba(0,0,0,0.12), 0 8px 32px rgba(0,0,0,0.06);
+            display: flex; flex-direction: column; align-items: center;
+            position: relative; overflow: hidden; flex-shrink: 0;
+        }
+
+        /* ---- HEADER ---- */
+        .plaque-header {
+            width: 100%;
+            background: linear-gradient(180deg, #0F5132 0%, #0b4228 100%);
+            display: flex; flex-direction: row; align-items: center; justify-content: center;
+            gap: 0.8in; padding: 0.5in 1in;
+        }
+        .header-brand { display: flex; flex-direction: column; align-items: center; }
+        .logo-img { height: 2in; width: auto; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.25)); }
+        .org-name {
+            font-family: 'Inter', sans-serif; font-weight: 500; font-size: 11pt;
+            color: rgba(255,255,255,0.6); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 0.05in;
+        }
+        .header-divider { width: 1px; height: 1.8in; background: linear-gradient(180deg, transparent, rgba(176,141,87,0.45), transparent); flex-shrink: 0; }
+        .header-qr { display: flex; flex-direction: column; align-items: center; }
+        .header-qr-box {
+            width: 2.1in; height: 2.1in; background: #fff; border-radius: 14px;
+            padding: 0.1in; position: relative; display: flex; align-items: center; justify-content: center;
+        }
+        .header-qr-box .qr-img { width: 100%; height: 100%; display: block; }
+        .header-qr-box .qr-logo {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+            width: 0.55in; height: 0.55in; background: #fff; border-radius: 9px;
+            display: flex; align-items: center; justify-content: center; padding: 2px;
+        }
+        .header-qr-box .qr-logo-inner {
+            width: 100%; height: 100%; background: #0F5132; border-radius: 7px;
+            display: flex; align-items: center; justify-content: center; padding: 0.04in;
+        }
+        .header-qr-box .qr-logo-inner img { width: 100%; height: 100%; object-fit: contain; }
+        .header-qr-label {
+            font-family: 'Inter', sans-serif; font-size: 11pt; font-weight: 600;
+            color: rgba(255,255,255,0.75); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.08in;
+        }
+
+        /* ---- BODY ---- */
+        .plaque-body {
+            flex: 1; width: 100%; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 0 1in; gap: 0.32in;
+        }
+        .gold-line { width: 3in; height: 1px; background: linear-gradient(90deg, transparent, #B08D57, transparent); flex-shrink: 0; }
+        .gold-line.wider { width: 5in; }
+
+        .hadith-section { text-align: center; }
+        .hadith-arabic {
+            font-family: 'Amiri', serif; font-size: 32pt; font-weight: 700;
+            color: #0F5132; line-height: 1.55; direction: rtl; margin-bottom: 0.1in;
+        }
+        .hadith-english { font-family: 'Inter', sans-serif; font-size: 14pt; font-weight: 300; color: #6b7280; line-height: 1.7; font-style: italic; }
+        .hadith-source { display: block; font-style: normal; font-weight: 500; color: #9ca3af; font-size: 11pt; margin-top: 0.04in; letter-spacing: 0.02em; }
+
+        .cta-section { text-align: center; }
+        .cta-heading { font-family: 'Inter', sans-serif; font-size: 36pt; font-weight: 800; color: #0F5132; letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 0.04in; }
+        .cta-subtitle { font-family: 'Inter', sans-serif; font-size: 14pt; font-weight: 400; color: #9ca3af; letter-spacing: 0.04em; }
+
+        .how-to { display: flex; align-items: center; justify-content: center; gap: 0.14in; }
+        .how-to .step { display: flex; align-items: center; gap: 5px; font-family: 'Inter', sans-serif; font-size: 10pt; font-weight: 400; color: #9ca3af; }
+        .how-to .step-num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: #0F5132; color: #fff; font-size: 9pt; font-weight: 700; flex-shrink: 0; }
+        .how-to .step-arrow { color: #d1d5db; font-size: 12pt; margin: 0 0.03in; }
+
+        .wallet-badge { display: flex; align-items: center; justify-content: center; gap: 0.1in; font-family: 'Inter', sans-serif; font-size: 10pt; color: #9ca3af; letter-spacing: 0.03em; }
+        .wallet-badge .wallet-icon { display: inline-flex; align-items: center; justify-content: center; background: #f3f4f6; border-radius: 6px; padding: 4px 10px; font-weight: 600; font-size: 9pt; color: #6b7280; }
+
+        /* ---- NFC CIRCLES ---- */
+        .nfc-column { display: flex; flex-direction: column; align-items: center; gap: 0.6in; }
+        .nfc-tap {
+            width: 2.3in; height: 2.3in; border-radius: 50%;
+            background: radial-gradient(circle at 38% 32%, rgba(255,255,255,0.18) 0%, transparent 45%), linear-gradient(155deg, #1a8a55 0%, #0F5132 35%, #0a3f2a 70%, #072e1e 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.28), 0 4px 10px rgba(0,0,0,0.18), 0 0 0 5px rgba(15,81,50,0.06), 0 0 0 11px rgba(15,81,50,0.025), inset 0 2px 5px rgba(255,255,255,0.12), inset 0 -4px 10px rgba(0,0,0,0.25);
+        }
+        .nfc-tap .tap-amount { font-family: 'Inter', sans-serif; font-size: 32pt; font-weight: 800; color: #fff; line-height: 1; }
+        .nfc-tap .tap-nfc-icon { width: 52px; height: 42px; opacity: 0.65; margin-top: 8px; }
+        .nfc-tap.custom-tap {
+            background: radial-gradient(circle at 38% 32%, rgba(255,255,255,0.15) 0%, transparent 45%), linear-gradient(155deg, #22915c 0%, #1a6b42 35%, #12573a 70%, #0e4530 100%);
+            border: 2.5px dashed rgba(255,255,255,0.22);
+        }
+        .nfc-tap.custom-tap .tap-amount { font-size: 16pt; font-weight: 700; letter-spacing: 0.05em; text-align: center; line-height: 1.35; }
+        .nfc-hint { font-family: 'Inter', sans-serif; font-size: 10pt; font-weight: 400; color: #b0b0b0; letter-spacing: 0.03em; margin-top: 0.08in; }
+
+        /* ---- FOOTER ---- */
+        .plaque-footer { text-align: center; padding-bottom: 0.25in; }
+        .footer-url { font-family: 'Inter', sans-serif; font-size: 18pt; font-weight: 700; color: #0F5132; letter-spacing: 0.04em; margin-bottom: 0.05in; }
+        .footer-methods { font-family: 'Inter', sans-serif; font-size: 10pt; font-weight: 400; color: #b0b0b0; letter-spacing: 0.05em; }
+        .footer-methods .dot { display: inline-block; margin: 0 6px; color: #d1d5db; }
+        .tax-note { font-family: 'Inter', sans-serif; font-size: 8.5pt; font-weight: 400; color: #c4c4c4; letter-spacing: 0.02em; margin-top: 0.03in; }
+        .bottom-bar { width: 100%; height: 6px; background: linear-gradient(90deg, #0F5132, #1a7a50, #0F5132); flex-shrink: 0; }
+
+        /* ---- SCREEN ---- */
+        @media screen {
+            .nfc-tap { animation: nfc-pulse 2.8s ease-in-out infinite; }
+            .nfc-tap:nth-child(2) { animation-delay: 0.35s; }
+            .nfc-tap:nth-child(3) { animation-delay: 0.7s; }
+            .nfc-tap:nth-child(4) { animation-delay: 1.05s; }
+            @keyframes nfc-pulse {
+                0%, 100% { box-shadow: 0 10px 25px rgba(0,0,0,0.28), 0 4px 10px rgba(0,0,0,0.18), 0 0 0 5px rgba(15,81,50,0.06), 0 0 0 11px rgba(15,81,50,0.025), inset 0 2px 5px rgba(255,255,255,0.12), inset 0 -4px 10px rgba(0,0,0,0.25); }
+                50% { box-shadow: 0 12px 32px rgba(0,0,0,0.32), 0 5px 14px rgba(0,0,0,0.2), 0 0 0 7px rgba(15,81,50,0.1), 0 0 0 15px rgba(15,81,50,0.04), inset 0 2px 5px rgba(255,255,255,0.12), inset 0 -4px 10px rgba(0,0,0,0.25); }
+            }
+        }
+        @media screen and (max-width: 900px) { .plaque { transform: scale(0.35); transform-origin: top center; } body { padding-bottom: 20px; } }
+        @media screen and (min-width: 901px) and (max-width: 1400px) { .plaque { transform: scale(0.5); transform-origin: top center; } }
+        @media screen and (min-width: 1401px) and (max-width: 1900px) { .plaque { transform: scale(0.65); transform-origin: top center; } }
+
+        /* ---- PRINT ---- */
+        @media print {
+            body { background: none; padding: 0; margin: 0; }
+            .plaque { box-shadow: none; width: 100%; height: 100%; }
+            .print-banner { display: none !important; }
+            .nfc-tap, .nfc-tap.custom-tap, .plaque-header, .bottom-bar, .header-qr-box .qr-logo-inner, .how-to .step-num, .wallet-badge .wallet-icon { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-banner">
+        <strong>Vertical 18×24 Acrylic Sign</strong> —
+        <code>File → Print</code> → Paper: <strong>18×24</strong>, Margins: <strong>None</strong>, check <strong>Background Graphics</strong>. Save as PDF.
+        <div class="nfc-note">
+            <strong>NFC Tag Placement:</strong> Stick NTAG213 tags on the <strong>back</strong> of the acrylic, centered behind each green circle. Acrylic up to 6mm thick is fine.
+            Program: $10 → <code>pwicva.org/give?amount=10</code>, $20 → <code>?amount=20</code>, $50 → <code>?amount=50</code>, Custom → <code>pwicva.org/give</code>.
+        </div>
+    </div>
+
+    <div class="plaque">
+        <div class="plaque-header">
+            <div class="header-brand">
+                <img class="logo-img" src="images/pwic-logo-square.png" alt="PWIC">
+                <p class="org-name">Supporting Our Masjid Together</p>
+            </div>
+            <div class="header-divider"></div>
+            <div class="header-qr">
+                <div class="header-qr-box">
+                    <img class="qr-img" src="images/qr-give.svg" alt="Scan to donate">
+                    <div class="qr-logo"><div class="qr-logo-inner"><img src="images/pwic-logo-square.png" alt="PWIC"></div></div>
+                </div>
+                <p class="header-qr-label">Scan to Donate</p>
+            </div>
+        </div>
+
+        <div class="plaque-body">
+            <div class="gold-line wider"></div>
+            <div class="hadith-section">
+                <p class="hadith-arabic">قال رسول الله ﷺ<br>«ما نقصت صدقة من مال»</p>
+                <p class="hadith-english">The Prophet ﷺ said:<br>"Charity does not decrease wealth."<span class="hadith-source">— Sahih Muslim</span></p>
+            </div>
+            <div class="gold-line"></div>
+            <div class="cta-section">
+                <h1 class="cta-heading">Give Your Daily Sadaqah</h1>
+                <p class="cta-subtitle">Tap your phone on any circle below</p>
+            </div>
+            <div class="how-to">
+                <div class="step"><span class="step-num">1</span> Hold phone near circle</div>
+                <span class="step-arrow">&rarr;</span>
+                <div class="step"><span class="step-num">2</span> Confirm payment</div>
+                <span class="step-arrow">&rarr;</span>
+                <div class="step"><span class="step-num">3</span> Done!</div>
+            </div>
+            <div class="wallet-badge">Works with <span class="wallet-icon">Apple Pay</span> <span class="wallet-icon">Google Pay</span> &amp; all cards</div>
+
+            <div class="nfc-column">
+                <div class="nfc-tap"><span class="tap-amount">$10</span><svg class="tap-nfc-icon" viewBox="0 0 40 32" fill="none"><path d="M14.5 21.5c-1.8-2.2-1.8-6.3 0-8.5" stroke="white" stroke-width="1.7" stroke-linecap="round"/><path d="M10.5 24.5c-3.2-3.8-3.2-10.2 0-14" stroke="white" stroke-width="1.7" stroke-linecap="round"/><rect x="19" y="5" width="15" height="22" rx="2.5" stroke="white" stroke-width="1.7"/><path d="M26.5 12v8" stroke="white" stroke-width="1.3" stroke-linecap="round"/><path d="M24 14c0-1 1.1-1.5 2.5-1.5s2.5.6 2.5 1.5-1.1 1.2-2.5 1.5-2.5.6-2.5 1.5 1.1 1.5 2.5 1.5 2.5-.5 2.5-1.5" stroke="white" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div>
+                <div class="nfc-tap"><span class="tap-amount">$20</span><svg class="tap-nfc-icon" viewBox="0 0 40 32" fill="none"><path d="M14.5 21.5c-1.8-2.2-1.8-6.3 0-8.5" stroke="white" stroke-width="1.7" stroke-linecap="round"/><path d="M10.5 24.5c-3.2-3.8-3.2-10.2 0-14" stroke="white" stroke-width="1.7" stroke-linecap="round"/><rect x="19" y="5" width="15" height="22" rx="2.5" stroke="white" stroke-width="1.7"/><path d="M26.5 12v8" stroke="white" stroke-width="1.3" stroke-linecap="round"/><path d="M24 14c0-1 1.1-1.5 2.5-1.5s2.5.6 2.5 1.5-1.1 1.2-2.5 1.5-2.5.6-2.5 1.5 1.1 1.5 2.5 1.5 2.5-.5 2.5-1.5" stroke="white" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div>
+                <div class="nfc-tap"><span class="tap-amount">$50</span><svg class="tap-nfc-icon" viewBox="0 0 40 32" fill="none"><path d="M14.5 21.5c-1.8-2.2-1.8-6.3 0-8.5" stroke="white" stroke-width="1.7" stroke-linecap="round"/><path d="M10.5 24.5c-3.2-3.8-3.2-10.2 0-14" stroke="white" stroke-width="1.7" stroke-linecap="round"/><rect x="19" y="5" width="15" height="22" rx="2.5" stroke="white" stroke-width="1.7"/><path d="M26.5 12v8" stroke="white" stroke-width="1.3" stroke-linecap="round"/><path d="M24 14c0-1 1.1-1.5 2.5-1.5s2.5.6 2.5 1.5-1.1 1.2-2.5 1.5-2.5.6-2.5 1.5 1.1 1.5 2.5 1.5 2.5-.5 2.5-1.5" stroke="white" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div>
+                <div class="nfc-tap custom-tap"><span class="tap-amount">Custom<br>Amount</span><svg class="tap-nfc-icon" viewBox="0 0 40 32" fill="none"><path d="M14.5 21.5c-1.8-2.2-1.8-6.3 0-8.5" stroke="white" stroke-width="1.7" stroke-linecap="round"/><path d="M10.5 24.5c-3.2-3.8-3.2-10.2 0-14" stroke="white" stroke-width="1.7" stroke-linecap="round"/><rect x="19" y="5" width="15" height="22" rx="2.5" stroke="white" stroke-width="1.7"/><path d="M26.5 12v8" stroke="white" stroke-width="1.3" stroke-linecap="round"/><path d="M24 14c0-1 1.1-1.5 2.5-1.5s2.5.6 2.5 1.5-1.1 1.2-2.5 1.5-2.5.6-2.5 1.5 1.1 1.5 2.5 1.5 2.5-.5 2.5-1.5" stroke="white" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg></div>
+            </div>
+            <p class="nfc-hint">Hold your phone over any circle to donate instantly</p>
+        </div>
+
+        <div class="plaque-footer">
+            <p class="footer-url">pwicva.org/give</p>
+            <p class="footer-methods">Secure<span class="dot">·</span>Apple Pay<span class="dot">·</span>Google Pay<span class="dot">·</span>Credit / Debit</p>
+            <p class="tax-note">Tax-deductible · PWIC is a registered 501(c)(3) nonprofit</p>
+        </div>
+        <div class="bottom-bar"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+---
+/**
+ * /give → Stripe payment link (used by NFC tags, QR codes, donation plaque)
+ * 
+ * Supports ?amount=10, ?amount=20, ?amount=50 query params
+ * Falls back to /donate if no Stripe link is configured
+ */
+import siteConfig from '../data/site-config.json';
+
+const stripeLink = siteConfig.donation.stripeLink;
+const amount = Astro.url.searchParams.get('amount');
+
+if (stripeLink) {
+  const separator = stripeLink.includes('?') ? '&' : '?';
+  const destination = amount 
+    ? `${stripeLink}${separator}prefilled_amount=${amount}00`
+    : stripeLink;
+  return Astro.redirect(destination, 302);
+}
+
+return Astro.redirect('/donate', 302);
+---

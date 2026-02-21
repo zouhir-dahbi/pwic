@@ -4,11 +4,11 @@ import Hero from '../components/Hero.astro';
 import siteConfig from '../data/site-config.json';
 import { url } from '../utils/links';
 
-const zeffyFormUrl = siteConfig.donation.zeffyFormUrl;
-const zeffyEmbedUrl = siteConfig.donation.zeffyEmbedUrl;
+const stripeLink = siteConfig.donation.stripeLink;
 const zelleEmail = siteConfig.donation.zelleEmail;
-const hasZeffy = zeffyFormUrl && zeffyFormUrl.length > 0;
-const hasZeffyEmbed = zeffyEmbedUrl && zeffyEmbedUrl.length > 0;
+const presetAmounts = siteConfig.donation.presetAmounts || [10, 20, 50];
+const hasStripe = stripeLink && stripeLink.length > 0;
+const giveUrl = url('/give');
 ---
 
 <Layout title="Donate">
@@ -31,86 +31,73 @@ const hasZeffyEmbed = zeffyEmbedUrl && zeffyEmbedUrl.length > 0;
         </div>
       </div>
 
-      {hasZeffyEmbed ? (
-        <!-- Zeffy Embedded Form -->
-        <div class="max-w-3xl mx-auto mb-12">
-          <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 p-4">
-            <iframe 
-              src={zeffyEmbedUrl}
-              style="width: 100%; min-height: 600px; border: 0;"
-              title="Donate to PWIC"
-              loading="lazy"
-            />
-          </div>
-          <p class="text-center text-sm text-gray-500 mt-4">
-            Secure donation powered by <a href="https://zeffy.com" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">Zeffy</a> — 100% of your donation goes to PWIC
-          </p>
-        </div>
-      ) : (
-        <!-- Donation Options Grid -->
-        <div class="grid md:grid-cols-2 gap-6 mb-12">
-          <!-- Zeffy Donation -->
-          <div class="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            <div class="relative">
-              <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              <h3 class="text-2xl font-bold mb-2">Donate Online</h3>
-              <p class="text-white/80 mb-6">
-                100% of your donation goes to PWIC. Zeffy charges no fees!
-              </p>
-              <div class="flex flex-col gap-3">
-                {hasZeffy ? (
-                  <a 
-                    href={zeffyFormUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center px-6 py-4 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-colors shadow-lg"
-                  >
-                    Donate with Zeffy
-                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
-                ) : (
-                  <div class="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center">
-                    <p class="text-white/90 text-sm">Online donation coming soon!</p>
-                    <p class="text-white/70 text-xs mt-1">Please use Zelle or visit the masjid</p>
-                  </div>
-                )}
-              </div>
-              <p class="text-xs text-white/60 mt-4">Powered by Zeffy — Free for nonprofits</p>
-            </div>
-          </div>
-
-          <!-- Zelle -->
-          <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-            <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
-              <svg class="w-8 h-8 text-purple-600" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M13.559 24h-2.841a.483.483 0 0 1-.483-.483v-5.769c-3.771-.17-6.235-1.26-6.235-3.596V6.178L.205 1.682A.483.483 0 0 1 .483 0h10.233c3.64 0 6.086 2.16 6.086 5.38 0 2.37-1.254 4.164-3.255 4.748v.06c2.625.47 4.248 2.468 4.248 5.074 0 3.9-2.974 6.354-7.657 6.697v1.558a.483.483 0 0 1-.483.483h-.096zM4.517 14.152c0 1.347 1.903 1.97 5.718 2.08V9.977c-3.815.109-5.718.732-5.718 2.08v2.095zm7.406 2.092c3.136-.12 4.872-1.272 4.872-3.015 0-1.744-1.736-2.896-4.872-3.016v6.031zm0-8.107c2.672-.12 4.159-1.117 4.159-2.757 0-1.64-1.487-2.636-4.159-2.756v5.513z"/>
+      <!-- Donation Options Grid -->
+      <div class="grid md:grid-cols-2 gap-6 mb-12">
+        <!-- Online Donation (Stripe) -->
+        <div class="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+          <div class="relative">
+            <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-gray-800 font-heading mb-2">Zelle</h3>
-            <p class="text-gray-600 mb-6">
-              Send directly from your bank app. Zero fees for you and PWIC.
+            <h3 class="text-2xl font-bold mb-2">Give Your Sadaqah</h3>
+            <p class="text-white/80 mb-6">
+              Choose an amount below. Secure payment via Stripe.
             </p>
-            {zelleEmail ? (
-              <div class="bg-purple-50 rounded-xl p-4">
-                <p class="text-xs text-purple-600 mb-1 uppercase tracking-wide font-medium">Send to:</p>
-                <p class="text-lg font-bold text-purple-800 break-all">{zelleEmail}</p>
-              </div>
-            ) : (
-              <div class="bg-gray-50 rounded-xl p-4 text-center">
-                <p class="text-sm text-gray-500">Contact us for Zelle information</p>
-              </div>
-            )}
-            <p class="text-xs text-gray-500 mt-4">Available in most US bank apps</p>
+
+            <!-- Preset Amount Buttons -->
+            <div class="grid grid-cols-3 gap-3 mb-4">
+              {presetAmounts.map((amount: number) => (
+                <a
+                  href={`${giveUrl}?amount=${amount}`}
+                  class="flex items-center justify-center py-3.5 bg-white text-primary-700 rounded-xl font-bold text-lg hover:bg-primary-50 transition-colors shadow-md"
+                >
+                  ${amount}
+                </a>
+              ))}
+            </div>
+
+            <!-- Custom Amount Button -->
+            <a
+              href={giveUrl}
+              class="flex items-center justify-center w-full py-3.5 bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 rounded-xl font-semibold hover:bg-white/30 transition-colors"
+            >
+              Custom Amount
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+
+            <p class="text-xs text-white/50 mt-4 text-center">Apple Pay · Google Pay · Credit / Debit</p>
           </div>
         </div>
-      )}
+
+        <!-- Zelle -->
+        <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-purple-600" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M13.559 24h-2.841a.483.483 0 0 1-.483-.483v-5.769c-3.771-.17-6.235-1.26-6.235-3.596V6.178L.205 1.682A.483.483 0 0 1 .483 0h10.233c3.64 0 6.086 2.16 6.086 5.38 0 2.37-1.254 4.164-3.255 4.748v.06c2.625.47 4.248 2.468 4.248 5.074 0 3.9-2.974 6.354-7.657 6.697v1.558a.483.483 0 0 1-.483.483h-.096zM4.517 14.152c0 1.347 1.903 1.97 5.718 2.08V9.977c-3.815.109-5.718.732-5.718 2.08v2.095zm7.406 2.092c3.136-.12 4.872-1.272 4.872-3.015 0-1.744-1.736-2.896-4.872-3.016v6.031zm0-8.107c2.672-.12 4.159-1.117 4.159-2.757 0-1.64-1.487-2.636-4.159-2.756v5.513z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 font-heading mb-2">Zelle</h3>
+          <p class="text-gray-600 mb-6">
+            Send directly from your bank app. Zero fees for you and PWIC.
+          </p>
+          {zelleEmail ? (
+            <div class="bg-purple-50 rounded-xl p-4">
+              <p class="text-xs text-purple-600 mb-1 uppercase tracking-wide font-medium">Send to:</p>
+              <p class="text-lg font-bold text-purple-800 break-all">{zelleEmail}</p>
+            </div>
+          ) : (
+            <div class="bg-gray-50 rounded-xl p-4 text-center">
+              <p class="text-sm text-gray-500 font-semibold">Coming Soon</p>
+            </div>
+          )}
+          <p class="text-xs text-gray-500 mt-4">Available in most US bank apps</p>
+        </div>
+      </div>
 
       <!-- Donation Types -->
       <div class="bg-gray-50 rounded-2xl p-6 sm:p-8 mb-12">
