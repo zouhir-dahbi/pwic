@@ -1,0 +1,483 @@
+---
+import iqamaConfig from '../data/iqama-times.json';
+import siteConfig from '../data/site-config.json';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - {siteConfig.siteName}</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #f1f5f9;
+        color: #1e293b;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #0F5132 0%, #166534 100%);
+        padding: 1.2rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      }
+
+      .header img { height: 36px; border-radius: 6px; }
+      .header h1 { color: white; font-size: 1.1rem; font-weight: 700; }
+      .header .tag { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); font-size: 0.65rem; padding: 0.2em 0.5em; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+      .container { max-width: 540px; margin: 0 auto; padding: 1.5rem 1rem; }
+
+      .card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        margin-bottom: 1rem;
+      }
+
+      .card-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #0F5132;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+      }
+
+      .card-title svg { width: 18px; height: 18px; }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+
+      .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+      .form-group.full { grid-column: 1 / -1; }
+
+      label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      input, select {
+        padding: 0.6rem 0.75rem;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-family: inherit;
+        color: #1e293b;
+        transition: border-color 0.2s;
+        width: 100%;
+      }
+
+      input:focus, select:focus {
+        outline: none;
+        border-color: #0F5132;
+        box-shadow: 0 0 0 3px rgba(15, 81, 50, 0.1);
+      }
+
+      .hint {
+        font-size: 0.7rem;
+        color: #94a3b8;
+        margin-top: 0.15rem;
+      }
+
+      .btn-row {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .btn {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.2s;
+      }
+
+      .btn-primary {
+        background: #0F5132;
+        color: white;
+      }
+
+      .btn-primary:hover { background: #166534; }
+
+      .btn-primary:disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+      }
+
+      .btn-secondary {
+        background: #f1f5f9;
+        color: #64748b;
+        border: 1.5px solid #e2e8f0;
+      }
+
+      .btn-secondary:hover { background: #e2e8f0; }
+
+      .status {
+        margin-top: 0.75rem;
+        padding: 0.6rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: none;
+      }
+
+      .status.success { display: block; background: #dcfce7; color: #166534; }
+      .status.error { display: block; background: #fef2f2; color: #991b1b; }
+      .status.loading { display: block; background: #f0f9ff; color: #1e40af; }
+
+      .token-section { margin-bottom: 1rem; }
+
+      .token-input-row {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .token-input-row input { flex: 1; }
+
+      .token-input-row .btn {
+        flex: 0 0 auto;
+        padding: 0.6rem 1rem;
+      }
+
+      .token-saved {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #dcfce7;
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        color: #166534;
+        font-weight: 600;
+      }
+
+      .token-saved button {
+        background: none;
+        border: none;
+        color: #991b1b;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.75rem;
+        font-family: inherit;
+      }
+
+      .jummah-times { display: flex; flex-direction: column; gap: 0.5rem; }
+
+      .jummah-row {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .jummah-row input { flex: 1; }
+
+      .jummah-row .remove-btn {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #991b1b;
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .add-jummah {
+        background: #f0fdf4;
+        border: 1.5px dashed #86efac;
+        color: #166534;
+        padding: 0.4rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 600;
+        font-family: inherit;
+        text-align: center;
+      }
+
+      .add-jummah:hover { background: #dcfce7; }
+
+      .last-updated {
+        text-align: center;
+        font-size: 0.7rem;
+        color: #94a3b8;
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <img src="/images/pwic-logo-square.png" alt="PWIC" />
+      <h1>Iqamah Times Manager</h1>
+      <span class="tag">Admin</span>
+    </div>
+
+    <div class="container">
+      <!-- GitHub Token -->
+      <div class="card token-section">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 7h3a5 5 0 0 1 0 10h-3m-6 0H6a5 5 0 0 1 0-10h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          GitHub Connection
+        </div>
+        <div id="token-area"></div>
+      </div>
+
+      <!-- Iqamah Times -->
+      <div class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Iqamah Times
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="iq-fajr">Fajr</label>
+            <input type="text" id="iq-fajr" placeholder="6:00 AM" />
+          </div>
+          <div class="form-group">
+            <label for="iq-dhuhr">Dhuhr</label>
+            <input type="text" id="iq-dhuhr" placeholder="1:00 PM" />
+          </div>
+          <div class="form-group">
+            <label for="iq-asr">Asr</label>
+            <input type="text" id="iq-asr" placeholder="3:30 PM" />
+          </div>
+          <div class="form-group">
+            <label for="iq-maghrib">Maghrib</label>
+            <input type="text" id="iq-maghrib" placeholder="+10" />
+            <span class="hint">Use +minutes for relative (e.g. +10)</span>
+          </div>
+          <div class="form-group">
+            <label for="iq-isha">Isha</label>
+            <input type="text" id="iq-isha" placeholder="8:00 PM" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Jummah -->
+      <div class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Jumu'ah Times
+        </div>
+        <div class="jummah-times" id="jummah-list"></div>
+        <button class="add-jummah" id="add-jummah-btn">+ Add Jumu'ah Time</button>
+      </div>
+
+      <!-- Actions -->
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="reset-btn">Reset</button>
+        <button class="btn btn-primary" id="save-btn" disabled>Save & Deploy</button>
+      </div>
+
+      <div class="status" id="status-msg"></div>
+      <div class="last-updated" id="last-updated"></div>
+    </div>
+
+    <div id="admin-config" data-config={JSON.stringify(iqamaConfig)} hidden></div>
+
+    <script is:inline>
+      const REPO_OWNER = 'zouhir-dahbi';
+      const REPO_NAME = 'pwic';
+      const FILE_PATH = 'src/data/iqama-times.json';
+
+      const configEl = document.getElementById('admin-config');
+      const originalConfig = JSON.parse(configEl.getAttribute('data-config'));
+      let currentConfig = JSON.parse(JSON.stringify(originalConfig));
+
+      const TOKEN_KEY = 'pwic_gh_token';
+
+      function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
+      function setToken(t) { localStorage.setItem(TOKEN_KEY, t); }
+      function clearToken() { localStorage.removeItem(TOKEN_KEY); }
+
+      function renderTokenArea() {
+        const area = document.getElementById('token-area');
+        const token = getToken();
+        if (token) {
+          area.innerHTML = `
+            <div class="token-saved">
+              <span>&#10003; GitHub token saved</span>
+              <button id="clear-token-btn">Remove</button>
+            </div>`;
+          document.getElementById('clear-token-btn').addEventListener('click', () => {
+            clearToken();
+            renderTokenArea();
+            updateSaveBtn();
+          });
+        } else {
+          area.innerHTML = `
+            <div class="token-input-row">
+              <input type="password" id="token-input" placeholder="GitHub Personal Access Token" />
+              <button class="btn btn-primary" id="save-token-btn">Save</button>
+            </div>
+            <span class="hint">Needs repo write access. Token is stored locally in your browser only.</span>`;
+          document.getElementById('save-token-btn').addEventListener('click', () => {
+            const val = document.getElementById('token-input').value.trim();
+            if (val) {
+              setToken(val);
+              renderTokenArea();
+              updateSaveBtn();
+            }
+          });
+        }
+      }
+
+      function populateForm() {
+        const iq = currentConfig.iqama;
+        document.getElementById('iq-fajr').value = iq.fajr || '';
+        document.getElementById('iq-dhuhr').value = iq.dhuhr || '';
+        document.getElementById('iq-asr').value = iq.asr || '';
+        document.getElementById('iq-maghrib').value = iq.maghrib || '';
+        document.getElementById('iq-isha').value = iq.isha || '';
+        renderJummahList();
+      }
+
+      function renderJummahList() {
+        const list = document.getElementById('jummah-list');
+        const times = currentConfig.jummah.khutbah || [];
+        list.innerHTML = times.map((t, i) => `
+          <div class="jummah-row">
+            <input type="text" class="jummah-input" data-index="${i}" value="${t}" placeholder="1:00 PM" />
+            ${times.length > 1 ? `<button class="remove-btn" data-index="${i}">&times;</button>` : ''}
+          </div>
+        `).join('');
+
+        list.querySelectorAll('.remove-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = parseInt(btn.getAttribute('data-index'));
+            currentConfig.jummah.khutbah.splice(idx, 1);
+            renderJummahList();
+          });
+        });
+
+        list.querySelectorAll('.jummah-input').forEach(inp => {
+          inp.addEventListener('input', () => {
+            const idx = parseInt(inp.getAttribute('data-index'));
+            currentConfig.jummah.khutbah[idx] = inp.value;
+          });
+        });
+      }
+
+      document.getElementById('add-jummah-btn').addEventListener('click', () => {
+        currentConfig.jummah.khutbah.push('');
+        renderJummahList();
+        const inputs = document.querySelectorAll('.jummah-input');
+        if (inputs.length) inputs[inputs.length - 1].focus();
+      });
+
+      function readForm() {
+        currentConfig.iqama.fajr = document.getElementById('iq-fajr').value.trim();
+        currentConfig.iqama.dhuhr = document.getElementById('iq-dhuhr').value.trim();
+        currentConfig.iqama.asr = document.getElementById('iq-asr').value.trim();
+        currentConfig.iqama.maghrib = document.getElementById('iq-maghrib').value.trim();
+        currentConfig.iqama.isha = document.getElementById('iq-isha').value.trim();
+      }
+
+      function updateSaveBtn() {
+        document.getElementById('save-btn').disabled = !getToken();
+      }
+
+      function showStatus(msg, type) {
+        const el = document.getElementById('status-msg');
+        el.textContent = msg;
+        el.className = 'status ' + type;
+      }
+
+      function hideStatus() {
+        document.getElementById('status-msg').className = 'status';
+      }
+
+      document.getElementById('reset-btn').addEventListener('click', () => {
+        currentConfig = JSON.parse(JSON.stringify(originalConfig));
+        populateForm();
+        hideStatus();
+      });
+
+      document.getElementById('save-btn').addEventListener('click', async () => {
+        const token = getToken();
+        if (!token) return;
+
+        readForm();
+
+        const saveBtn = document.getElementById('save-btn');
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving...';
+        showStatus('Committing to GitHub...', 'loading');
+
+        try {
+          const getRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+            headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+          });
+
+          if (!getRes.ok) throw new Error('Failed to read file from GitHub. Check your token.');
+          const fileData = await getRes.json();
+          const sha = fileData.sha;
+
+          const newContent = JSON.stringify(currentConfig, null, 2) + '\n';
+          const encoded = btoa(unescape(encodeURIComponent(newContent)));
+
+          const now = new Date();
+          const timestamp = now.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true });
+          const message = `Update iqamah times (${timestamp})`;
+
+          const putRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+            method: 'PUT',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': 'application/vnd.github.v3+json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message, content: encoded, sha })
+          });
+
+          if (!putRes.ok) {
+            const err = await putRes.json();
+            throw new Error(err.message || 'Failed to save');
+          }
+
+          showStatus('Saved! Site will rebuild and deploy automatically.', 'success');
+          document.getElementById('last-updated').textContent = `Last saved: ${timestamp}`;
+        } catch (e) {
+          showStatus(e.message, 'error');
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'Save & Deploy';
+          updateSaveBtn();
+        }
+      });
+
+      renderTokenArea();
+      populateForm();
+      updateSaveBtn();
+    </script>
+  </body>
+</html>

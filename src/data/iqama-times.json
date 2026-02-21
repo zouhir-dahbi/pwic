@@ -1,0 +1,25 @@
+{
+  "googleSheetCsvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRqbxh_CJNnT9Bbn6rthM1ABvGsonsgSzzNae6NQaHpSL8ikQtUFNMUc2t932fI-lLKRYnjRvuxXbUp/pub?gid=1150522312&single=true&output=csv",
+  "location": {
+    "latitude": 38.7476,
+    "longitude": -77.4753,
+    "timezone": "America/New_York",
+    "name": "Prince William Islamic Center"
+  },
+  "calculation": {
+    "method": "ISNA",
+    "asrMethod": "Standard",
+    "highLatitudeRule": "None"
+  },
+  "iqama": {
+    "fajr": "6:00 AM",
+    "dhuhr": "1:00 PM",
+    "asr": "3:30 PM",
+    "maghrib": "0",
+    "isha": "8:00 PM"
+  },
+  "jummah": {
+    "khutbah": ["1:00 PM"],
+    "label": "Jumu'ah"
+  }
+}

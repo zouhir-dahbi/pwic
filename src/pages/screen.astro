@@ -1,9 +1,25 @@
 ---
+import iqamaConfig from '../data/iqama-times.json';
 import siteConfig from '../data/site-config.json';
 
-// MAWAQIT doesn't allow iframe embedding, so redirect to their page
-const mawaqitUrl = siteConfig.prayerTimes.liveTimesUrl;
-const hasMawaqit = mawaqitUrl && mawaqitUrl.length > 0;
+const prayers = [
+  { key: 'fajr', name: 'Fajr', arabic: 'الفجر' },
+  { key: 'dhuhr', name: 'Dhuhr', arabic: 'الظهر' },
+  { key: 'asr', name: 'Asr', arabic: 'العصر' },
+  { key: 'maghrib', name: 'Maghrib', arabic: 'المغرب' },
+  { key: 'isha', name: 'Isha', arabic: 'العشاء' },
+];
+
+const jummahTimes = iqamaConfig.jummah.khutbah;
+const iqama = iqamaConfig.iqama as Record<string, string>;
+
+function displayIqama(key: string): string {
+  const val = iqama[key];
+  if (!val) return '--:--';
+  const v = val.trim().toLowerCase();
+  if (v === 'same' || v === 'adhan' || v.startsWith('+') || /^\d{1,3}$/.test(v)) return '--:--';
+  return val;
+}
 ---
 
 <!DOCTYPE html>
@@ -12,139 +28,654 @@ const hasMawaqit = mawaqitUrl && mawaqitUrl.length > 0;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prayer Times Display - {siteConfig.siteName}</title>
-    <meta name="description" content="Full screen prayer times display for {siteConfig.siteName}" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+      :root {
+        --slate-950: #0a0f1a;
+        --slate-900: #0f172a;
+        --slate-800: #1e293b;
+        --slate-700: #334155;
+        --slate-600: #475569;
+        --slate-400: #94a3b8;
+        --slate-300: #cbd5e1;
+        --green-500: #10b981;
+        --green-400: #34d399;
+        --green-300: #6ee7b7;
+        --amber-500: #f59e0b;
+        --amber-400: #fbbf24;
+        --amber-300: #fcd34d;
       }
-      
+
       html, body {
-        width: 100%;
-        height: 100%;
+        width: 100%; height: 100%;
         overflow: hidden;
-        background: #1a1a2e;
+        font-family: 'Inter', system-ui, sans-serif;
+        background: var(--slate-950);
+        color: white;
       }
-      
-      .screen-container {
+
+      .screen {
         width: 100vw;
         height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        background: linear-gradient(170deg, #0a0f1a 0%, #0f172a 40%, #131c2e 100%);
+        position: relative;
+      }
+
+      .screen::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse at 20% 0%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 100%, rgba(52, 211, 153, 0.04) 0%, transparent 40%);
+        pointer-events: none;
+      }
+
+      /* ── Header ── */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5vh 3vw 1vh;
+        position: relative;
+        z-index: 1;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 1.2vw;
+      }
+
+      .logo {
+        width: clamp(50px, 6vh, 80px);
+        height: clamp(50px, 6vh, 80px);
+        border-radius: 14px;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+      }
+
+      .header-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .mosque-name {
+        font-size: clamp(1.2rem, 2.5vw, 2rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      .mosque-location {
+        font-size: clamp(0.65rem, 1vw, 0.85rem);
+        color: var(--slate-400);
+        font-weight: 400;
+        letter-spacing: 0.05em;
+      }
+
+      .header-center {
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .clock {
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+        background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .clock-sec {
+        font-size: 0.4em;
+        font-weight: 500;
+        opacity: 0.5;
+        -webkit-text-fill-color: var(--slate-400);
+      }
+
+      .clock-ampm {
+        font-size: 0.35em;
+        font-weight: 600;
+        -webkit-text-fill-color: var(--slate-400);
+        margin-left: 0.3em;
+      }
+
+      .date-row {
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 0.8em;
+        margin-top: 0.2em;
+        font-size: clamp(0.7rem, 1.2vw, 0.95rem);
       }
-      
-      .screen-container iframe {
+
+      .date-gregorian { color: var(--slate-400); }
+      .date-sep { color: var(--slate-600); }
+      .date-hijri { color: var(--amber-400); font-weight: 500; }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+      }
+
+      .weather {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 12px;
+        padding: 0.5em 1em;
+      }
+
+      .weather-icon { font-size: clamp(1.2rem, 2vw, 1.8rem); }
+
+      .weather-temp {
+        font-size: clamp(1rem, 2vw, 1.6rem);
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .weather-desc {
+        font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+        color: var(--slate-400);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* ── Main: Prayer Grid ── */
+      .prayer-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 3vw;
+        position: relative;
+        z-index: 1;
+      }
+
+      .prayer-layout {
+        display: grid;
+        grid-template-columns: 1.4fr repeat(5, 1fr);
+        gap: clamp(0.6rem, 1.2vw, 1.25rem);
         width: 100%;
-        height: 100%;
-        border: none;
+        max-width: 1700px;
+        align-items: stretch;
       }
-      
-      .redirect-message,
-      .no-widget {
+
+      /* ── Jummah card ── */
+      .jummah-card {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(251, 191, 36, 0.06) 100%);
+        border: 1px solid rgba(245, 158, 11, 0.25);
+        border-radius: clamp(14px, 1.5vw, 28px);
+        padding: clamp(1.25rem, 3vh, 3rem) clamp(1rem, 1.5vw, 2rem);
+        text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100vh;
-        color: white;
-        font-family: system-ui, -apple-system, sans-serif;
-        text-align: center;
-        padding: 2rem;
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        position: relative;
+        overflow: hidden;
       }
-      
-      .redirect-message h1,
-      .no-widget h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        color: #e8d5b7;
+
+      .jummah-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 40%);
+        pointer-events: none;
       }
-      
-      .redirect-message p,
-      .no-widget p {
-        font-size: 1.25rem;
-        color: #a0a0a0;
-        max-width: 500px;
-      }
-      
-      .mawaqit-button {
-        display: inline-block;
-        margin-top: 2rem;
-        padding: 1rem 2rem;
-        background: linear-gradient(135deg, #166534 0%, #15803d 100%);
-        color: white;
-        text-decoration: none;
-        border-radius: 12px;
-        font-size: 1.25rem;
+
+      .jummah-label {
+        font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--amber-400);
         font-weight: 600;
-        transition: transform 0.2s, box-shadow 0.2s;
+        margin-bottom: 0.3em;
       }
-      
-      .mawaqit-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(22, 101, 52, 0.3);
+
+      .jummah-arabic {
+        font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+        color: var(--amber-300);
+        font-weight: 500;
+        margin-bottom: 0.1em;
       }
-      
-      .hint {
-        margin-top: 1.5rem;
-        font-size: 0.875rem !important;
-        color: #6b7280 !important;
+
+      .jummah-name {
+        font-size: clamp(1.2rem, 2vw, 1.8rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 0.5em;
       }
-      
-      .mosque-icon {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 2rem;
-        opacity: 0.8;
+
+      .jummah-time {
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 900;
+        color: var(--amber-400);
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .jummah-extra {
+        font-size: clamp(0.65rem, 1vw, 0.85rem);
+        color: var(--slate-400);
+        margin-top: 0.4em;
+      }
+
+      /* ── Prayer cards ── */
+      .prayer-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: clamp(14px, 1.5vw, 28px);
+        padding: clamp(1rem, 2.5vh, 2.5rem) clamp(0.6rem, 1vw, 1.5rem);
+        text-align: center;
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .prayer-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 40%);
+        pointer-events: none;
+        transition: all 0.6s ease;
+      }
+
+      .prayer-card.active {
+        background: rgba(16, 185, 129, 0.1);
+        border-color: var(--green-400);
+        box-shadow:
+          0 0 60px rgba(16, 185, 129, 0.15),
+          0 0 20px rgba(16, 185, 129, 0.1),
+          inset 0 1px 0 rgba(255,255,255,0.08);
+        transform: scale(1.04);
+      }
+
+      .prayer-card.active::before {
+        background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+      }
+
+      .p-arabic {
+        font-size: clamp(0.9rem, 1.8vw, 1.5rem);
+        color: var(--slate-400);
+        margin-bottom: 0.15em;
+        font-weight: 500;
+        transition: color 0.6s ease;
+      }
+
+      .prayer-card.active .p-arabic { color: var(--green-300); }
+
+      .p-name {
+        font-size: clamp(0.85rem, 1.5vw, 1.3rem);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.6em;
+        color: var(--slate-300);
+      }
+
+      .time-block { margin-bottom: 0.4em; }
+
+      .time-label {
+        font-size: clamp(0.5rem, 0.8vw, 0.7rem);
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--slate-600);
+        margin-bottom: 0.1em;
+        font-weight: 500;
+      }
+
+      .adhan-time {
+        font-size: clamp(0.85rem, 1.5vw, 1.25rem);
+        font-weight: 500;
+        color: var(--slate-400);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .iqama-time {
+        font-size: clamp(1.6rem, 3.2vw, 2.8rem);
+        font-weight: 800;
+        color: white;
+        font-variant-numeric: tabular-nums;
+        line-height: 1.1;
+      }
+
+      .prayer-card.active .iqama-time {
+        color: var(--green-300);
+        text-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+      }
+
+      .countdown {
+        font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+        color: var(--amber-400);
+        font-weight: 600;
+        margin-top: 0.5em;
+        min-height: 1.2em;
+      }
+
+      /* ── Footer ── */
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1vh 3vw 1.5vh;
+        position: relative;
+        z-index: 1;
+      }
+
+      .footer-left {
+        font-size: clamp(0.55rem, 0.9vw, 0.75rem);
+        color: var(--slate-600);
+        display: flex;
+        align-items: center;
+        gap: 1em;
+      }
+
+      .method-badge {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 6px;
+        padding: 0.3em 0.8em;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+      }
+
+      .qr-section {
+        display: flex;
+        align-items: center;
+        gap: 1.2em;
+      }
+
+      .qr-text { text-align: right; }
+
+      .qr-text-label {
+        font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+        color: var(--slate-400);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-weight: 500;
+      }
+
+      .qr-text-url {
+        font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+        color: var(--green-400);
+        font-weight: 700;
+      }
+
+      .qr-box {
+        width: clamp(55px, 7.5vh, 90px);
+        height: clamp(55px, 7.5vh, 90px);
+        background: white;
+        border-radius: 10px;
+        padding: 3px;
+        position: relative;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      }
+
+      .qr-box img { width: 100%; height: 100%; display: block; }
+
+      .qr-logo-overlay {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 28%;
+        height: 28%;
+        background: white;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px;
+      }
+
+      .qr-logo-inner {
+        width: 100%;
+        height: 100%;
+        background: #0F5132;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px;
+      }
+
+      .qr-logo-inner img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
       }
     </style>
   </head>
   <body>
-    <div class="screen-container">
-      {hasMawaqit ? (
-        <div class="redirect-message">
-          <svg class="mosque-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 3C12 3 8 7 8 10C8 12.21 9.79 14 12 14C14.21 14 16 12.21 16 10C16 7 12 3 12 3Z" />
-            <path d="M3 21H21" />
-            <path d="M5 21V14C5 14 5 11 8 11" />
-            <path d="M19 21V14C19 14 19 11 16 11" />
-            <path d="M9 21V17C9 15.9 9.9 15 11 15H13C14.1 15 15 15.9 15 17V21" />
-          </svg>
-          <h1>{siteConfig.siteName}</h1>
-          <p>Redirecting to MAWAQIT prayer times...</p>
-          <a href={mawaqitUrl} class="mawaqit-button">
-            Open MAWAQIT Display
-          </a>
-          <p class="hint">For TV/projector display, bookmark the MAWAQIT page directly</p>
+    <div class="screen">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <img class="logo" src="/images/pwic-logo-square.png" alt="PWIC" />
+          <div class="header-text">
+            <div class="mosque-name">Prince William Islamic Center</div>
+            <div class="mosque-location">Manassas, Virginia</div>
+          </div>
         </div>
-      ) : (
-        <div class="no-widget">
-          <svg class="mosque-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 3C12 3 8 7 8 10C8 12.21 9.79 14 12 14C14.21 14 16 12.21 16 10C16 7 12 3 12 3Z" />
-            <path d="M3 21H21" />
-            <path d="M5 21V14C5 14 5 11 8 11" />
-            <path d="M19 21V14C19 14 19 11 16 11" />
-            <path d="M9 21V17C9 15.9 9.9 15 11 15H13C14.1 15 15 15.9 15 17V21" />
-          </svg>
-          <h1>{siteConfig.siteName}</h1>
-          <p>
-            Prayer times display is being configured. 
-            Please check back soon or contact the masjid for current prayer times.
-          </p>
+
+        <div class="header-center">
+          <div class="clock">
+            <span id="tv-time">--:--</span><span class="clock-sec" id="tv-sec">00</span><span class="clock-ampm" id="tv-ampm">--</span>
+          </div>
+          <div class="date-row">
+            <span class="date-gregorian" id="tv-date">Loading...</span>
+            <span class="date-sep">&middot;</span>
+            <span class="date-hijri" id="tv-hijri">Loading...</span>
+          </div>
         </div>
-      )}
+
+        <div class="header-right">
+          <div class="weather" id="weather-container">
+            <span class="weather-icon" id="weather-icon">--</span>
+            <div>
+              <div class="weather-temp" id="weather-temp">--&deg;F</div>
+              <div class="weather-desc" id="weather-desc">Loading</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Prayer Grid -->
+      <section class="prayer-section">
+        <div class="prayer-layout">
+          <!-- Jummah — larger card -->
+          <div class="jummah-card">
+            <div class="jummah-label">Every Friday</div>
+            <div class="jummah-arabic">الجمعة</div>
+            <div class="jummah-name">Jumu'ah</div>
+            <div class="jummah-time">{jummahTimes[0]}</div>
+            {jummahTimes.length > 1 && (
+              <div class="jummah-extra">2nd Khutbah: {jummahTimes[1]}</div>
+            )}
+          </div>
+
+          <!-- 5 Daily Prayers -->
+          {prayers.map((p) => (
+            <div class="prayer-card" data-prayer={p.key} id={`card-${p.key}`}>
+              <div class="p-arabic">{p.arabic}</div>
+              <div class="p-name">{p.name}</div>
+              <div class="time-block">
+                <div class="time-label">Athan</div>
+                <div class="adhan-time" id={`tv-adhan-${p.key}`}>--:--</div>
+              </div>
+              <div class="time-block">
+                <div class="time-label">Iqama</div>
+                <div class="iqama-time" id={`tv-iqama-${p.key}`}>{displayIqama(p.key)}</div>
+              </div>
+              <div class="countdown" id={`tv-cd-${p.key}`}></div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-left">
+          <span class="method-badge">ISNA</span>
+          <span>Athan times auto-calculated &middot; Iqama times set by masjid</span>
+        </div>
+        <div class="qr-section">
+          <div class="qr-text">
+            <div class="qr-text-label">Support PWIC</div>
+            <div class="qr-text-url">pwicva.org/give</div>
+          </div>
+          <div class="qr-box">
+            <img src="/images/qr-give.svg" alt="Scan to donate" />
+            <div class="qr-logo-overlay">
+              <div class="qr-logo-inner">
+                <img src="/images/pwic-logo-square.png" alt="PWIC" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-    
-    {hasMawaqit && (
-      <script is:inline define:vars={{ mawaqitUrl }}>
-        // Auto-redirect after 2 seconds
-        setTimeout(() => {
-          window.location.href = mawaqitUrl;
-        }, 2000);
-      </script>
-    )}
+
+    <div id="screen-config" data-config={JSON.stringify(iqamaConfig)} hidden></div>
+
+    <script>
+      import { createEngine } from '../lib/prayer-engine';
+      import { fetchIqamaFromSheet, applyOverrides } from '../lib/iqama-remote';
+
+      const el = document.getElementById('screen-config')!;
+      const config = JSON.parse(el.getAttribute('data-config')!);
+      let engine = createEngine(config);
+
+      function updateIqamaDom() {
+        const keys = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+        for (const key of keys) {
+          const iEl = document.getElementById('tv-iqama-' + key);
+          if (!iEl) continue;
+          const val = config.iqama[key];
+          if (val && !val.startsWith('+')) {
+            iEl.textContent = val;
+          }
+        }
+      }
+
+      function update() {
+        const now = new Date();
+        const times = engine.getTimes(now);
+        const next = engine.getNext(now);
+        const clock = engine.getClock(now);
+
+        const timeEl = document.getElementById('tv-time');
+        const secEl = document.getElementById('tv-sec');
+        const ampmEl = document.getElementById('tv-ampm');
+        if (timeEl) timeEl.textContent = clock.timeOnly;
+        if (secEl) secEl.textContent = clock.seconds;
+        if (ampmEl) ampmEl.textContent = clock.ampm;
+
+        const dateEl = document.getElementById('tv-date');
+        if (dateEl) dateEl.textContent = engine.getGregorianDate(now);
+
+        const hijriEl = document.getElementById('tv-hijri');
+        if (hijriEl) hijriEl.textContent = engine.getHijriDate(now);
+
+        for (const p of times) {
+          const aEl = document.getElementById('tv-adhan-' + p.key);
+          if (aEl) aEl.textContent = engine.fmt(p.adhan);
+
+          if (p.isRelative) {
+            const iEl = document.getElementById('tv-iqama-' + p.key);
+            if (iEl) iEl.textContent = engine.fmt(p.iqama);
+          }
+
+          const card = document.getElementById('card-' + p.key);
+          const cdEl = document.getElementById('tv-cd-' + p.key);
+          if (!card || !cdEl) continue;
+
+          if (p.key === next.key) {
+            card.classList.add('active');
+            cdEl.textContent = engine.formatCountdown(p.iqama, now);
+          } else {
+            card.classList.remove('active');
+            cdEl.textContent = '';
+          }
+        }
+      }
+
+      // Weather via Open-Meteo (free, no API key)
+      const WMO_ICONS: Record<number, [string, string]> = {
+        0: ['☀️', 'Clear'], 1: ['🌤️', 'Mostly Clear'], 2: ['⛅', 'Partly Cloudy'], 3: ['☁️', 'Overcast'],
+        45: ['🌫️', 'Foggy'], 48: ['🌫️', 'Icy Fog'],
+        51: ['🌦️', 'Light Drizzle'], 53: ['🌦️', 'Drizzle'], 55: ['🌦️', 'Heavy Drizzle'],
+        61: ['🌧️', 'Light Rain'], 63: ['🌧️', 'Rain'], 65: ['🌧️', 'Heavy Rain'],
+        71: ['🌨️', 'Light Snow'], 73: ['🌨️', 'Snow'], 75: ['🌨️', 'Heavy Snow'],
+        77: ['🌨️', 'Snow Grains'],
+        80: ['🌧️', 'Showers'], 81: ['🌧️', 'Mod. Showers'], 82: ['🌧️', 'Heavy Showers'],
+        85: ['🌨️', 'Snow Showers'], 86: ['🌨️', 'Heavy Snow Showers'],
+        95: ['⛈️', 'Thunderstorm'], 96: ['⛈️', 'T-Storm + Hail'], 99: ['⛈️', 'T-Storm + Heavy Hail'],
+      };
+
+      async function fetchWeather() {
+        try {
+          const lat = config.location.latitude;
+          const lon = config.location.longitude;
+          const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=${encodeURIComponent(config.location.timezone)}`;
+          const res = await fetch(url);
+          const data = await res.json();
+          const temp = Math.round(data.current.temperature_2m);
+          const code = data.current.weather_code;
+          const [icon, desc] = WMO_ICONS[code] || ['🌡️', 'N/A'];
+
+          const iconEl = document.getElementById('weather-icon');
+          const tempEl = document.getElementById('weather-temp');
+          const descEl = document.getElementById('weather-desc');
+          if (iconEl) iconEl.textContent = icon;
+          if (tempEl) tempEl.innerHTML = `${temp}&deg;F`;
+          if (descEl) descEl.textContent = desc;
+        } catch {
+          const descEl = document.getElementById('weather-desc');
+          if (descEl) descEl.textContent = 'Unavailable';
+        }
+      }
+
+      async function fetchSheet() {
+        if (!config.googleSheetCsvUrl) return;
+        const overrides = await fetchIqamaFromSheet(config.googleSheetCsvUrl);
+        if (overrides) {
+          engine = applyOverrides(config, overrides, createEngine);
+          updateIqamaDom();
+        }
+      }
+
+      update();
+      setInterval(update, 1000);
+      fetchWeather();
+      setInterval(fetchWeather, 600000);
+      fetchSheet();
+      setInterval(fetchSheet, 5 * 60 * 1000);
+
+      // Reload at midnight
+      const now = new Date();
+      const tomorrow = new Date(now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 5, 0);
+      setTimeout(() => location.reload(), tomorrow.getTime() - now.getTime());
+    </script>
   </body>
 </html>
