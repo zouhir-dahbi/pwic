@@ -18,7 +18,7 @@
   
   "prayerTimes": {
     "provider": "self-hosted",
-    "screenUrl": "/screen",
+    "screenUrl": "/tv",
     "yearlyCalendarUrl": ""
   },
   
