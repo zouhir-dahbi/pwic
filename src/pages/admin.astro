@@ -87,6 +87,73 @@ const appsScriptCode = `function doPost(e) {
         gap: 0.75rem;
       }
 
+      .adhan-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25em;
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: #0F5132;
+        background: #f0fdf4;
+        padding: 0.15em 0.5em;
+        border-radius: 4px;
+        margin-left: 0.3rem;
+      }
+
+      .adhan-times-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .adhan-pill {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        min-width: 0;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 8px;
+        padding: 0.5rem 0.25rem;
+      }
+
+      .adhan-pill-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .adhan-pill-time {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #0F5132;
+      }
+
+      .adhan-sun-row {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .adhan-sun-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.3em;
+        flex: 1;
+        background: #fefce8;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        padding: 0.4rem 0.5rem;
+        justify-content: center;
+      }
+
+      .adhan-sun-pill .adhan-pill-label { color: #92400e; }
+      .adhan-sun-pill .adhan-pill-time { color: #a16207; font-size: 0.8rem; }
+
       .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
       .form-group.full { grid-column: 1 / -1; }
 
@@ -432,6 +499,25 @@ const appsScriptCode = `function doPost(e) {
         <div id="url-area"></div>
       </div>
 
+      <!-- Today's Adhan Times -->
+      <div class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Today's Adhan Times
+        </div>
+        <div class="adhan-times-row" id="adhan-times-row">
+          <div class="adhan-pill"><span class="adhan-pill-label">Fajr</span><span class="adhan-pill-time" id="adhan-fajr">--:--</span></div>
+          <div class="adhan-pill"><span class="adhan-pill-label">Dhuhr</span><span class="adhan-pill-time" id="adhan-dhuhr">--:--</span></div>
+          <div class="adhan-pill"><span class="adhan-pill-label">Asr</span><span class="adhan-pill-time" id="adhan-asr">--:--</span></div>
+          <div class="adhan-pill"><span class="adhan-pill-label">Maghrib</span><span class="adhan-pill-time" id="adhan-maghrib">--:--</span></div>
+          <div class="adhan-pill"><span class="adhan-pill-label">Isha</span><span class="adhan-pill-time" id="adhan-isha">--:--</span></div>
+        </div>
+        <div class="adhan-sun-row">
+          <div class="adhan-sun-pill"><span class="adhan-pill-label">Sunrise</span><span class="adhan-pill-time" id="adhan-sunrise">--:--</span></div>
+          <div class="adhan-sun-pill"><span class="adhan-pill-label">Sunset</span><span class="adhan-pill-time" id="adhan-sunset">--:--</span></div>
+        </div>
+      </div>
+
       <!-- Iqamah Times -->
       <div class="card">
         <div class="card-title">
@@ -446,24 +532,24 @@ const appsScriptCode = `function doPost(e) {
         <div id="times-form">
           <div class="form-grid">
             <div class="form-group">
-              <label for="iq-fajr">Fajr</label>
+              <label for="iq-fajr">Fajr <span class="adhan-tag" id="tag-fajr">Adhan: --:--</span></label>
               <input type="text" id="iq-fajr" placeholder="6:00 AM" />
             </div>
             <div class="form-group">
-              <label for="iq-dhuhr">Dhuhr</label>
+              <label for="iq-dhuhr">Dhuhr <span class="adhan-tag" id="tag-dhuhr">Adhan: --:--</span></label>
               <input type="text" id="iq-dhuhr" placeholder="1:00 PM" />
             </div>
             <div class="form-group">
-              <label for="iq-asr">Asr</label>
+              <label for="iq-asr">Asr <span class="adhan-tag" id="tag-asr">Adhan: --:--</span></label>
               <input type="text" id="iq-asr" placeholder="3:30 PM" />
             </div>
             <div class="form-group">
-              <label for="iq-maghrib">Maghrib</label>
+              <label for="iq-maghrib">Maghrib <span class="adhan-tag" id="tag-maghrib">Adhan: --:--</span></label>
               <input type="text" id="iq-maghrib" placeholder="0" />
               <span class="hint">Use 0 for same as adhan, or minutes offset (e.g. 10)</span>
             </div>
             <div class="form-group">
-              <label for="iq-isha">Isha</label>
+              <label for="iq-isha">Isha <span class="adhan-tag" id="tag-isha">Adhan: --:--</span></label>
               <input type="text" id="iq-isha" placeholder="8:00 PM" />
             </div>
           </div>
@@ -543,6 +629,29 @@ const appsScriptCode = `function doPost(e) {
     </div>
 
     <div id="admin-config" data-config={JSON.stringify(iqamaConfig)} hidden></div>
+
+    <script>
+      import { createEngine } from '../lib/prayer-engine';
+
+      const el = document.getElementById('admin-config')!;
+      const cfg = JSON.parse(el.getAttribute('data-config')!);
+      const engine = createEngine(cfg);
+      const times = engine.getTimes();
+      const sun = engine.getSunTimes();
+
+      times.forEach((p: any) => {
+        const pill = document.getElementById('adhan-' + p.key);
+        const tag = document.getElementById('tag-' + p.key);
+        const formatted = engine.fmt(p.adhan);
+        if (pill) pill.textContent = formatted;
+        if (tag) tag.textContent = 'Adhan: ' + formatted;
+      });
+
+      const sunriseEl = document.getElementById('adhan-sunrise');
+      const sunsetEl = document.getElementById('adhan-sunset');
+      if (sunriseEl) sunriseEl.textContent = engine.fmt(sun.sunrise);
+      if (sunsetEl) sunsetEl.textContent = engine.fmt(sun.sunset);
+    </script>
 
     <script is:inline>
       const configEl = document.getElementById('admin-config');
