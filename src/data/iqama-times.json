@@ -1,5 +1,6 @@
 {
   "googleSheetCsvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRqbxh_CJNnT9Bbn6rthM1ABvGsonsgSzzNae6NQaHpSL8ikQtUFNMUc2t932fI-lLKRYnjRvuxXbUp/pub?gid=1150522312&single=true&output=csv",
+  "googleAppsScriptUrl": "https://script.google.com/macros/s/AKfycbw9vu4bAlKNOWffFYSscxdw35j3yIcij_TAkEXmh694cfjKc4Gxjrc5rng_VFP-6jJ7WA/exec",
   "location": {
     "latitude": 38.7476,
     "longitude": -77.4753,

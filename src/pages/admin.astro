@@ -423,8 +423,8 @@ const appsScriptCode = `function doPost(e) {
     </div>
 
     <div class="container">
-      <!-- Connection Setup -->
-      <div class="card connection-section">
+      <!-- Connection Status -->
+      <div class="card connection-section" id="connection-card">
         <div class="card-title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 7h3a5 5 0 0 1 0 10h-3m-6 0H6a5 5 0 0 1 0-10h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
           Google Sheets Connection
@@ -485,7 +485,7 @@ const appsScriptCode = `function doPost(e) {
         <button class="btn btn-secondary" id="refresh-btn">
           ↻ Refresh
         </button>
-        <button class="btn btn-primary" id="save-btn" disabled>
+        <button class="btn btn-primary" id="save-btn">
           Save to Sheet
         </button>
       </div>
@@ -549,45 +549,23 @@ const appsScriptCode = `function doPost(e) {
       const fallbackConfig = JSON.parse(configEl.getAttribute('data-config'));
       const CSV_URL = fallbackConfig.googleSheetCsvUrl || '';
 
-      const SCRIPT_URL_KEY = 'pwic_apps_script_url';
+      const BUILTIN_SCRIPT_URL = fallbackConfig.googleAppsScriptUrl || '';
       let jummahTimes = [...(fallbackConfig.jummah?.khutbah || ['1:00 PM'])];
       let loadedFromSheet = false;
 
-      function getScriptUrl() { return localStorage.getItem(SCRIPT_URL_KEY) || ''; }
-      function setScriptUrl(u) { localStorage.setItem(SCRIPT_URL_KEY, u); }
-      function clearScriptUrl() { localStorage.removeItem(SCRIPT_URL_KEY); }
+      function getScriptUrl() { return BUILTIN_SCRIPT_URL; }
 
       function renderUrlArea() {
         const area = document.getElementById('url-area');
-        const url = getScriptUrl();
-        if (url) {
+        if (BUILTIN_SCRIPT_URL) {
           area.innerHTML =
             '<div class="url-saved">' +
-              '<span>&#10003; Apps Script connected</span>' +
-              '<button id="clear-url-btn">Change</button>' +
+              '<span>&#10003; Connected to Google Sheets</span>' +
             '</div>';
-          document.getElementById('clear-url-btn').addEventListener('click', function() {
-            clearScriptUrl();
-            renderUrlArea();
-            updateSaveBtn();
-          });
+          document.getElementById('connection-card').style.display = 'block';
         } else {
           area.innerHTML =
-            '<div class="url-input-row">' +
-              '<input type="url" id="url-input" placeholder="https://script.google.com/macros/s/.../exec" />' +
-              '<button class="btn btn-primary" id="save-url-btn">Save</button>' +
-            '</div>' +
-            '<span class="hint">Paste your Apps Script web app URL. See setup guide below.</span>';
-          document.getElementById('save-url-btn').addEventListener('click', function() {
-            var val = document.getElementById('url-input').value.trim();
-            if (val && val.includes('script.google.com')) {
-              setScriptUrl(val);
-              renderUrlArea();
-              updateSaveBtn();
-            } else {
-              showStatus('Please enter a valid Google Apps Script URL', 'error');
-            }
-          });
+            '<div class="source-badge local" style="margin:0">&#9888; Apps Script URL not configured. See setup guide below.</div>';
         }
       }
 
@@ -644,7 +622,7 @@ const appsScriptCode = `function doPost(e) {
       }
 
       function updateSaveBtn() {
-        document.getElementById('save-btn').disabled = !getScriptUrl();
+        document.getElementById('save-btn').disabled = !BUILTIN_SCRIPT_URL;
       }
 
       function showStatus(msg, type) {
