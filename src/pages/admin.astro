@@ -1,6 +1,28 @@
 ---
 import iqamaConfig from '../data/iqama-times.json';
 import siteConfig from '../data/site-config.json';
+
+const appsScriptCode = `function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    var entries = data.entries;
+    var lastRow = sheet.getLastRow();
+    if (lastRow > 1) sheet.getRange(2, 1, lastRow - 1, 2).clearContent();
+    for (var i = 0; i < entries.length; i++) {
+      sheet.getRange(i + 2, 1).setValue(entries[i][0]);
+      sheet.getRange(i + 2, 2).setValue(entries[i][1]);
+    }
+    SpreadsheetApp.flush();
+    return ContentService.createTextOutput(
+      JSON.stringify({ success: true })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}`;
 ---
 
 <!DOCTYPE html>
@@ -150,21 +172,21 @@ import siteConfig from '../data/site-config.json';
       .status.error { display: block; background: #fef2f2; color: #991b1b; }
       .status.loading { display: block; background: #f0f9ff; color: #1e40af; }
 
-      .token-section { margin-bottom: 1rem; }
+      .connection-section { margin-bottom: 1rem; }
 
-      .token-input-row {
+      .url-input-row {
         display: flex;
         gap: 0.5rem;
       }
 
-      .token-input-row input { flex: 1; }
+      .url-input-row input { flex: 1; font-size: 0.82rem; }
 
-      .token-input-row .btn {
+      .url-input-row .btn {
         flex: 0 0 auto;
         padding: 0.6rem 1rem;
       }
 
-      .token-saved {
+      .url-saved {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -176,7 +198,7 @@ import siteConfig from '../data/site-config.json';
         font-weight: 600;
       }
 
-      .token-saved button {
+      .url-saved button {
         background: none;
         border: none;
         color: #991b1b;
@@ -232,6 +254,165 @@ import siteConfig from '../data/site-config.json';
         color: #94a3b8;
         margin-top: 0.5rem;
       }
+
+      .loading-overlay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 2rem;
+        color: #64748b;
+        font-size: 0.85rem;
+      }
+
+      .spinner {
+        width: 18px;
+        height: 18px;
+        border: 2.5px solid #e2e8f0;
+        border-top-color: #0F5132;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      .setup-guide {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        margin-bottom: 1rem;
+        overflow: hidden;
+      }
+
+      .setup-toggle {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: inherit;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #0F5132;
+      }
+
+      .setup-toggle .arrow {
+        transition: transform 0.2s;
+        font-size: 0.75rem;
+        color: #94a3b8;
+      }
+
+      .setup-toggle.open .arrow { transform: rotate(180deg); }
+
+      .setup-content {
+        display: none;
+        padding: 0 1.5rem 1.5rem;
+      }
+
+      .setup-content.open { display: block; }
+
+      .step {
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+        position: relative;
+      }
+
+      .step-num {
+        position: absolute;
+        left: 0;
+        top: 0.1em;
+        width: 1.4rem;
+        height: 1.4rem;
+        background: #0F5132;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.65rem;
+        font-weight: 800;
+      }
+
+      .step h4 {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.25rem;
+      }
+
+      .step p, .step li {
+        font-size: 0.75rem;
+        color: #64748b;
+        line-height: 1.5;
+      }
+
+      .step ul {
+        margin: 0.25rem 0 0 1rem;
+      }
+
+      .step code {
+        background: #f1f5f9;
+        padding: 0.15em 0.4em;
+        border-radius: 4px;
+        font-size: 0.72rem;
+        color: #0F5132;
+        font-weight: 600;
+      }
+
+      .code-block {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 0.7rem;
+        font-family: 'SF Mono', 'Fira Code', monospace;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre;
+        margin: 0.5rem 0;
+        position: relative;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 0.4rem;
+        right: 0.4rem;
+        background: rgba(255,255,255,0.1);
+        border: none;
+        color: #94a3b8;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.65rem;
+        font-family: inherit;
+        font-weight: 600;
+      }
+
+      .copy-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+
+      .source-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3em;
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 0.25em 0.6em;
+        border-radius: 6px;
+        margin-bottom: 0.75rem;
+      }
+
+      .source-badge.sheet {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      .source-badge.local {
+        background: #fef3c7;
+        color: #92400e;
+      }
     </style>
   </head>
   <body>
@@ -242,13 +423,13 @@ import siteConfig from '../data/site-config.json';
     </div>
 
     <div class="container">
-      <!-- GitHub Token -->
-      <div class="card token-section">
+      <!-- Connection Setup -->
+      <div class="card connection-section">
         <div class="card-title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 7h3a5 5 0 0 1 0 10h-3m-6 0H6a5 5 0 0 1 0-10h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          GitHub Connection
+          Google Sheets Connection
         </div>
-        <div id="token-area"></div>
+        <div id="url-area"></div>
       </div>
 
       <!-- Iqamah Times -->
@@ -257,27 +438,34 @@ import siteConfig from '../data/site-config.json';
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           Iqamah Times
         </div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="iq-fajr">Fajr</label>
-            <input type="text" id="iq-fajr" placeholder="6:00 AM" />
-          </div>
-          <div class="form-group">
-            <label for="iq-dhuhr">Dhuhr</label>
-            <input type="text" id="iq-dhuhr" placeholder="1:00 PM" />
-          </div>
-          <div class="form-group">
-            <label for="iq-asr">Asr</label>
-            <input type="text" id="iq-asr" placeholder="3:30 PM" />
-          </div>
-          <div class="form-group">
-            <label for="iq-maghrib">Maghrib</label>
-            <input type="text" id="iq-maghrib" placeholder="+10" />
-            <span class="hint">Use +minutes for relative (e.g. +10)</span>
-          </div>
-          <div class="form-group">
-            <label for="iq-isha">Isha</label>
-            <input type="text" id="iq-isha" placeholder="8:00 PM" />
+        <div id="source-badge"></div>
+        <div id="times-loading" class="loading-overlay" style="display: none;">
+          <div class="spinner"></div>
+          Loading from Google Sheet...
+        </div>
+        <div id="times-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="iq-fajr">Fajr</label>
+              <input type="text" id="iq-fajr" placeholder="6:00 AM" />
+            </div>
+            <div class="form-group">
+              <label for="iq-dhuhr">Dhuhr</label>
+              <input type="text" id="iq-dhuhr" placeholder="1:00 PM" />
+            </div>
+            <div class="form-group">
+              <label for="iq-asr">Asr</label>
+              <input type="text" id="iq-asr" placeholder="3:30 PM" />
+            </div>
+            <div class="form-group">
+              <label for="iq-maghrib">Maghrib</label>
+              <input type="text" id="iq-maghrib" placeholder="0" />
+              <span class="hint">Use 0 for same as adhan, or minutes offset (e.g. 10)</span>
+            </div>
+            <div class="form-group">
+              <label for="iq-isha">Isha</label>
+              <input type="text" id="iq-isha" placeholder="8:00 PM" />
+            </div>
           </div>
         </div>
       </div>
@@ -294,120 +482,173 @@ import siteConfig from '../data/site-config.json';
 
       <!-- Actions -->
       <div class="btn-row">
-        <button class="btn btn-secondary" id="reset-btn">Reset</button>
-        <button class="btn btn-primary" id="save-btn" disabled>Save & Deploy</button>
+        <button class="btn btn-secondary" id="refresh-btn">
+          ↻ Refresh
+        </button>
+        <button class="btn btn-primary" id="save-btn" disabled>
+          Save to Sheet
+        </button>
       </div>
 
       <div class="status" id="status-msg"></div>
       <div class="last-updated" id="last-updated"></div>
+
+      <!-- Setup Guide -->
+      <div class="setup-guide">
+        <button class="setup-toggle" id="setup-toggle">
+          <span>📋 First-time Setup Guide</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="setup-content" id="setup-content">
+          <div class="step">
+            <div class="step-num">1</div>
+            <h4>Open your Google Sheet</h4>
+            <p>Go to the Google Sheet that has your Prayer & Iqama columns.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-num">2</div>
+            <h4>Open Apps Script</h4>
+            <p>Click <code>Extensions</code> → <code>Apps Script</code> from the menu bar.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-num">3</div>
+            <h4>Paste this code</h4>
+            <p>Delete any existing code and paste the following:</p>
+            <div class="code-block" id="script-code" set:text={appsScriptCode}></div>
+            <button class="copy-btn" id="copy-script-btn">Copy</button>
+          </div>
+
+          <div class="step">
+            <div class="step-num">4</div>
+            <h4>Deploy as Web App</h4>
+            <ul>
+              <li>Click <code>Deploy</code> → <code>New deployment</code></li>
+              <li>Click the gear icon → select <code>Web app</code></li>
+              <li>Set <strong>Execute as</strong>: <code>Me</code></li>
+              <li>Set <strong>Who has access</strong>: <code>Anyone</code></li>
+              <li>Click <code>Deploy</code> and authorize when prompted</li>
+            </ul>
+          </div>
+
+          <div class="step">
+            <div class="step-num">5</div>
+            <h4>Copy the Web App URL</h4>
+            <p>Copy the URL that looks like:<br><code>https://script.google.com/macros/s/...../exec</code></p>
+            <p>Paste it in the "Google Sheets Connection" section above.</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="admin-config" data-config={JSON.stringify(iqamaConfig)} hidden></div>
 
     <script is:inline>
-      const REPO_OWNER = 'zouhir-dahbi';
-      const REPO_NAME = 'pwic';
-      const FILE_PATH = 'src/data/iqama-times.json';
-
       const configEl = document.getElementById('admin-config');
-      const originalConfig = JSON.parse(configEl.getAttribute('data-config'));
-      let currentConfig = JSON.parse(JSON.stringify(originalConfig));
+      const fallbackConfig = JSON.parse(configEl.getAttribute('data-config'));
+      const CSV_URL = fallbackConfig.googleSheetCsvUrl || '';
 
-      const TOKEN_KEY = 'pwic_gh_token';
+      const SCRIPT_URL_KEY = 'pwic_apps_script_url';
+      let jummahTimes = [...(fallbackConfig.jummah?.khutbah || ['1:00 PM'])];
+      let loadedFromSheet = false;
 
-      function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
-      function setToken(t) { localStorage.setItem(TOKEN_KEY, t); }
-      function clearToken() { localStorage.removeItem(TOKEN_KEY); }
+      function getScriptUrl() { return localStorage.getItem(SCRIPT_URL_KEY) || ''; }
+      function setScriptUrl(u) { localStorage.setItem(SCRIPT_URL_KEY, u); }
+      function clearScriptUrl() { localStorage.removeItem(SCRIPT_URL_KEY); }
 
-      function renderTokenArea() {
-        const area = document.getElementById('token-area');
-        const token = getToken();
-        if (token) {
-          area.innerHTML = `
-            <div class="token-saved">
-              <span>&#10003; GitHub token saved</span>
-              <button id="clear-token-btn">Remove</button>
-            </div>`;
-          document.getElementById('clear-token-btn').addEventListener('click', () => {
-            clearToken();
-            renderTokenArea();
+      function renderUrlArea() {
+        const area = document.getElementById('url-area');
+        const url = getScriptUrl();
+        if (url) {
+          area.innerHTML =
+            '<div class="url-saved">' +
+              '<span>&#10003; Apps Script connected</span>' +
+              '<button id="clear-url-btn">Change</button>' +
+            '</div>';
+          document.getElementById('clear-url-btn').addEventListener('click', function() {
+            clearScriptUrl();
+            renderUrlArea();
             updateSaveBtn();
           });
         } else {
-          area.innerHTML = `
-            <div class="token-input-row">
-              <input type="password" id="token-input" placeholder="GitHub Personal Access Token" />
-              <button class="btn btn-primary" id="save-token-btn">Save</button>
-            </div>
-            <span class="hint">Needs repo write access. Token is stored locally in your browser only.</span>`;
-          document.getElementById('save-token-btn').addEventListener('click', () => {
-            const val = document.getElementById('token-input').value.trim();
-            if (val) {
-              setToken(val);
-              renderTokenArea();
+          area.innerHTML =
+            '<div class="url-input-row">' +
+              '<input type="url" id="url-input" placeholder="https://script.google.com/macros/s/.../exec" />' +
+              '<button class="btn btn-primary" id="save-url-btn">Save</button>' +
+            '</div>' +
+            '<span class="hint">Paste your Apps Script web app URL. See setup guide below.</span>';
+          document.getElementById('save-url-btn').addEventListener('click', function() {
+            var val = document.getElementById('url-input').value.trim();
+            if (val && val.includes('script.google.com')) {
+              setScriptUrl(val);
+              renderUrlArea();
               updateSaveBtn();
+            } else {
+              showStatus('Please enter a valid Google Apps Script URL', 'error');
             }
           });
         }
       }
 
-      function populateForm() {
-        const iq = currentConfig.iqama;
-        document.getElementById('iq-fajr').value = iq.fajr || '';
-        document.getElementById('iq-dhuhr').value = iq.dhuhr || '';
-        document.getElementById('iq-asr').value = iq.asr || '';
-        document.getElementById('iq-maghrib').value = iq.maghrib || '';
-        document.getElementById('iq-isha').value = iq.isha || '';
+      function populateForm(iqama, jummah) {
+        document.getElementById('iq-fajr').value = iqama.fajr || '';
+        document.getElementById('iq-dhuhr').value = iqama.dhuhr || '';
+        document.getElementById('iq-asr').value = iqama.asr || '';
+        document.getElementById('iq-maghrib').value = iqama.maghrib || '';
+        document.getElementById('iq-isha').value = iqama.isha || '';
+        if (jummah && jummah.length > 0) {
+          jummahTimes = [...jummah];
+        }
         renderJummahList();
       }
 
       function renderJummahList() {
-        const list = document.getElementById('jummah-list');
-        const times = currentConfig.jummah.khutbah || [];
-        list.innerHTML = times.map((t, i) => `
-          <div class="jummah-row">
-            <input type="text" class="jummah-input" data-index="${i}" value="${t}" placeholder="1:00 PM" />
-            ${times.length > 1 ? `<button class="remove-btn" data-index="${i}">&times;</button>` : ''}
-          </div>
-        `).join('');
+        var list = document.getElementById('jummah-list');
+        list.innerHTML = jummahTimes.map(function(t, i) {
+          return '<div class="jummah-row">' +
+            '<input type="text" class="jummah-input" data-index="' + i + '" value="' + t + '" placeholder="1:00 PM" />' +
+            (jummahTimes.length > 1 ? '<button class="remove-btn" data-index="' + i + '">&times;</button>' : '') +
+          '</div>';
+        }).join('');
 
-        list.querySelectorAll('.remove-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const idx = parseInt(btn.getAttribute('data-index'));
-            currentConfig.jummah.khutbah.splice(idx, 1);
+        list.querySelectorAll('.remove-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            jummahTimes.splice(parseInt(btn.getAttribute('data-index')), 1);
             renderJummahList();
           });
         });
 
-        list.querySelectorAll('.jummah-input').forEach(inp => {
-          inp.addEventListener('input', () => {
-            const idx = parseInt(inp.getAttribute('data-index'));
-            currentConfig.jummah.khutbah[idx] = inp.value;
+        list.querySelectorAll('.jummah-input').forEach(function(inp) {
+          inp.addEventListener('input', function() {
+            jummahTimes[parseInt(inp.getAttribute('data-index'))] = inp.value;
           });
         });
       }
 
-      document.getElementById('add-jummah-btn').addEventListener('click', () => {
-        currentConfig.jummah.khutbah.push('');
+      document.getElementById('add-jummah-btn').addEventListener('click', function() {
+        jummahTimes.push('');
         renderJummahList();
-        const inputs = document.querySelectorAll('.jummah-input');
+        var inputs = document.querySelectorAll('.jummah-input');
         if (inputs.length) inputs[inputs.length - 1].focus();
       });
 
       function readForm() {
-        currentConfig.iqama.fajr = document.getElementById('iq-fajr').value.trim();
-        currentConfig.iqama.dhuhr = document.getElementById('iq-dhuhr').value.trim();
-        currentConfig.iqama.asr = document.getElementById('iq-asr').value.trim();
-        currentConfig.iqama.maghrib = document.getElementById('iq-maghrib').value.trim();
-        currentConfig.iqama.isha = document.getElementById('iq-isha').value.trim();
+        return {
+          fajr: document.getElementById('iq-fajr').value.trim(),
+          dhuhr: document.getElementById('iq-dhuhr').value.trim(),
+          asr: document.getElementById('iq-asr').value.trim(),
+          maghrib: document.getElementById('iq-maghrib').value.trim(),
+          isha: document.getElementById('iq-isha').value.trim()
+        };
       }
 
       function updateSaveBtn() {
-        document.getElementById('save-btn').disabled = !getToken();
+        document.getElementById('save-btn').disabled = !getScriptUrl();
       }
 
       function showStatus(msg, type) {
-        const el = document.getElementById('status-msg');
+        var el = document.getElementById('status-msg');
         el.textContent = msg;
         el.className = 'status ' + type;
       }
@@ -416,68 +657,157 @@ import siteConfig from '../data/site-config.json';
         document.getElementById('status-msg').className = 'status';
       }
 
-      document.getElementById('reset-btn').addEventListener('click', () => {
-        currentConfig = JSON.parse(JSON.stringify(originalConfig));
-        populateForm();
-        hideStatus();
-      });
+      function updateSourceBadge() {
+        var badge = document.getElementById('source-badge');
+        if (loadedFromSheet) {
+          badge.innerHTML = '<span class="source-badge sheet">● Live from Google Sheet</span>';
+        } else {
+          badge.innerHTML = '<span class="source-badge local">● Using local fallback</span>';
+        }
+      }
 
-      document.getElementById('save-btn').addEventListener('click', async () => {
-        const token = getToken();
-        if (!token) return;
+      function parseCsvValue(raw) {
+        return raw.replace(/^"(.*)"$/, '$1').trim();
+      }
 
-        readForm();
+      var KEY_MAP = {
+        fajr: 'fajr', dhuhr: 'dhuhr', duhr: 'dhuhr', zuhr: 'dhuhr',
+        asr: 'asr', maghrib: 'maghrib', magrib: 'maghrib',
+        isha: 'isha', ishaa: 'isha'
+      };
 
-        const saveBtn = document.getElementById('save-btn');
-        saveBtn.disabled = true;
-        saveBtn.textContent = 'Saving...';
-        showStatus('Committing to GitHub...', 'loading');
+      async function loadFromSheet() {
+        if (!CSV_URL) {
+          populateForm(fallbackConfig.iqama, fallbackConfig.jummah?.khutbah || []);
+          updateSourceBadge();
+          return;
+        }
+
+        var loadingEl = document.getElementById('times-loading');
+        loadingEl.style.display = 'flex';
 
         try {
-          const getRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
-            headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github.v3+json' }
-          });
+          var res = await fetch(CSV_URL + '&_t=' + Date.now());
+          if (!res.ok) throw new Error('Failed to fetch');
+          var csv = await res.text();
+          var rows = csv.trim().split('\n').slice(1);
+          var iqama = {};
+          var jummah = [];
 
-          if (!getRes.ok) throw new Error('Failed to read file from GitHub. Check your token.');
-          const fileData = await getRes.json();
-          const sha = fileData.sha;
+          for (var r = 0; r < rows.length; r++) {
+            var cols = rows[r].split(',');
+            if (cols.length < 2) continue;
+            var rawKey = parseCsvValue(cols[0]);
+            var val = parseCsvValue(cols[1]);
+            if (!rawKey || !val) continue;
 
-          const newContent = JSON.stringify(currentConfig, null, 2) + '\n';
-          const encoded = btoa(unescape(encodeURIComponent(newContent)));
-
-          const now = new Date();
-          const timestamp = now.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true });
-          const message = `Update iqamah times (${timestamp})`;
-
-          const putRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
-            method: 'PUT',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Accept': 'application/vnd.github.v3+json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ message, content: encoded, sha })
-          });
-
-          if (!putRes.ok) {
-            const err = await putRes.json();
-            throw new Error(err.message || 'Failed to save');
+            var key = rawKey.trim().toLowerCase();
+            if (key === 'jummah' || key === 'jummah1' || key === 'jumuah') {
+              jummah[0] = val;
+            } else if (key === 'jummah2' || key === 'jumuah2') {
+              jummah[1] = val;
+            } else if (key === 'jummah3') {
+              jummah[2] = val;
+            } else if (KEY_MAP[key]) {
+              iqama[KEY_MAP[key]] = val;
+            }
           }
 
-          showStatus('Saved! Site will rebuild and deploy automatically.', 'success');
-          document.getElementById('last-updated').textContent = `Last saved: ${timestamp}`;
+          if (Object.keys(iqama).length > 0) {
+            loadedFromSheet = true;
+            populateForm(iqama, jummah.filter(Boolean));
+          } else {
+            populateForm(fallbackConfig.iqama, fallbackConfig.jummah?.khutbah || []);
+          }
+        } catch (err) {
+          populateForm(fallbackConfig.iqama, fallbackConfig.jummah?.khutbah || []);
+        } finally {
+          loadingEl.style.display = 'none';
+          updateSourceBadge();
+        }
+      }
+
+      document.getElementById('refresh-btn').addEventListener('click', function() {
+        hideStatus();
+        loadFromSheet();
+      });
+
+      document.getElementById('save-btn').addEventListener('click', async function() {
+        var scriptUrl = getScriptUrl();
+        if (!scriptUrl) return;
+
+        var iqama = readForm();
+        var entries = [
+          ['Fajr', iqama.fajr],
+          ['Dhuhr', iqama.dhuhr],
+          ['Asr', iqama.asr],
+          ['Maghrib', iqama.maghrib],
+          ['Isha', iqama.isha]
+        ];
+
+        for (var j = 0; j < jummahTimes.length; j++) {
+          var label = j === 0 ? 'Jummah' : 'Jummah' + (j + 1);
+          entries.push([label, jummahTimes[j]]);
+        }
+
+        var saveBtn = document.getElementById('save-btn');
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving...';
+        showStatus('Updating Google Sheet...', 'loading');
+
+        try {
+          var response = await fetch(scriptUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify({ entries: entries })
+          });
+
+          if (response.ok) {
+            var result = await response.json();
+            if (result.success) {
+              showStatus('Saved! Changes will appear on TV displays within 5 minutes.', 'success');
+            } else {
+              showStatus('Sheet update failed: ' + (result.error || 'Unknown error'), 'error');
+            }
+          } else if (response.type === 'opaque') {
+            showStatus('Saved! Verifying...', 'loading');
+            await new Promise(function(r) { setTimeout(r, 2000); });
+            await loadFromSheet();
+            showStatus('Saved! Changes will appear on TV displays within 5 minutes.', 'success');
+          } else {
+            throw new Error('Request failed with status ' + response.status);
+          }
+
+          var now = new Date();
+          var timestamp = now.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true });
+          document.getElementById('last-updated').textContent = 'Last saved: ' + timestamp;
         } catch (e) {
-          showStatus(e.message, 'error');
+          showStatus('Error: ' + e.message + '. Check your Apps Script URL and try again.', 'error');
         } finally {
           saveBtn.disabled = false;
-          saveBtn.textContent = 'Save & Deploy';
+          saveBtn.textContent = 'Save to Sheet';
           updateSaveBtn();
         }
       });
 
-      renderTokenArea();
-      populateForm();
+      document.getElementById('setup-toggle').addEventListener('click', function() {
+        this.classList.toggle('open');
+        document.getElementById('setup-content').classList.toggle('open');
+      });
+
+      document.getElementById('copy-script-btn').addEventListener('click', function() {
+        var code = document.getElementById('script-code').textContent;
+        navigator.clipboard.writeText(code).then(function() {
+          document.getElementById('copy-script-btn').textContent = 'Copied!';
+          setTimeout(function() {
+            document.getElementById('copy-script-btn').textContent = 'Copy';
+          }, 2000);
+        });
+      });
+
+      renderUrlArea();
       updateSaveBtn();
+      loadFromSheet();
     </script>
   </body>
 </html>
