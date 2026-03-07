@@ -1,0 +1,48 @@
+{
+  "pricing": {
+    "annualFee": 240,
+    "description": "Annual listing in the PWIC Community Business Directory"
+  },
+  "categories": [
+    "Architecture & Engineering",
+    "Automotive",
+    "Cleaning Services",
+    "Construction & Contractors",
+    "Consulting",
+    "Education & Tutoring",
+    "Financial Services",
+    "Food & Catering",
+    "Healthcare & Medical",
+    "Home Services",
+    "Insurance",
+    "IT & Technology",
+    "Legal Services",
+    "Marketing & Design",
+    "Real Estate",
+    "Retail & Shopping",
+    "Transportation",
+    "Other"
+  ],
+  "businesses": [
+    {
+      "id": "hassan-consulting-group",
+      "name": "Hassan Consulting Group, LLC",
+      "category": "Architecture & Engineering",
+      "description": "Full-service architecture, engineering, and contracting firm serving the Northern Virginia area.",
+      "services": ["Architecture", "Engineering", "Contracting"],
+      "contact": {
+        "name": "Mohamed E. Hassan, Ph.D., P.E.",
+        "title": "President",
+        "phone": "(703) 625-2660",
+        "cell": "(703) 898-0204",
+        "email": "mehassan54@gmail.com"
+      },
+      "address": "3500 James Madison HWY, Haymarket, VA 20169",
+      "website": "https://www.hassanconsultingllc.com",
+      "image": "/images/business-directory/hassan-consulting-group.jpg",
+      "featured": true,
+      "active": true,
+      "listedSince": "2026-03-01"
+    }
+  ]
+}
