@@ -18,9 +18,11 @@ const educationDropdown = [
 
 const navItems = [
   { name: 'Home', href: url('/') },
+  { name: 'Community', href: url('/community') },
   { name: 'Events', href: url('/events') },
   { name: 'Services', href: url('/services'), hasDropdown: true, dropdown: servicesDropdown },
   { name: 'Education', href: url('/education'), hasDropdown: true, dropdown: educationDropdown },
+  { name: 'Business Directory', href: url('/business-directory') },
   { name: 'About Us', href: url('/about') },
   { name: 'Contact Us', href: url('/contact') },
 ];
@@ -255,6 +257,18 @@ const isActive = (item: typeof navItems[0]) => {
           Home
         </a>
         
+        <!-- Community -->
+        <a
+          href={url('/community')}
+          class={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+            currentPath === url('/community') || currentPath === url('/community') + '/'
+              ? 'bg-primary-50 text-primary-700'
+              : 'text-gray-700 hover:bg-gray-50 hover:text-primary-600'
+          }`}
+        >
+          Community
+        </a>
+
         <!-- Events -->
         <a
           href={url('/events')}
@@ -327,6 +341,18 @@ const isActive = (item: typeof navItems[0]) => {
           </div>
         </div>
         
+        <!-- Business Directory -->
+        <a
+          href={url('/business-directory')}
+          class={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+            currentPath === url('/business-directory') || currentPath === url('/business-directory') + '/'
+              ? 'bg-primary-50 text-primary-700'
+              : 'text-gray-700 hover:bg-gray-50 hover:text-primary-600'
+          }`}
+        >
+          Business Directory
+        </a>
+
         <!-- About Us -->
         <a
           href={url('/about')}
