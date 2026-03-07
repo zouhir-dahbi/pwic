@@ -17,7 +17,7 @@ const educationDropdown = [
 ];
 
 const moreDropdown = [
-  { name: 'Business Directory', href: url('/business-directory'), description: 'Local community businesses', icon: 'briefcase', image: '' },
+  { name: 'Business Directory', href: url('/advertise'), description: 'Local community businesses', icon: 'briefcase', image: '' },
   { name: 'About Us', href: url('/about'), description: 'Learn about PWIC', icon: 'info', image: '' },
   { name: 'Contact Us', href: url('/contact'), description: 'Get in touch', icon: 'mail', image: '' },
 ];
@@ -349,9 +349,9 @@ const isActive = (item: typeof navItems[0]) => {
         
         <!-- Business Directory -->
         <a
-          href={url('/business-directory')}
+          href={url('/advertise')}
           class={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${
-            currentPath === url('/business-directory') || currentPath === url('/business-directory') + '/'
+            currentPath === url('/advertise') || currentPath === url('/advertise') + '/'
               ? 'bg-primary-50 text-primary-700'
               : 'text-gray-700 hover:bg-gray-50 hover:text-primary-600'
           }`}
