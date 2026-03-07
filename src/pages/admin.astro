@@ -2,13 +2,12 @@
 import iqamaConfig from '../data/iqama-times.json';
 import siteConfig from '../data/site-config.json';
 
-const appsScriptCode = `function doPost(e) {
+const appsScriptCode = `function doGet(e) {
   var lock = LockService.getScriptLock();
   lock.tryLock(10000);
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var raw = e.parameter.payload || e.postData.contents;
-    var data = JSON.parse(raw);
+    var data = JSON.parse(e.parameter.payload);
     var entries = data.entries;
     var lastRow = sheet.getLastRow();
     if (lastRow > 1) sheet.getRange(2, 1, lastRow - 1, 2).clearContent();
@@ -17,9 +16,10 @@ const appsScriptCode = `function doPost(e) {
       sheet.getRange(i + 2, 2).setValue(entries[i][1]);
     }
     SpreadsheetApp.flush();
+    var cb = e.parameter.callback || 'cb';
     return ContentService.createTextOutput(
-      JSON.stringify({ success: true })
-    ).setMimeType(ContentService.MimeType.JSON);
+      cb + '(' + JSON.stringify({success:true}) + ')'
+    ).setMimeType(ContentService.MimeType.JAVASCRIPT);
   } finally {
     lock.releaseLock();
   }
@@ -844,36 +844,39 @@ const appsScriptCode = `function doPost(e) {
         showStatus('Updating Google Sheet...', 'loading');
 
         try {
-          var iframeName = 'pwic-save-' + Date.now();
-          var iframe = document.createElement('iframe');
-          iframe.name = iframeName;
-          iframe.style.display = 'none';
-          document.body.appendChild(iframe);
+          var payload = encodeURIComponent(JSON.stringify({ entries: entries }));
+          var cbName = '_pwicCb' + Date.now();
+          var done = false;
 
-          var form = document.createElement('form');
-          form.method = 'POST';
-          form.action = scriptUrl;
-          form.target = iframeName;
+          var result = await new Promise(function(resolve) {
+            window[cbName] = function(res) {
+              done = true;
+              delete window[cbName];
+              resolve(res);
+            };
+            setTimeout(function() {
+              if (!done) { delete window[cbName]; resolve({ success: true }); }
+            }, 8000);
 
-          var input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = 'payload';
-          input.value = JSON.stringify({ entries: entries });
-          form.appendChild(input);
-
-          document.body.appendChild(form);
-          form.submit();
-
-          setTimeout(function() { form.remove(); iframe.remove(); }, 10000);
+            var script = document.createElement('script');
+            script.src = scriptUrl + '?payload=' + payload + '&callback=' + cbName;
+            script.onerror = function() { script.remove(); if (!done) { delete window[cbName]; resolve({ success: false }); } };
+            document.head.appendChild(script);
+          });
 
           showStatus('Sent! Verifying update...', 'loading');
-          await new Promise(function(r) { setTimeout(r, 4000); });
+          await new Promise(function(r) { setTimeout(r, 3000); });
           await loadFromSheet();
 
           var now = new Date();
           var timestamp = now.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true });
           document.getElementById('last-updated').textContent = 'Last saved: ' + timestamp;
-          showStatus('Saved! Changes will appear on TV displays within 5 minutes.', 'success');
+
+          if (result.success) {
+            showStatus('Saved! Changes will appear on TV displays within 5 minutes.', 'success');
+          } else {
+            showStatus('Save may have failed. Please refresh to verify.', 'error');
+          }
         } catch (e) {
           showStatus('Error: ' + e.message + '. Check your Apps Script URL and try again.', 'error');
         } finally {
