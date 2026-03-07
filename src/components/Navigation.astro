@@ -16,15 +16,19 @@ const educationDropdown = [
   { name: 'Registration', href: url('/education/registration'), description: 'Enroll your child', icon: 'pencil', image: url('/images/education-graduation-cap.jpeg') },
 ];
 
+const moreDropdown = [
+  { name: 'Business Directory', href: url('/business-directory'), description: 'Local community businesses', icon: 'briefcase', image: '' },
+  { name: 'About Us', href: url('/about'), description: 'Learn about PWIC', icon: 'info', image: '' },
+  { name: 'Contact Us', href: url('/contact'), description: 'Get in touch', icon: 'mail', image: '' },
+];
+
 const navItems = [
   { name: 'Home', href: url('/') },
   { name: 'Community', href: url('/community') },
   { name: 'Events', href: url('/events') },
   { name: 'Services', href: url('/services'), hasDropdown: true, dropdown: servicesDropdown },
   { name: 'Education', href: url('/education'), hasDropdown: true, dropdown: educationDropdown },
-  { name: 'Business Directory', href: url('/business-directory') },
-  { name: 'About Us', href: url('/about') },
-  { name: 'Contact Us', href: url('/contact') },
+  { name: 'More', href: '#', hasDropdown: true, dropdown: moreDropdown },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -33,11 +37,13 @@ const { facebook, youtube } = siteConfig.socialLinks;
 // Check if current path is in a dropdown
 const isInServices = currentPath.startsWith(url('/services'));
 const isInEducation = currentPath.startsWith(url('/education'));
+const isInMore = moreDropdown.some(item => currentPath === item.href || currentPath === item.href + '/');
 
 // Helper to check if nav item is active
 const isActive = (item: typeof navItems[0]) => {
   if (item.name === 'Services') return isInServices;
   if (item.name === 'Education') return isInEducation;
+  if (item.name === 'More') return isInMore;
   return currentPath === item.href || currentPath === item.href + '/';
 };
 ---
@@ -55,14 +61,14 @@ const isActive = (item: typeof navItems[0]) => {
       </a>
 
       <!-- Desktop Navigation - Elegant Theme -->
-      <div class="hidden lg:flex items-center gap-2">
+      <div class="hidden lg:flex items-center gap-1.5">
         <!-- Main Nav Items -->
-        <div class="flex items-center gap-0.5 bg-white/60 backdrop-blur-sm rounded-full px-2 py-1.5 border border-primary-100/50 shadow-sm">
+        <div class="flex items-center gap-0.5 bg-white/60 backdrop-blur-sm rounded-full px-1.5 py-1.5 border border-primary-100/50 shadow-sm">
           {navItems.map((item) => (
             item.hasDropdown ? (
               <div class="relative group">
                 <button
-                  class={`flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[15px] font-medium transition-all duration-200 ${
+                  class={`flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                     isActive(item)
                       ? 'bg-primary-600 text-white shadow-md'
                       : 'text-primary-800 hover:text-primary-600 hover:bg-primary-50'
@@ -74,19 +80,19 @@ const isActive = (item: typeof navItems[0]) => {
                   </svg>
                 </button>
                 
-                <!-- Dropdown Menu with Preview -->
-                <div class="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                  <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden min-w-[340px]">
-                    <!-- Preview Image Area -->
-                    <div class="dropdown-preview h-32 bg-gradient-to-br from-primary-600 to-primary-700 relative overflow-hidden">
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                      <div class="absolute bottom-3 left-4 text-white">
-                        <p class="text-xs font-medium opacity-80">Explore</p>
-                        <p class="dropdown-preview-title text-lg font-bold">{item.name}</p>
+                <!-- Dropdown Menu -->
+                <div class={`absolute top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 ${item.name === 'More' ? 'right-0' : 'left-1/2 -translate-x-1/2'}`}>
+                  <div class={`bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden ${item.name === 'More' ? 'min-w-[240px]' : 'min-w-[340px]'}`}>
+                    {item.name !== 'More' && (
+                      <div class="dropdown-preview h-32 bg-gradient-to-br from-primary-600 to-primary-700 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                        <div class="absolute bottom-3 left-4 text-white">
+                          <p class="text-xs font-medium opacity-80">Explore</p>
+                          <p class="dropdown-preview-title text-lg font-bold">{item.name}</p>
+                        </div>
                       </div>
-                    </div>
+                    )}
                     
-                    <!-- Menu Items -->
                     <div class="py-2">
                       {item.dropdown?.map((subItem) => (
                         <a
@@ -124,7 +130,7 @@ const isActive = (item: typeof navItems[0]) => {
             ) : (
               <a
                 href={item.href}
-                class={`px-5 py-2.5 rounded-full text-[15px] font-medium transition-all duration-200 ${
+                class={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   isActive(item)
                     ? 'bg-primary-600 text-white shadow-md'
                     : 'text-primary-800 hover:text-primary-600 hover:bg-primary-50'
@@ -137,18 +143,18 @@ const isActive = (item: typeof navItems[0]) => {
         </div>
 
         <!-- Separator -->
-        <div class="w-px h-8 bg-primary-200/50 mx-3"></div>
+        <div class="w-px h-7 bg-primary-200/50 mx-2"></div>
 
         <!-- Action Buttons -->
         <a
           href={url('/advertise')}
-          class="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full text-[15px] font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+          class="px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full text-sm font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
         >
           ADS
         </a>
         <a
           href={url('/donate')}
-          class="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full text-[15px] font-semibold hover:from-amber-700 hover:to-amber-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+          class="px-5 py-2 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full text-sm font-semibold hover:from-amber-700 hover:to-amber-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
         >
           Donate Now
         </a>
