@@ -5,10 +5,20 @@ import siteConfig from '../data/site-config.json';
 import { url } from '../utils/links';
 
 const stripeLink = siteConfig.donation.stripeLink;
+const stripeAmountLinks: Record<string, string> = siteConfig.donation.stripeAmountLinks || {};
 const zelleEmail = siteConfig.donation.zelleEmail;
+const paypalEmail = siteConfig.donation.paypalEmail;
 const presetAmounts = siteConfig.donation.presetAmounts || [10, 20, 50];
 const hasStripe = stripeLink && stripeLink.length > 0;
+const hasPaypal = paypalEmail && paypalEmail.length > 0;
 const giveUrl = url('/give');
+const paypalDonateUrl = hasPaypal ? `https://www.paypal.com/donate?business=${encodeURIComponent(paypalEmail)}&currency_code=USD` : '';
+
+function getAmountUrl(amount: number): string {
+  const directLink = stripeAmountLinks[String(amount)];
+  if (directLink) return directLink;
+  return `${giveUrl}?amount=${amount}`;
+}
 ---
 
 <Layout title="Donate">
@@ -32,7 +42,7 @@ const giveUrl = url('/give');
       </div>
 
       <!-- Donation Options Grid -->
-      <div class="grid md:grid-cols-2 gap-6 mb-12">
+      <div class={`grid gap-6 mb-12 ${hasPaypal ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
         <!-- Online Donation (Stripe) -->
         <div class="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
           <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
@@ -51,7 +61,7 @@ const giveUrl = url('/give');
             <div class="grid grid-cols-3 gap-3 mb-4">
               {presetAmounts.map((amount: number) => (
                 <a
-                  href={`${giveUrl}?amount=${amount}`}
+                  href={getAmountUrl(amount)}
                   class="flex items-center justify-center py-3.5 bg-white text-primary-700 rounded-xl font-bold text-lg hover:bg-primary-50 transition-colors shadow-md"
                 >
                   ${amount}
@@ -97,6 +107,32 @@ const giveUrl = url('/give');
           )}
           <p class="text-xs text-gray-500 mt-4">Available in most US bank apps</p>
         </div>
+
+        {hasPaypal && (
+        <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.771.771 0 0 1 .761-.654h5.36c2.404 0 4.156.777 4.748 2.555.187.563.238 1.086.163 1.664-.075.578-.272 1.22-.587 1.908a6.09 6.09 0 0 1-.758 1.224 5.076 5.076 0 0 1-1.113 1.084c-.432.318-.946.567-1.536.744-.579.172-1.236.26-1.961.26H8.468a.77.77 0 0 0-.76.653l-.001.007-.632 4.006-.001.007a.641.641 0 0 1-.633.546H7.076v.613zm13.302-14.07c-.104.623-.29 1.2-.562 1.725-.888 1.716-2.608 2.685-5.162 2.685h-1.23l-.696 4.405h-2.11l2.455-15.564h4.2c1.012 0 1.831.167 2.447.497.506.273.882.656 1.123 1.147.233.475.327 1.03.292 1.66-.013.219-.037.43-.072.632-.025.144-.055.289-.09.434-.054.224-.126.455-.214.695-.088.24-.194.483-.319.727-.058.115-.122.23-.192.343z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 font-heading mb-2">PayPal</h3>
+          <p class="text-gray-600 mb-6">
+            Donate securely using your PayPal account or credit card.
+          </p>
+          <a
+            href={paypalDonateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center w-full py-3.5 bg-[#0070ba] text-white rounded-xl font-semibold hover:bg-[#005ea6] transition-colors shadow-md"
+          >
+            Donate with PayPal
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+          <p class="text-xs text-gray-500 mt-4">PayPal · Credit / Debit Card</p>
+        </div>
+        )}
       </div>
 
       <!-- Donation Types -->
