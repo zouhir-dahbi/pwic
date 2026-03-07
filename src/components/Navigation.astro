@@ -61,14 +61,14 @@ const isActive = (item: typeof navItems[0]) => {
       </a>
 
       <!-- Desktop Navigation - Elegant Theme -->
-      <div class="hidden lg:flex items-center gap-1.5">
+      <div class="hidden lg:flex items-center gap-2">
         <!-- Main Nav Items -->
-        <div class="flex items-center gap-0.5 bg-white/60 backdrop-blur-sm rounded-full px-1.5 py-1.5 border border-primary-100/50 shadow-sm">
+        <div class="flex items-center gap-0.5 bg-white/60 backdrop-blur-sm rounded-full px-2 py-1.5 border border-primary-100/50 shadow-sm">
           {navItems.map((item) => (
             item.hasDropdown ? (
               <div class="relative group">
                 <button
-                  class={`flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  class={`flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[15px] font-medium transition-all duration-200 ${
                     isActive(item)
                       ? 'bg-primary-600 text-white shadow-md'
                       : 'text-primary-800 hover:text-primary-600 hover:bg-primary-50'
@@ -130,7 +130,7 @@ const isActive = (item: typeof navItems[0]) => {
             ) : (
               <a
                 href={item.href}
-                class={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                class={`px-5 py-2.5 rounded-full text-[15px] font-medium transition-all duration-200 ${
                   isActive(item)
                     ? 'bg-primary-600 text-white shadow-md'
                     : 'text-primary-800 hover:text-primary-600 hover:bg-primary-50'
@@ -143,18 +143,18 @@ const isActive = (item: typeof navItems[0]) => {
         </div>
 
         <!-- Separator -->
-        <div class="w-px h-7 bg-primary-200/50 mx-2"></div>
+        <div class="w-px h-8 bg-primary-200/50 mx-3"></div>
 
         <!-- Action Buttons -->
         <a
           href={url('/advertise')}
-          class="px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full text-sm font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+          class="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full text-[15px] font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
         >
           ADS
         </a>
         <a
           href={url('/donate')}
-          class="px-5 py-2 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full text-sm font-semibold hover:from-amber-700 hover:to-amber-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+          class="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full text-[15px] font-semibold hover:from-amber-700 hover:to-amber-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
         >
           Donate Now
         </a>
