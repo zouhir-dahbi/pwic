@@ -24,11 +24,7 @@
   
   "donation": {
     "stripeLink": "https://donate.stripe.com/9B6cN6co4cWD2sebBEdUY03",
-    "stripeAmountLinks": {
-      "10": "https://donate.stripe.com/8x2eVeewc6yf8QC5dgdUY00",
-      "20": "https://donate.stripe.com/eVqcN64VC8Gn6IuaxAdUY01",
-      "50": "https://donate.stripe.com/eVqeVegEkf4L4Am6hkdUY02"
-    },
+    "stripeAmountLinks": {},
     "zelleEmail": "pwicimam@msn.com",
     "paypalEmail": "pwicimam@msn.com",
     "paypalLink": "",
