@@ -8,6 +8,7 @@
 import siteConfig from '../data/site-config.json';
 
 const stripeLink = siteConfig.donation.stripeLink || '';
+const stripeAmountLinks: Record<string, string> = siteConfig.donation.stripeAmountLinks || {};
 const fallbackUrl = '/donate';
 ---
 <!doctype html>
@@ -16,7 +17,7 @@ const fallbackUrl = '/donate';
   <meta charset="UTF-8">
   <meta name="robots" content="noindex">
   <title>Redirecting…</title>
-  <script is:inline define:vars={{ stripeLink, fallbackUrl }}>
+  <script is:inline define:vars={{ stripeLink, stripeAmountLinks, fallbackUrl }}>
     (function() {
       if (!stripeLink) {
         window.location.href = fallbackUrl;
@@ -24,11 +25,11 @@ const fallbackUrl = '/donate';
       }
       var params = new URLSearchParams(window.location.search);
       var amount = params.get('amount');
-      var sep = stripeLink.indexOf('?') !== -1 ? '&' : '?';
-      var dest = amount
-        ? stripeLink + sep + 'prefilled_amount=' + amount + '00'
-        : stripeLink;
-      window.location.replace(dest);
+      if (amount && stripeAmountLinks[amount]) {
+        window.location.replace(stripeAmountLinks[amount]);
+        return;
+      }
+      window.location.replace(stripeLink);
     })();
   </script>
 </head>
