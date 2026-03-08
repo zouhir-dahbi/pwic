@@ -15,9 +15,7 @@ const giveUrl = url('/give');
 const paypalDonateUrl = hasPaypal ? `https://www.paypal.com/donate?business=${encodeURIComponent(paypalEmail)}&currency_code=USD` : '';
 
 function getAmountUrl(amount: number): string {
-  const directLink = stripeAmountLinks[String(amount)];
-  if (directLink) return directLink;
-  return `${giveUrl}?amount=${amount}`;
+  return url(`/give/${amount}`);
 }
 ---
 

@@ -5,7 +5,7 @@
  * Uses client-side JS to read ?amount= query param at runtime,
  * since static builds can't access query params server-side.
  */
-import siteConfig from '../data/site-config.json';
+import siteConfig from '../../data/site-config.json';
 
 const stripeLink = siteConfig.donation.stripeLink || '';
 const stripeAmountLinks: Record<string, string> = siteConfig.donation.stripeAmountLinks || {};

@@ -1,0 +1,34 @@
+---
+/**
+ * /give/10, /give/20, /give/50 → dedicated Stripe links per amount
+ * Static paths generated from stripeAmountLinks config
+ */
+import siteConfig from '../../data/site-config.json';
+
+const amountLinks: Record<string, string> = siteConfig.donation.stripeAmountLinks || {};
+
+export function getStaticPaths() {
+  const links: Record<string, string> = siteConfig.donation.stripeAmountLinks || {};
+  return Object.entries(links).map(([amount, url]) => ({
+    params: { amount },
+    props: { url },
+  }));
+}
+
+const { url } = Astro.props;
+---
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content={`0;url=${url}`}>
+  <title>Redirecting…</title>
+  <script is:inline define:vars={{ url }}>
+    window.location.replace(url);
+  </script>
+</head>
+<body>
+  <p>Redirecting to payment page…</p>
+</body>
+</html>
