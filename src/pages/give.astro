@@ -2,27 +2,37 @@
 /**
  * /give → Stripe payment link (used by NFC tags, QR codes, donation plaque)
  * 
- * Supports ?amount=10, ?amount=20, ?amount=50 query params
- * Uses dedicated Stripe links per amount when available,
- * falls back to appending prefilled_amount to the default link
+ * Uses client-side JS to read ?amount= query param at runtime,
+ * since static builds can't access query params server-side.
  */
 import siteConfig from '../data/site-config.json';
 
-const stripeLink = siteConfig.donation.stripeLink;
-const stripeAmountLinks: Record<string, string> = siteConfig.donation.stripeAmountLinks || {};
-const amount = Astro.url.searchParams.get('amount');
-
-if (amount && stripeAmountLinks[amount]) {
-  return Astro.redirect(stripeAmountLinks[amount], 302);
-}
-
-if (stripeLink) {
-  const separator = stripeLink.includes('?') ? '&' : '?';
-  const destination = amount 
-    ? `${stripeLink}${separator}prefilled_amount=${amount}00`
-    : stripeLink;
-  return Astro.redirect(destination, 302);
-}
-
-return Astro.redirect('/donate', 302);
+const stripeLink = siteConfig.donation.stripeLink || '';
+const fallbackUrl = '/donate';
 ---
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <title>Redirecting…</title>
+  <script is:inline define:vars={{ stripeLink, fallbackUrl }}>
+    (function() {
+      if (!stripeLink) {
+        window.location.href = fallbackUrl;
+        return;
+      }
+      var params = new URLSearchParams(window.location.search);
+      var amount = params.get('amount');
+      var sep = stripeLink.indexOf('?') !== -1 ? '&' : '?';
+      var dest = amount
+        ? stripeLink + sep + 'prefilled_amount=' + amount + '00'
+        : stripeLink;
+      window.location.replace(dest);
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting to payment page…</p>
+</body>
+</html>
